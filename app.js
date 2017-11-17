@@ -6,10 +6,21 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongo = require('mongodb');
 var monk = require('monk');
-var db = monk('localhost:27017/players');
+var mongoose = require('mongoose');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+
+var mongoDB = 'mongodb://musician:eranegozy@ds111476.mlab.com:11476/music_for_humanity';
+mongoose.connect(mongoDB, {
+  useMongoClient: true
+});
+
+//Get the default connection
+var db = mongoose.connection;
+
+//Bind connection to error event (to get notification of connection errors)
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 var app = express();
 
