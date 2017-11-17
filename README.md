@@ -6,30 +6,17 @@
 ```
 brew install node
 ```
-- [MongoDB](https://docs.mongodb.com/manual/administration/install-community/)
-```
-brew install mongodb
-```
 - [nodemon](https://www.npmjs.com/package/nodemon) (Optional)
 ```
 npm install -g nodemon
 ```
+
 ### 2. Install dependencies
 ```
 npm install
 ```
 
-### 3. Run MongoDB
-1. Create a data directory within the music-for-humanity repo
-```
-mkdir data
-```
-2. Run MongoDB with the following command from within the music-for-humanity directory
-```
-mongod --dbpath data
-```
-
-### 4. Start the node server
+### 3. Start the node server
 ```
 npm start
 ```
@@ -37,3 +24,4 @@ or
 ```
 nodemon start
 ```
+If you use the `nodemon` command, your process will automatically restart when your code changes.
