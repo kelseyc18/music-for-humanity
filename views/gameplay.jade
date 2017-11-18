@@ -11,8 +11,8 @@ block content
     ul
     each game in data.game_list
       li
-        | Game #{game._id} - 
-        a(href='/') Join
+        | #[b #{game.name}] (#[em #{game._id}]) - 
+        a(href=game.url) View players
 
     else
       li There are no games.

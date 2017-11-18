@@ -10,11 +10,11 @@ exports.index = function(req, res) {
       Game.count(callback);
     },
     game_list: function(callback) {
-      Game.find({}, 'rounds')
-        .populate('rounds')
+      Game.find()
         .exec(callback);
     }
   }, function(err, results) {
+    console.log(results);
     res.render('gameplay', { title: 'Play', error: err, data: results })
   });
 
@@ -22,7 +22,35 @@ exports.index = function(req, res) {
 
 // Display detail page for a specific Game
 exports.game_detail = function(req, res) {
-  res.send('NOT IMPLEMENTED: Game detail: ' + req.params.id);
+
+  async.waterfall([
+
+    function(next) {
+      Game.findById(req.params.id)
+        .populate('currentRound')
+        .exec(function(err, game) {
+          if (err) console.log(err);
+          next(err, game);
+        });
+    },
+
+    function(game, next) {
+      Player.find({ game: game })
+        .sort([['name', 'ascending']])
+        .exec(function(err, players) {
+          if (err) console.log(err);
+          var results = {
+            game: game,
+            player_list: players
+          }
+          next(err, results);
+        })
+    }
+
+  ], function(err, results) {
+    res.render('game_detail', { error: err, data: results, title: 'Join Game' })
+  });
+
 }
 
 // Handle Game create on POST

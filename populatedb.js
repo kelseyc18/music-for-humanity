@@ -142,8 +142,8 @@ function roundCreate(roundNumber, videoURL, submissions, winningSubmission, judg
 }
 
 
-function gameCreate(cb) {  
-  var game = new Game({ currentRound: null, rounds: [] });
+function gameCreate(name, cb) {  
+  var game = new Game({ name:name, currentRound: null, rounds: [] });
   
   game.save(function (err) {
     if (err) {
@@ -275,7 +275,7 @@ function createRounds(cb) {
 function createGames(cb) {
     async.parallel([
       function(callback) {
-        gameCreate(callback);
+        gameCreate('Too Cool for School', callback);
       }
     ], cb);
 }
