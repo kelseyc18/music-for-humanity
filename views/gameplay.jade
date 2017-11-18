@@ -1,0 +1,21 @@
+extends layout
+
+block content
+  h1= title
+
+  if error
+    p Error getting dynamic content.
+  else
+    p Join one of the following !{data.game_count} game(s):
+
+    ul
+    each game in data.game_list
+      li
+        | Game #{game._id} (currently has #{game.players.length} players) 
+        a(href='/') Join
+
+    else
+      li There are no games.
+
+  br
+  button(type='button' class='btn btn-primary') Create new game

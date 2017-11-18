@@ -10,6 +10,7 @@ var mongoose = require('mongoose');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+var gameplay = require('./routes/gameplay');
 
 var mongoDB = 'mongodb://musician:eranegozy@ds111476.mlab.com:11476/music_for_humanity';
 mongoose.connect(mongoDB, {
@@ -44,6 +45,7 @@ app.use(function(req,res,next){
 
 app.use('/', index);
 app.use('/users', users);
+app.use('/gameplay', gameplay);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
