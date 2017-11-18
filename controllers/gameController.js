@@ -10,8 +10,7 @@ exports.index = function(req, res) {
       Game.count(callback);
     },
     game_list: function(callback) {
-      Game.find({}, 'players rounds')
-        .populate('players')
+      Game.find({}, 'rounds')
         .populate('rounds')
         .exec(callback);
     }
