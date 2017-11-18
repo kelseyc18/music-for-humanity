@@ -79,8 +79,8 @@ function percussionLineCreate(name, url, cb) {
 }
 
 
-function playerCreate(name, cb) {
-  var player = new Player({ name:name, winCount:0 });
+function playerCreate(name, game, cb) {
+  var player = new Player({ name:name, game:game, winCount:0 });
 
   player.save(function (err) {
     if (err) {
@@ -142,9 +142,9 @@ function roundCreate(roundNumber, videoURL, submissions, winningSubmission, judg
 }
 
 
-function gameCreate(rounds, players, cb) {  
-  var game = new Game({ rounds: rounds, players: players });
-       
+function gameCreate(cb) {  
+  var game = new Game({ currentRound: null, rounds: [] });
+  
   game.save(function (err) {
     if (err) {
       cb(err, null)
@@ -213,16 +213,16 @@ function createMusicLines(cb) {
 function createPlayers(cb) {
     async.parallel([
         function(callback) {
-          playerCreate('Abigail', callback);
+          playerCreate('Abigail', games[0], callback);
         },
         function(callback) {
-          playerCreate('Bob', callback);
+          playerCreate('Bob', games[0], callback);
         },
         function(callback) {
-          playerCreate('Charlie', callback);
+          playerCreate('Charlie', games[0], callback);
         },
         function(callback) {
-          playerCreate('Danielle', callback);
+          playerCreate('Danielle', games[0], callback);
         },
         ],
         // optional callback
@@ -261,7 +261,7 @@ function createSubmissions(cb) {
 
 
 function createRounds(cb) {
-    async.parallel([
+    async.series([
         function(callback) {
           roundCreate(1, 'https://www.youtube.com/watch?v=W_B2UZ_ZoxU', [submissions[0], submissions[2], submissions[4], submissions[6]], submissions[4], players[0], callback);
         },
@@ -275,19 +275,33 @@ function createRounds(cb) {
 function createGames(cb) {
     async.parallel([
       function(callback) {
-        gameCreate([rounds[0], rounds[1]], players, callback);
+        gameCreate(callback);
       }
     ], cb);
+}
+
+
+function updateGames(cb) {
+    games[0].update({ rounds: [rounds[0], rounds[1]], currentRound: rounds[1] }, function(err, game) {
+      if (err) {
+        cb(err, null)
+        return
+      }
+      games[0] = game;
+      console.log('Update Game: ' + game);
+      cb(null, game)
+  });
 }
 
 
 
 async.series([
     createMusicLines,
+    createGames,
     createPlayers,
     createSubmissions,
     createRounds,
-    createGames
+    updateGames
 ],
 // optional callback
 function(err, results) {

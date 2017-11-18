@@ -7,8 +7,8 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var GameSchema = new Schema({
+    currentRound: {type: Schema.Types.ObjectId, ref: 'Round'},
     rounds: [{ type: Schema.Types.ObjectId, ref: 'Round' }],
-    players: [{ type: Schema.Types.ObjectId, ref: 'Player' }]
 });
 
 //Export function to create "Game" model class

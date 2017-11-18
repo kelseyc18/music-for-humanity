@@ -16,7 +16,6 @@ router.post('/game/:id/update', game_controller.game_update_on_post);
 
 
 /// PLAYER ROUTES ///
-router.get('/players', player_controller.player_list);
 router.get('/player/:id', player_controller.player_detail);
 router.post('/player/create', player_controller.player_create_on_post);
 router.post('/player/:id/update', player_controller.player_update_on_post);
