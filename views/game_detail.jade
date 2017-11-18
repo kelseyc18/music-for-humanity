@@ -1,0 +1,19 @@
+extends layout
+
+block content
+  if data.game
+    h1 #{data.game.name}
+    p Game ID: #{data.game._id}
+    h2 Players
+    ul
+    each player in data.player_list
+      li
+        a(href=player.url) #{player.name}
+
+    else
+      li There are no games.
+
+    br
+    button(type='button' class='btn btn-primary') Join
+  else
+    p That game does not exist in our records.
