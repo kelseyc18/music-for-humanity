@@ -2,11 +2,13 @@ extends layout
 
 block content
   if data.player
-    p Player: #{data.player}
-    p ID: #{data.player._id}
-    p Game: #{data.game}
-    p Round: #{data.round}
+    p Welcome, #[b #{data.player.name}]! You are participating in #[b #{data.game.name}, Round #{data.round.roundNumber}].
     p Submission: #{data.submission}
+
+    div(class='d-flex justify-content-center text-center')
+      div(class='melody-button rounded')
+        p Melody Button
+
     div.text-center
       button(type='button' class='btn btn-primary') Submit
   else
