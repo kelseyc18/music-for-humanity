@@ -1,3 +1,11 @@
 .content {
   padding: 50px;
 }
+
+.melody-button {
+  height: 100px;
+  width: 100px;
+  color: white;
+  background-color: #4286f4;
+  margin: 20px;
+}
