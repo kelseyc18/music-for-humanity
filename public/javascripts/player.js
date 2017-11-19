@@ -129,9 +129,9 @@ function initializeScheduler() {
   scheduler.pipe(ditty).on('data', function(data){
     // data: id, event (start or stop), time, position, args 
     if (data.event == 'start'){
-      noteOn(data.id, data.time, data.args)
+      noteOn(data.time, data.id, data.args)
     } else if (data.event == 'stop'){
-      noteOff(data.id, data.time, data.args)
+      noteOff(data.time, data.id, data.args)
     }
   });
 
