@@ -52,7 +52,7 @@ function nextMelody() {
   var note = 50; // the MIDI note
   var velocity = 127; // how hard the note hits
 
-  // set instrument for channel 1
+  // set instrument for channel 0
   MIDI.programChange(0, 0);
 
   // play the note
@@ -86,7 +86,7 @@ function nextBass() {
   var note = 50; // the MIDI note
   var velocity = 127; // how hard the note hits
 
-  // set instrument for channel 1
+  // set instrument for channel 2
   MIDI.programChange(2, 65);
 
   // play the note
@@ -135,23 +135,30 @@ function initializeScheduler() {
     }
   });
 
+  // (note_id, [
+    //    [beatPosition, length, velocity, channel], 
+    //    [beatPosition, length, velocity, channel],
+    //     ...
+    //    ], loop_length
+    //  )
+
   ditty.set(60, [
-    [0.0, 0.4, 1],
-    [1.0, 0.4, 1]
+    [0.0, 0.4, 127, 0],
+    [1.0, 0.4, 127, 0]
   ], 8)
 
   ditty.set(65, [
-    [2.0, 0.4, 1],
-    [3.0, 0.4, 1],
-    [5.5, 0.4, 1],
-    [6.5, 0.4, 1],
-    [7.0, 0.4, 1],
-    [7.5, 0.4, 1],
+    [2.0, 0.4, 127, 1],
+    [3.0, 0.4, 127, 1],
+    [5.5, 0.4, 127, 1],
+    [6.5, 0.4, 127, 1],
+    [7.0, 0.4, 127, 1],
+    [7.5, 0.4, 127, 1],
   ], 8)
 
   ditty.set(67, [
-    [4.0, 0.4, 1],
-    [5.0, 0.4, 1]
+    [4.0, 0.4, 127, 2],
+    [5.0, 0.4, 127, 2]
   ], 8)
 
   // mixer
@@ -159,35 +166,24 @@ function initializeScheduler() {
   output.gain.value = 0.5
   output.connect(audioContext.destination)
 
+  MIDI.programChange(0, 0);
+  MIDI.programChange(1, 118);
+  MIDI.programChange(2, 65);
+
   var onNotes = new Set(); // not sure if this is needed
 
   function noteOn(time, id, args){
     console.log('on', time, id)
-    noteOff(time, id) // choke existing note if any
-    // TODO(diane): use MIDI.noteOn (see nextMelody for example) to play note
-
-    // I'm not sure if this is right, but here is how I understand things.
-    // We need to add an argument to each event to also include channel, so
-    // I imagine this structure for ditty events:
-    // (note_id, [
-    //    [beatPosition, length, velocity, channel], 
-    //    [beatPosition, length, velocity, channel],
-    //     ...
-    //    ], loop_length
-    //  )
-    // Assuming that is what we have, then the code should be as follows:
-
     var [velocity, channel] = args
-    MIDI.noteOn(channel, id, velocity, 0)
+    MIDI.noteOn(channel, id, velocity, time)
     onNotes.add(id);
   }
 
   function noteOff(time, id, args){
     if (onNotes.has(id)){
       console.log('off', time, id)
-      // TODO(diane): use MIDI.noteOff (see nextMelody for example) to stop note
       var [velocity, channel] = args
-      MIDI.noteOff(channel, id, 0)
+      MIDI.noteOff(channel, id, time)
       onNotes.remove(id)
     }
   }
