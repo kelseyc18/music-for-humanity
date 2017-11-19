@@ -32,3 +32,9 @@ The JavaScript for the player interface is located in `public/javascripts/player
 browserify player.js -o bundle.js
 ```
 from within the `public/javascripts/` directory so that the node module dependencies are included in the `bundle.js` script.
+
+An alternative is to run
+```
+npm watch-js
+```
+in a separate process (e.g. another Terminal window). This will automatically generate the `bundle.js` file as you make changes to the `player.js` file.
