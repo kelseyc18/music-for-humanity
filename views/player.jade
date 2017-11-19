@@ -8,7 +8,7 @@ block script
     var bassLines = [!{data.bassLines.map(x => JSON.stringify(x.toJSON))}];
     var percussionLines = [!{data.percussionLines.map(x => JSON.stringify(x.toJSON))}];
 
-  script(src='/javascripts/player.js')
+  script(src='/javascripts/bundle.js')
 
   script(src='/javascripts/midi/inc/shim/Base64.js')
   script(src='/javascripts/midi/inc/shim/Base64binary.js')
