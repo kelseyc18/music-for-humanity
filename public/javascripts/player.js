@@ -129,9 +129,9 @@ function initializeScheduler() {
   scheduler.pipe(ditty).on('data', function(data){
     // data: id, event (start or stop), time, position, args 
     if (data.event == 'start'){
-      noteOn(data.id, data.time)
+      noteOn(data.id, data.time, data.args)
     } else if (data.event == 'stop'){
-      noteOff(data.id, data.time)
+      noteOff(data.id, data.time, data.args)
     }
   });
 
@@ -161,18 +161,32 @@ function initializeScheduler() {
 
   var onNotes = new Set(); // not sure if this is needed
 
-  function noteOn(time, id, velocity){
+  function noteOn(time, id, args){
     console.log('on', time, id)
     noteOff(time, id) // choke existing note if any
     // TODO(diane): use MIDI.noteOn (see nextMelody for example) to play note
+
+    // I'm not sure if this is right, but here is how I understand things.
+    // We need to add an argument to each event to also include channel, so
+    // I imagine this structure for ditty events:
+    // (note_id, [
+    //    [beatPosition, length, velocity, channel], 
+    //    [beatPosition, length, velocity, channel],
+    //     ...
+    //    ], loop_length
+    //  )
+    // Assuming that is what we have, then the code should be as follows:
+
+    var [velocity, channel] = args
+    MIDI.noteOn(channel, id, velocity, 0)
     onNotes.add(id);
   }
 
-  function noteOff(time, id){
+  function noteOff(time, id, args){
     if (onNotes.has(id)){
       console.log('off', time, id)
       // TODO(diane): use MIDI.noteOff (see nextMelody for example) to stop note
-      MIDI.noteOff(2, id, time)
+      MIDI.noteOff(channel, id, 0)
       onNotes.remove(id)
     }
   }
