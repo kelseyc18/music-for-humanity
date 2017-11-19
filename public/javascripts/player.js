@@ -186,6 +186,7 @@ function initializeScheduler() {
     if (onNotes.has(id)){
       console.log('off', time, id)
       // TODO(diane): use MIDI.noteOff (see nextMelody for example) to stop note
+      var [velocity, channel] = args
       MIDI.noteOff(channel, id, 0)
       onNotes.remove(id)
     }
