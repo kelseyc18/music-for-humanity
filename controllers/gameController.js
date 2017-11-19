@@ -1,5 +1,6 @@
 var Game = require('../models/game');
 var Player = require('../models/player');
+var Round = require('../models/round');
 
 var async = require('async');
 
@@ -35,12 +36,22 @@ exports.game_detail = function(req, res) {
     },
 
     function(game, next) {
+      Round.findById(game.currentRound._id)
+        .populate('judge')
+        .exec(function(err, currentRound) {
+          if (err) console.log(err);
+          next(err, game, currentRound);
+        });
+    },
+
+    function(game, currentRound, next) {
       Player.find({ game: game })
         .sort([['name', 'ascending']])
         .exec(function(err, players) {
           if (err) console.log(err);
           var results = {
             game: game,
+            currentRound: currentRound,
             player_list: players
           }
           next(err, results);

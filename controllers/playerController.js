@@ -57,16 +57,18 @@ exports.player_detail = function(req, res) {
         .populate('selectedPercussion')
         .exec(function(err, submission) {
           if (err) console.log(err);
+            var isJudge = player._id.toString() == round.judge._id.toString();
             var results = {
-            player: player,
-            game: game,
-            round: round,
-            submission: submission,
-            melodyLines: submission.melodyLines,
-            bassLines: submission.bassLines,
-            percussionLines: submission.percussionLines
-          }
-          next(err, results);
+              player: player,
+              game: game,
+              round: round,
+              submission: submission,
+              melodyLines: submission.melodyLines,
+              bassLines: submission.bassLines,
+              percussionLines: submission.percussionLines,
+              isJudge: isJudge
+            };
+            next(err, results);
         });
     },
 
