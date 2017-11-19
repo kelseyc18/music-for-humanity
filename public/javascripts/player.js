@@ -1,5 +1,13 @@
 // player.js
 
+var Ditty = require('ditty');
+var ditty = Ditty();
+var Bopper = require('bopper');
+
+/////////////////////////////////////////////////////////
+///               MUSIC LINE SELECTION                ///
+/////////////////////////////////////////////////////////
+
 const NUM_MELODY_STATES = melodyLines.length + 1;
 const NUM_BASS_STATES = bassLines.length + 1;
 const NUM_PERCUSSION_STATES = percussionLines.length + 1;
@@ -87,6 +95,10 @@ function nextBass() {
   MIDI.noteOff(2, note, delay + 0.75);
 }
 
+/////////////////////////////////////////////////////////
+///                     ANIMATION                     ///
+/////////////////////////////////////////////////////////
+
 function animateSnail() {
   let start = Date.now();
 
@@ -103,8 +115,79 @@ function animateSnail() {
   }, 20);
 }
 
+/////////////////////////////////////////////////////////
+///                 AUDIO SCHEDULER                   ///
+/////////////////////////////////////////////////////////
+
+function initializeScheduler() {
+  var audioContext = MIDI.getContext();
+  var scheduler = Bopper(audioContext);
+
+  // prevent scheduler from being garbage collected
+  window.scheduler = scheduler
+
+  scheduler.pipe(ditty).on('data', function(data){
+    // data: id, event (start or stop), time, position, args 
+    if (data.event == 'start'){
+      noteOn(data.id, data.time)
+    } else if (data.event == 'stop'){
+      noteOff(data.id, data.time)
+    }
+  });
+
+  ditty.set(60, [
+    [0.0, 0.4, 1],
+    [1.0, 0.4, 1]
+  ], 8)
+
+  ditty.set(65, [
+    [2.0, 0.4, 1],
+    [3.0, 0.4, 1],
+    [5.5, 0.4, 1],
+    [6.5, 0.4, 1],
+    [7.0, 0.4, 1],
+    [7.5, 0.4, 1],
+  ], 8)
+
+  ditty.set(67, [
+    [4.0, 0.4, 1],
+    [5.0, 0.4, 1]
+  ], 8)
+
+  // mixer
+  var output = audioContext.createGain()
+  output.gain.value = 0.5
+  output.connect(audioContext.destination)
+
+  var onNotes = new Set(); // not sure if this is needed
+
+  function noteOn(time, id, velocity){
+    console.log('on', time, id)
+    noteOff(time, id) // choke existing note if any
+    // TODO(diane): use MIDI.noteOn (see nextMelody for example) to play note
+    onNotes.add(id);
+  }
+
+  function noteOff(time, id){
+    if (onNotes.has(id)){
+      console.log('off', time, id)
+      // TODO(diane): use MIDI.noteOff (see nextMelody for example) to stop note
+      MIDI.noteOff(2, id, time)
+      onNotes.remove(id)
+    }
+  }
+
+  scheduler.setTempo(120)
+  setTimeout(function(){
+    scheduler.start()
+  }, 3000)
+
+}
+
 function onMidiLoaded() {
-  // alert("Let's begin!");
+  alert("Let's begin!");
+  console.log(MIDI.getContext());
+  initializeScheduler();
 
   // set up button click handlers
   $('#melody-button').click(function(event) {
