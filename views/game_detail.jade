@@ -4,16 +4,24 @@ block content
   if data.game
     h1 #{data.game.name}
     p Game ID: #{data.game._id}
-    h2 Players
-    ul
-    each player in data.player_list
-      li
-        a(href=player.url) #{player.name}
 
-    else
-      li There are no games.
+    div(class='card' style='width: 20rem; margin: 20px 0px')
+      div(class='card-body')
+        h2(class='card-title') Round #{data.currentRound.roundNumber}
+        p(class='card-text') Judge: #{data.currentRound.judge.name}
 
-    br
-    button(type='button' class='btn btn-primary') Join
+    div(class='card' style='width: 20rem; margin: 20px 0px')
+      div(class='card-body')
+        h2(class='card-title') Players
+        ul(class='card-text')
+        each player in data.player_list
+          li
+            a(href=player.url) #{player.name}
+
+        else
+          li There are no players.
+
+        br
+        button(type='button' class='btn btn-primary') Join
   else
     p That game does not exist in our records.
