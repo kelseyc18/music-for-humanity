@@ -10,7 +10,15 @@ var MelodySchema = new Schema({
     name: String,
     instrument: Number,
     notesequence: [[Number]],
-    submissions: [{ type: Schema.Types.ObjectId, ref: 'Submission', default: [] }]
+});
+
+MelodySchema.virtual('toJSON').get(function() {
+  return {
+    id: this._id.toString(),
+    name: this.name,
+    instrument: this.instrument,
+    notesequence: this.notesequence
+  }
 });
 
 module.exports = mongoose.model('Melody', MelodySchema);

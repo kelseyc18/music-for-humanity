@@ -25,7 +25,6 @@ exports.player_detail = function(req, res) {
     // game
     function(player, next) {
       Game.findById(player.game)
-        .limit(1)
         .populate('rounds')
         .populate('currentRound')
         .exec(function(err, game) {
@@ -37,7 +36,6 @@ exports.player_detail = function(req, res) {
     // round
     function(player, game, next) {
       Round.findById(game.currentRound._id)
-        .limit(1)
         .populate('submissions')
         .populate('winningSubmission')
         .populate('judge')
@@ -49,8 +47,7 @@ exports.player_detail = function(req, res) {
 
     // submission
     function(player, game, round, submissions, next) {
-      Submission.find({ player: player })
-        .limit(1)
+      Submission.findOne({ player: player })
         .populate('player')
         .populate('melodyLines')
         .populate('bassLines')
@@ -60,15 +57,18 @@ exports.player_detail = function(req, res) {
         .populate('selectedPercussion')
         .exec(function(err, submission) {
           if (err) console.log(err);
-          var results = {
+            var results = {
             player: player,
             game: game,
             round: round,
             submission: submission,
+            melodyLines: submission.melodyLines,
+            bassLines: submission.bassLines,
+            percussionLines: submission.percussionLines
           }
           next(err, results);
         });
-    }
+    },
 
   ], function(err, results) {
     if (err) console.log(err);

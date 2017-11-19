@@ -1,5 +1,5 @@
 .content {
-  padding: 50px;
+  padding: 20px 50px 50px 50px;
 }
 
 .music-button {
@@ -8,6 +8,7 @@
   color: white;
   margin: 20px;
   white-space: normal;
+  cursor: pointer;
 }
 
 .melody-button {
@@ -20,3 +21,15 @@
 
 .bass-button {
   background-color: #c0392b;
+}
+
+.animation-container {
+  position: relative;
+  display: inline;
+}
+
+#snail {
+  position: absolute;
+  top: 0;
+  left: 0;
+}

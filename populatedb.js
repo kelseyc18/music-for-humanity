@@ -107,48 +107,6 @@ function submissionCreate(player, melodyLines, bassLines, percussionLines, selec
 
   var submission = new Submission(submissiondetail);
 
-  // update melody lines
-  melodyLines.forEach(function(melodyLine) {
-    Melody.update(
-      { _id: melodyLine._id },
-      { $push: { submissions: submission } },
-      function(err) {
-        if (err) {
-          cb(err, null)
-          return
-        }
-      });
-    }
-  );
-
-  // update bass lines
-  bassLines.forEach(function(bassLine) {
-    Bass.update(
-      { _id: bassLine._id },
-      { $push: { submissions: submission } },
-      function(err) {
-        if (err) {
-          cb(err, null)
-          return
-        }
-      });
-    }
-  );
-
-  // update percussion lines
-  percussionLines.forEach(function(percussionLine) {
-    Percussion.update(
-      { _id: percussionLine._id },
-      { $push: { submissions: submission } },
-      function(err) {
-        if (err) {
-          cb(err, null)
-          return
-        }
-      });
-    }
-  );
-
   submission.save(function (err) {
     if (err) {
       cb(err, null)
