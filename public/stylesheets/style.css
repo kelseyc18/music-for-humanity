@@ -2,10 +2,22 @@
   padding: 50px;
 }
 
-.melody-button {
+.music-button {
   height: 100px;
   width: 100px;
   color: white;
-  background-color: #4286f4;
   margin: 20px;
+  white-space: normal;
+}
+
+.melody-button {
+  background-color: #3498db;
+}
+
+.percussion-button {
+  background-color: #f39c12;
+}
+
+.bass-button {
+  background-color: #c0392b;
 }

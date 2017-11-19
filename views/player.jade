@@ -1,13 +1,31 @@
 extends layout
 
+block script
+  script(src='/javascripts/player.js')
+
+  script(src='/javascripts/midi/inc/shim/Base64.js')
+  script(src='/javascripts/midi/inc/shim/Base64binary.js')
+  script(src='/javascripts/midi/inc/shim/WebAudioAPI.js')
+
+  script(src='/javascripts/midi/js/midi/audioDetect.js')
+  script(src='/javascripts/midi/js/midi/gm.js')
+  script(src='/javascripts/midi/js/midi/loader.js')
+  script(src='/javascripts/midi/js/midi/plugin.audiotag.js')
+  script(src='/javascripts/midi/js/midi/plugin.webaudio.js')
+  script(src='/javascripts/midi/js/midi/plugin.webmidi.js')
+
+  script(src='/javascripts/midi/js/util/dom_request_xhr.js')
+  script(src='/javascripts/midi/js/util/dom_request_script.js')
+
 block content
   if data.player
     p Welcome, #[b #{data.player.name}]! You are participating in #[b #{data.game.name}, Round #{data.round.roundNumber}].
     p Submission: #{data.submission}
 
     div(class='d-flex justify-content-center text-center')
-      div(class='melody-button rounded')
-        p Melody Button
+      button(type='button' class='music-button melody-button btn' id='melody-button') Melody Button
+      button(type='button' class='music-button percussion-button btn' id='percussion-button') Percussion Button
+      button(type='button' class='music-button bass-button btn' id='bass-button') Bass Button
 
     div.text-center
       button(type='button' class='btn btn-primary') Submit
