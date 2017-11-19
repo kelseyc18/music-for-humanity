@@ -8,7 +8,17 @@ var Schema = mongoose.Schema;
 
 var BassSchema = new Schema({
     name: String,
-    url: String
+    instrument: Number,
+    notesequence: [[Number]],
+});
+
+BassSchema.virtual('toJSON').get(function() {
+  return {
+    id: this._id.toString(),
+    name: this.name,
+    instrument: this.instrument,
+    notesequence: this.notesequence
+  }
 });
 
 module.exports = mongoose.model('Bass', BassSchema);

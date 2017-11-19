@@ -34,8 +34,8 @@ var rounds = []
 var submissions = []
 
 
-function bassLineCreate(name, url, cb) {  
-  var bass = new Bass({ name:name, url:url });
+function bassLineCreate(name, cb) {
+  var bass = new Bass({ name:name, instrument:0, notesequence:[[0, 120], [2, 240]] });
        
   bass.save(function (err) {
     if (err) {
@@ -49,8 +49,8 @@ function bassLineCreate(name, url, cb) {
 }
 
 
-function melodyLineCreate(name, url, cb) {  
-  var melody = new Melody({ name:name, url:url });
+function melodyLineCreate(name, cb) {
+  var melody = new Melody({ name:name, instrument:65, notesequence:[[0, 120], [2, 240]] });
        
   melody.save(function (err) {
     if (err) {
@@ -64,8 +64,8 @@ function melodyLineCreate(name, url, cb) {
 }
 
 
-function percussionLineCreate(name, url, cb) {  
-  var percussion = new Percussion({ name:name, url:url });
+function percussionLineCreate(name, cb) {
+  var percussion = new Percussion({ name:name, instrument:65, notesequence:[[0, 120], [2, 240]] });
        
   percussion.save(function (err) {
     if (err) {
@@ -160,49 +160,49 @@ function gameCreate(name, cb) {
 function createMusicLines(cb) {
     async.parallel([
         function(callback) {
-          bassLineCreate('bass 1', 'http://www.mediafire.com/file/c8j4n4i91aleugj/Relaxing_Meditation.mp3', callback);
+          bassLineCreate('bass 1', callback);
         },
         function(callback) {
-          bassLineCreate('bass 2', 'http://www.mediafire.com/file/c8j4n4i91aleugj/Relaxing_Meditation.mp3', callback);
+          bassLineCreate('bass 2', callback);
         },
         function(callback) {
-          bassLineCreate('bass 3', 'http://www.mediafire.com/file/c8j4n4i91aleugj/Relaxing_Meditation.mp3', callback);
+          bassLineCreate('bass 3', callback);
         },
         function(callback) {
-          bassLineCreate('bass 4', 'http://www.mediafire.com/file/c8j4n4i91aleugj/Relaxing_Meditation.mp3', callback);
+          bassLineCreate('bass 4', callback);
         },
         function(callback) {
-          bassLineCreate('bass 5', 'http://www.mediafire.com/file/c8j4n4i91aleugj/Relaxing_Meditation.mp3', callback);
+          bassLineCreate('bass 5', callback);
         },
         function(callback) {
-          melodyLineCreate('melody 1', 'http://www.mediafire.com/file/dhqxn0c0x1m4tn3/Depression_Relief.mp3', callback);
+          melodyLineCreate('melody 1', callback);
         },
         function(callback) {
-          melodyLineCreate('melody 2', 'http://www.mediafire.com/file/dhqxn0c0x1m4tn3/Depression_Relief.mp3', callback);
+          melodyLineCreate('melody 2', callback);
         },
         function(callback) {
-          melodyLineCreate('melody 3', 'http://www.mediafire.com/file/dhqxn0c0x1m4tn3/Depression_Relief.mp3', callback);
+          melodyLineCreate('melody 3', callback);
         },
         function(callback) {
-          melodyLineCreate('melody 4', 'http://www.mediafire.com/file/dhqxn0c0x1m4tn3/Depression_Relief.mp3', callback);
+          melodyLineCreate('melody 4', callback);
         },
         function(callback) {
-          melodyLineCreate('melody 5', 'http://www.mediafire.com/file/dhqxn0c0x1m4tn3/Depression_Relief.mp3', callback);
+          melodyLineCreate('melody 5', callback);
         },
         function(callback) {
-          percussionLineCreate('percussion 1', 'http://www.mediafire.com/file/tt1slb20v7q0h9x/Sound_Sleep.mp3', callback);
+          percussionLineCreate('percussion 1', callback);
         },
         function(callback) {
-          percussionLineCreate('percussion 2', 'http://www.mediafire.com/file/tt1slb20v7q0h9x/Sound_Sleep.mp3', callback);
+          percussionLineCreate('percussion 2', callback);
         },
         function(callback) {
-          percussionLineCreate('percussion 3', 'http://www.mediafire.com/file/tt1slb20v7q0h9x/Sound_Sleep.mp3', callback);
+          percussionLineCreate('percussion 3', callback);
         },
         function(callback) {
-          percussionLineCreate('percussion 4', 'http://www.mediafire.com/file/tt1slb20v7q0h9x/Sound_Sleep.mp3', callback);
+          percussionLineCreate('percussion 4', callback);
         },
         function(callback) {
-          percussionLineCreate('percussion 5', 'http://www.mediafire.com/file/tt1slb20v7q0h9x/Sound_Sleep.mp3', callback);
+          percussionLineCreate('percussion 5', callback);
         },
         ],
         // optional callback

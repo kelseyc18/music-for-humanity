@@ -1,6 +1,13 @@
 extends layout
 
 block script
+  script(type='text/javascript').
+    var playerId = '#{data.player._id}';
+    var roundNumber = #{data.round.roundNumber};
+    var melodyLines = [!{data.melodyLines.map(x => JSON.stringify(x.toJSON))}];
+    var bassLines = [!{data.bassLines.map(x => JSON.stringify(x.toJSON))}];
+    var percussionLines = [!{data.percussionLines.map(x => JSON.stringify(x.toJSON))}];
+
   script(src='/javascripts/player.js')
 
   script(src='/javascripts/midi/inc/shim/Base64.js')
@@ -19,15 +26,19 @@ block script
 
 block content
   if data.player
-    p Welcome, #[b #{data.player.name}]! You are participating in #[b #{data.game.name}, Round #{data.round.roundNumber}].
-    p Submission: #{data.submission}
+    div(class='text-center')
+      p Welcome, #[b #{data.player.name}]! You are participating in #[b #{data.game.name}, Round #{data.round.roundNumber}].
 
-    div(class='d-flex justify-content-center text-center')
-      button(type='button' class='music-button melody-button btn' id='melody-button') Melody Button
-      button(type='button' class='music-button percussion-button btn' id='percussion-button') Percussion Button
-      button(type='button' class='music-button bass-button btn' id='bass-button') Bass Button
+      div(class='animation-container')
+        img(src='/images/round#{data.round.roundNumber}.png' class='rounded' style='max-width:800px;' id='background')
+        img(src='/images/gary_the_snail.png' id='snail')
+
+    div(class='d-flex justify-content-center text-center')      
+      button(type='button' class='music-button melody-button btn' id='melody-button') No Melody Selected
+      button(type='button' class='music-button percussion-button btn' id='percussion-button') No Percussion Selected
+      button(type='button' class='music-button bass-button btn' id='bass-button') No Bass Selected
 
     div.text-center
-      button(type='button' class='btn btn-primary') Submit
+      button(type='button' class='btn btn-success') Submit
   else
     p That player does not exist in our records.
