@@ -66,7 +66,7 @@ exports.player_detail = function(req, res) {
             round: round,
             submission: submission,
           }
-          next(err, results)
+          next(err, results);
         });
     }
 

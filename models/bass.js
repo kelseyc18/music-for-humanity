@@ -8,7 +8,9 @@ var Schema = mongoose.Schema;
 
 var BassSchema = new Schema({
     name: String,
-    url: String
+    instrument: Number,
+    notesequence: [[Number]],
+    submissions: [{ type: Schema.Types.ObjectId, ref: 'Submission', default: [] }]
 });
 
 module.exports = mongoose.model('Bass', BassSchema);

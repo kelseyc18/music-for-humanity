@@ -1,6 +1,17 @@
 // player.js
 
+const NUM_STATES = 3;
+
+var melodyIndex = 0;
+
 function nextMelody() {
+  $.get('/gameplay/player/' + playerId, function(data) {
+    alert("Data: " + data);
+  });
+
+  $('#melody-button').text(melodyIndex);
+  melodyIndex = (melodyIndex + 1) % NUM_STATES;
+
   var delay = 0; // play one note every quarter second
   var note = 50; // the MIDI note
   var velocity = 127; // how hard the note hits
@@ -43,7 +54,7 @@ function nextBass() {
 }
 
 function onMidiLoaded() {
-  alert("Let's begin!");
+  // alert("Let's begin!");
 
   // set up button click handlers
   $('#melody-button').click(function(event) {
