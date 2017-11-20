@@ -18,6 +18,11 @@ exports.player_detail = function(req, res) {
       Player.findById(req.params.id)
         .exec(function(err, player) {
           if (err) return next(err);
+          if (player == null) {
+            return res.render('mfh_error', {
+              error: 'Player ID' + req.params.id + ' not found',
+            });
+          }
           next(err, player);
         });
     },
@@ -89,8 +94,11 @@ exports.player_detail = function(req, res) {
     },
 
   ], function(err, results) {
-    if (err) return next(err);
-    console.log('is submitted? ', results.isSubmitted);
+    if (err) {
+      return res.render('mfh_error', {
+              error: 'Player ID ' + req.params.id + ' not found',
+            });
+    }
     if (results.isJudge) {
       res.render('judge', { title: 'Player', id: req.params.id, error: err, data: results })
     } if (results.isSubmitted) {

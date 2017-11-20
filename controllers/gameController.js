@@ -30,7 +30,12 @@ exports.game_detail = function(req, res) {
       Game.findById(req.params.id)
         .populate('currentRound')
         .exec(function(err, game) {
-          if (err) console.log(err);
+          if (err) return next(err);
+          if (game == null) {
+            return res.render('mfh_error', {
+              error: 'Game ID ' + req.params.id + ' not found',
+            });
+          }
           next(err, game);
         });
     },
@@ -39,7 +44,7 @@ exports.game_detail = function(req, res) {
       Round.findById(game.currentRound._id)
         .populate('judge')
         .exec(function(err, currentRound) {
-          if (err) console.log(err);
+          if (err) return next(err);
           next(err, game, currentRound);
         });
     },
@@ -48,7 +53,7 @@ exports.game_detail = function(req, res) {
       Player.find({ game: game })
         .sort([['name', 'ascending']])
         .exec(function(err, players) {
-          if (err) console.log(err);
+          if (err) return next(err);
           var results = {
             game: game,
             currentRound: currentRound,
@@ -59,6 +64,11 @@ exports.game_detail = function(req, res) {
     }
 
   ], function(err, results) {
+    if (err) {
+      return res.render('mfh_error', {
+        error: 'Game ID ' + req.params.id + ' not found',
+      });
+    }
     res.render('game_detail', { error: err, data: results, title: 'Join Game' })
   });
 
