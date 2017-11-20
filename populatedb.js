@@ -34,8 +34,8 @@ var rounds = []
 var submissions = []
 
 
-function bassLineCreate(name, cb) {
-  var bass = new Bass({ name:name, instrument:0, notesequence:[[0, 120], [2, 240]] });
+function bassLineCreate(name, instrument, notesequence, notelength, cb) {
+  var bass = new Bass({ name:name, instrument:instrument, notesequence:notesequence, notelength:notelength });
        
   bass.save(function (err) {
     if (err) {
@@ -49,8 +49,8 @@ function bassLineCreate(name, cb) {
 }
 
 
-function melodyLineCreate(name, cb) {
-  var melody = new Melody({ name:name, instrument:65, notesequence:[[0, 120], [2, 240]] });
+function melodyLineCreate(name, instrument, notesequence, notelength, cb) {
+  var melody = new Melody({ name:name, instrument:instrument, notesequence:notesequence, notelength:notelength });
        
   melody.save(function (err) {
     if (err) {
@@ -64,8 +64,8 @@ function melodyLineCreate(name, cb) {
 }
 
 
-function percussionLineCreate(name, cb) {
-  var percussion = new Percussion({ name:name, instrument:65, notesequence:[[0, 120], [2, 240]] });
+function percussionLineCreate(name, instrument, notesequence, notelength, cb) {
+  var percussion = new Percussion({ name:name, instrument:instrument, notesequence:notesequence, notelength:notelength });
        
   percussion.save(function (err) {
     if (err) {
@@ -157,52 +157,97 @@ function gameCreate(name, cb) {
 }
 
 
+var melody_times_0 = {0: [0.5, 2.5, 8.5, 10.5, 16.5, 18.5, 24.5, 26.5],
+ 62: [21.0],
+ 64: [19.5, 20.5, 21.5],
+ 66: [11.0, 14.5, 19.0, 20.0, 22.0],
+ 67: [11.5, 13.5, 15.0, 16.0, 18.0, 22.5, 24.0],
+ 69: [4.5, 12.0, 13.0, 14.0, 15.5, 17.5, 23.0, 25.5, 28.0],
+ 71: [5.0, 12.5, 17.0, 23.5, 25.0, 26.0, 28.5],
+ 73: [5.5, 27.0, 29.0],
+ 74: [6.0, 9.0, 27.5, 29.5],
+ 76: [6.5, 9.5, 30.0],
+ 78: [1.0, 3.0, 7.0, 8.0, 10.0, 30.5],
+ 79: [1.5, 3.5, 7.5, 31.0],
+ 81: [0.0, 2.0, 4.0, 31.5]}
+
+var melody_times_3 = {61: [4.0],
+ 62: [3.0, 8.0],
+ 64: [6.0, 28.0, 31.0],
+ 66: [7.0, 27.0, 30.0],
+ 67: [26.0, 29.0],
+ 69: [5.0, 25.0],
+ 71: [11.0, 24.0],
+ 73: [1.0, 10.0, 12.0, 23.0],
+ 74: [0.0, 2.0, 9.0, 22.0],
+ 76: [18.0, 21.0],
+ 78: [13.0, 17.0, 20.0],
+ 79: [16.0, 19.0],
+ 81: [14.0],
+ 83: [15.0]}
+
+var bass_times = {38: [20.0],
+ 42: [12.0, 21.0],
+ 43: [16.0, 24.0],
+ 45: [4.0, 13.0, 22.0, 28.0],
+ 47: [8.0, 17.0, 25.0],
+ 49: [5.0, 14.0, 29.0],
+ 50: [0.0, 9.0, 18.0, 23.0, 26.0],
+ 52: [6.0, 30.0],
+ 54: [1.0, 10.0, 15.0],
+ 55: [19.0, 27.0],
+ 57: [2.0, 7.0, 31.0],
+ 59: [11.0],
+ 62: [3.0]}
+
+
+// name, instrument, notesequence, notelength
 function createMusicLines(cb) {
     async.parallel([
         function(callback) {
-          bassLineCreate('bass 1', callback);
+          bassLineCreate('bass 1', 25, bass_times, 0.8, callback);
         },
         function(callback) {
-          bassLineCreate('bass 2', callback);
+          bassLineCreate('bass 2', 39, bass_times, 0.8, callback);
         },
         function(callback) {
-          bassLineCreate('bass 3', callback);
+          bassLineCreate('bass 3', 72, bass_times, 0.8, callback);
         },
         function(callback) {
-          bassLineCreate('bass 4', callback);
+          bassLineCreate('bass 4', 57, bass_times, 0.8, callback);
         },
         function(callback) {
-          bassLineCreate('bass 5', callback);
+          bassLineCreate('bass 5', 0, bass_times, 0.8, callback);
         },
         function(callback) {
-          melodyLineCreate('melody 1', callback);
+          melodyLineCreate('melody 1', 0, melody_times_0, 0.4, callback);
         },
         function(callback) {
-          melodyLineCreate('melody 2', callback);
+          melodyLineCreate('melody 2', 72, melody_times_0, 0.4, callback);
         },
         function(callback) {
-          melodyLineCreate('melody 3', callback);
+          melodyLineCreate('melody 3', 74, melody_times_0, 0.4, callback);
         },
         function(callback) {
-          melodyLineCreate('melody 4', callback);
+          melodyLineCreate('melody 4', 57, melody_times_0, 0.4, callback);
         },
         function(callback) {
-          melodyLineCreate('melody 5', callback);
+          melodyLineCreate('melody 5', 17, melody_times_0, 0.4, callback);
         },
         function(callback) {
-          percussionLineCreate('percussion 1', callback);
+          percussionLineCreate('percussion 1', 35, melody_times_3, 0.8, callback);
         },
         function(callback) {
-          percussionLineCreate('percussion 2', callback);
+          percussionLineCreate('percussion 2', 23, melody_times_3, 0.8, callback);
         },
         function(callback) {
-          percussionLineCreate('percussion 3', callback);
+          percussionLineCreate('percussion 3', 43, melody_times_3, 0.8, callback);
         },
         function(callback) {
-          percussionLineCreate('percussion 4', callback);
+          percussionLineCreate('percussion 4', 116, melody_times_3, 0.8, callback);
         },
         function(callback) {
-          percussionLineCreate('percussion 5', callback);
+          percussionLineCreate('percussion 5', 55, melody_times_3, 0.8, callback);
         },
         ],
         // optional callback

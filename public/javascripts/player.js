@@ -8,22 +8,47 @@ var Bopper = require('bopper');
 ///               MUSIC LINE SELECTION                ///
 /////////////////////////////////////////////////////////
 
-const NUM_MELODY_STATES = melodyLines.length + 1;
-const NUM_BASS_STATES = bassLines.length + 1;
-const NUM_PERCUSSION_STATES = percussionLines.length + 1;
+const NUM_MELODY_STATES = Math.min(melodyLines.length + 1, 4);
+const NUM_BASS_STATES = Math.min(bassLines.length + 1, 4);
+const NUM_PERCUSSION_STATES = Math.min(percussionLines.length + 1, 4);
 
-var indices = {
-  0: 0, // melodyIndex
-  1: 0, // bassIndex
-  2: 0 // percussionIndex
+const MELODY = 0;
+const PERCUSSION = 1;
+const BASS = 2;
+
+var offsets = {
+  'melody': 0,
+  'percussion': 0,
+  'bass': 0
 }
 
-console.dir(melodyLines);
-console.dir(bassLines);
-console.dir(percussionLines);
+var baseChannel = {
+  'melody': 1,
+  'percussion': 5,
+  'bass': 11
+}
+
+var channelOn = [false, true, false, false, false, true, false, false, false, false, false, true, false, false, false, false];
+
+console.log(melodyLines);
+console.log(bassLines);
+console.log(percussionLines);
+
+function getChannelNumber(lineType, offset) {
+  switch(lineType) {
+    case MELODY:
+      return baseChannel['melody'] + offset;
+    case PERCUSSION:
+      return baseChannel['percussion'] + offset;
+    case BASS:
+      return baseChannel['bass'] + offset;
+  }
+}
+
+console.log(getChannelNumber(MELODY, 0));
 
 function updateMelodyButton() {
-  melodyIndex = indices[0]
+  melodyIndex = offsets['melody']
   if (melodyIndex == 0) {
     $('#melody-button').text('No Melody Selected');
     return;
@@ -32,7 +57,7 @@ function updateMelodyButton() {
 }
 
 function updatePercussionButton() {
-  percussionIndex = indices[1]
+  percussionIndex = offsets['percussion']
   if (percussionIndex == 0) {
     $('#percussion-button').text('No Percussion Selected');
     return;
@@ -41,7 +66,7 @@ function updatePercussionButton() {
 }
 
 function updateBassButton() {
-  bassIndex = indices[2]
+  bassIndex = offsets['bass']
   if (bassIndex == 0) {
     $('#bass-button').text('No Bass Selected');
     return;
@@ -50,20 +75,53 @@ function updateBassButton() {
 }
 
 function nextMelody() {
-  melodyIndex = indices[0]
-  indices[0] = (melodyIndex + 1) % NUM_MELODY_STATES;
+  melodyIndex = offsets['melody']
+  offsets['melody'] = (melodyIndex + 1) % NUM_MELODY_STATES;
+
+  console.log('next melody');
+  for(i = 0; i < 4; i++) {
+    if(i == offsets['melody']) {
+      channelOn[getChannelNumber(MELODY, i)] = true;
+      console.log('play channel', getChannelNumber(MELODY, i), channelOn[getChannelNumber(MELODY, i)]);
+    } else {
+      channelOn[getChannelNumber(MELODY, i)] = false;
+      console.log('mute channel', getChannelNumber(MELODY, i), channelOn[getChannelNumber(MELODY, i)]);
+    }
+  }
   updateMelodyButton();
 }
 
 function nextPercussion() {
-  percussionIndex = indices[1]
-  indices[1] = (percussionIndex + 1) % NUM_PERCUSSION_STATES;
+  percussionIndex = offsets['percussion']
+  offsets['percussion'] = (percussionIndex + 1) % NUM_PERCUSSION_STATES;
+
+  console.log('next percussion');
+  for(i = 0; i < 4; i++) {
+    if(i == offsets['percussion']) {
+      console.log('play channel', getChannelNumber(PERCUSSION, i));
+      channelOn[getChannelNumber(PERCUSSION, i)] = true;
+    } else {
+      console.log('mute channel', getChannelNumber(PERCUSSION, i));
+      channelOn[getChannelNumber(PERCUSSION, i)] = false;
+    }
+  }
   updatePercussionButton();
 }
 
 function nextBass() {
-  bassIndex = indices[2]
-  indices[2] = (bassIndex + 1) % NUM_BASS_STATES;
+  bassIndex = offsets['bass']
+  offsets['bass'] = (bassIndex + 1) % NUM_BASS_STATES;
+
+  console.log('next bass');
+  for(i = 0; i < 4; i++) {
+    if(i == offsets['bass']) {
+      console.log('play channel', getChannelNumber(BASS, i));
+      channelOn[getChannelNumber(BASS, i)] = true;
+    } else {
+      console.log('mute channel', getChannelNumber(BASS, i));
+      channelOn[getChannelNumber(BASS, i)] = false;
+    }
+  }
   updateBassButton();
 }
 
@@ -189,12 +247,62 @@ function initializeScheduler() {
     ditty.set([3, note_id], events, 32)
   }
 
+  // melodyLines.forEach(function(line, index) {
+  //   if(index < 3) {
+  //     var offset = index + 1;
+  //     var sequence = line.notesequence;
+  //     var channel = getChannelNumber(MELODY, offset);
+
+  //     for (var note_id in sequence) {
+  //       var val = sequence[note_id]
+  //       var events = val.map(time => [time, line.notelength])
+  //       ditty.set([channel, note_id], events, 32)
+  //     }
+
+  //     MIDI.programChange(channel, 0);
+  //   }
+  // });
+
+  // bassLines.forEach(function(line, index) {
+  //   if(index < 3) {
+  //     var offset = index + 1;
+  //     var sequence = line.notesequence;
+  //     var channel = getChannelNumber(BASS, offset);
+
+  //     for (var note_id in sequence) {
+  //       var val = sequence[note_id]
+  //       var events = val.map(time => [time, line.notelength])
+  //       ditty.set([channel, note_id], events, 32)
+  //     }
+
+  //     MIDI.programChange(channel, 65);
+  //   }
+  // });
+
+  // percussionLines.forEach(function(line, index) {
+  //   if(index < 3) {
+  //     var offset = index + 1;
+  //     var sequence = line.notesequence;
+  //     var channel = getChannelNumber(PERCUSSION, offset);
+
+  //     for (var note_id in sequence) {
+  //       var val = sequence[note_id]
+  //       var events = val.map(time => [time, line.notelength])
+  //       ditty.set([channel, note_id], events, 32)
+  //     }
+
+  //     MIDI.programChange(channel, 118);
+  //   }
+  // });
+
   //////////////////////////////
 
   // mixer
   var output = audioContext.createGain()
   output.gain.value = 0.5
   output.connect(audioContext.destination)
+
+  var onNotes = new Set(); // not sure if this is needed
 
   MIDI.programChange(1, 0);
   MIDI.programChange(2, 118);
@@ -208,28 +316,27 @@ function initializeScheduler() {
   MIDI.programChange(8, 118);
   MIDI.programChange(9, 65);
 
-  var onNotes = new Set(); // not sure if this is needed
-
   function noteOn(time, id){
-    console.log('on', time, id)
     var [channel, note_id] = id
+    // console.log('[on] time', time, 'channel', channel, 'note_id', note_id)
 
-    if ((indices[0] > 0 && 3 * (indices[0] - 1) + 1 == channel) ||
-        (indices[1] > 0 && 3 * (indices[1] - 1) + 2 == channel) ||
-        (indices[2] > 0 && 3 * (indices[2] - 1) + 3 == channel)) {
-          var velocity = 127
-      } else {
-      var velocity = 0
-    }
+    // if ((indices['melody'] > 0 && 3 * (indices['melody'] - 1) + 1 == channel) ||
+    //     (indices['percussion'] > 0 && 3 * (indices['percussion'] - 1) + 2 == channel) ||
+    //     (indices['bass'] > 0 && 3 * (indices['bass'] - 1) + 3 == channel)) {
+    //       var velocity = 127
+    //   } else {
+    //   var velocity = 0
+    // }
 
-    MIDI.noteOn(channel, note_id, velocity, time)
+    // MIDI.noteOn(channel, note_id, channelOn[channel] ? 127 : 0, time)
+    MIDI.noteOn(channel, note_id, 127, time)
     onNotes.add(id);
   }
 
   function noteOff(time, id){
     if (onNotes.has(id)){
-      console.log('off', time, id)
       var [channel, note_id] = id
+      // console.log('[off] time', time, 'channel', channel, 'note_id', note_id)
       MIDI.noteOff(channel, note_id, time)
       onNotes.delete(id)
     }
@@ -263,7 +370,7 @@ function publishSubmission() {
 function onMidiLoaded() {
   alert("Let's begin!");
   console.log(MIDI.getContext());
-  initializeScheduler();
+  // initializeScheduler();
 
   // set up button click handlers
   $('#melody-button').click(function(event) {
@@ -293,6 +400,23 @@ function onMidiLoaded() {
 window.onload = function () {
   // load MIDI plugin
   MIDI.loadPlugin({
+    // soundfontUrl: "http://gleitz.github.io/midi-js-soundfonts/FluidR3_GM/",
+    // instrument: [ 
+    //   "acoustic_grand_piano",
+    //   "synth_drum",
+    //   "alto_sax",
+    //   "acoustic_guitar_nylon",
+    //   "electric_bass_pick",
+    //   "clarinet",
+    //   "flute",
+    //   "synth_bass_1",
+    //   "harmonica",
+    //   "timpani",
+    //   "trumpet",
+    //   "woodblock",
+    //   "synth_choir",
+    //   "drawbar_organ"
+    // ],
     soundfontUrl: "/javascripts/midi/soundfont/",
     instrument: [ "acoustic_grand_piano", "synth_drum", "alto_sax" ],
     onprogress: function(state, progress) {

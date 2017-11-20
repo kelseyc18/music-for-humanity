@@ -9,7 +9,8 @@ var Schema = mongoose.Schema;
 var PercussionSchema = new Schema({
     name: String,
     instrument: Number,
-    notesequence: [[Number]],
+    notesequence: Object,
+    notelength: Number
 });
 
 PercussionSchema.virtual('toJSON').get(function() {
@@ -17,7 +18,8 @@ PercussionSchema.virtual('toJSON').get(function() {
     id: this._id.toString(),
     name: this.name,
     instrument: this.instrument,
-    notesequence: this.notesequence
+    notesequence: this.notesequence,
+    notelength: this.notelength
   }
 });
 
