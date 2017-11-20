@@ -45,9 +45,22 @@ exports.player_detail = function(req, res) {
         });
     },
 
-    // submission
+    // find number of submitted submissions in given round
     function(player, game, round, submissions, next) {
-      Submission.findOne({ player: player })
+      var submissionIds = round.submissions.map(x => x._id);
+
+      Submission.find({ _id: { $in: submissionIds }, isSubmitted: true }, function(err, submissions) {
+        if (err) console.log(err);
+        console.log(submissions);
+        next(err, player, game, round, submissions, submissions.length);
+      })
+    },
+
+    // find submission that belongs to current player in this round
+    function(player, game, round, submissions, submittedCount, next) {
+      var submissionIds = round.submissions.map(x => x._id);
+
+      Submission.findOne({ _id: { $in: submissionIds }, player: player._id })
         .populate('player')
         .populate('melodyLines')
         .populate('bassLines')
@@ -57,24 +70,34 @@ exports.player_detail = function(req, res) {
         .populate('selectedPercussion')
         .exec(function(err, submission) {
           if (err) console.log(err);
-            var isJudge = player._id.toString() == round.judge._id.toString();
-            var results = {
-              player: player,
-              game: game,
-              round: round,
-              submission: submission,
-              melodyLines: submission.melodyLines,
-              bassLines: submission.bassLines,
-              percussionLines: submission.percussionLines,
-              isJudge: isJudge
-            };
-            next(err, results);
+          var isJudge = player._id.toString() == round.judge._id.toString();
+          var results = {
+            player: player,
+            game: game,
+            round: round,
+            submission: submission,
+            melodyLines: submission ? submission.melodyLines : [],
+            bassLines: submission ? submission.bassLines : [],
+            percussionLines: submission ? submission.percussionLines : [],
+            submittedCount: submittedCount,
+            expectedSubmissionCount: Math.max(round.submissions.length-1, 0),
+            isJudge: isJudge,
+            isSubmitted: submission ? submission.isSubmitted : false
+          };
+          next(err, results);
         });
     },
 
   ], function(err, results) {
     if (err) console.log(err);
-    res.render('player', { title: 'Player', id: req.params.id, error: err, data: results })
+    console.log('is submitted? ', results.isSubmitted);
+    if (results.isJudge) {
+      res.render('judge', { title: 'Player', id: req.params.id, error: err, data: results })
+    } if (results.isSubmitted) {
+      res.render('submitted', { title: 'Player', id: req.params.id, error: err, data: results })
+    } else {
+      res.render('player', { title: 'Player', id: req.params.id, error: err, data: results })
+    }
   });
 
 }
