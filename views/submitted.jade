@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  if data.player
+    div(class='text-center')
+      p Welcome, #[b #{data.player.name}]! You are participating in #[b #{data.game.name}, Round #{data.round.roundNumber}].
+
+      p #{data.submittedCount} out of #{data.expectedSubmissionCount} players have submitted.
+
+      button(type='button' class='btn btn-primary' id='view-submissions-btn' disabled) View Submissions
+
+  else
+    p That player does not exist in our records.
