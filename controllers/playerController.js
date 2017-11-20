@@ -17,7 +17,7 @@ exports.player_detail = function(req, res) {
     function(next) {
       Player.findById(req.params.id)
         .exec(function(err, player) {
-          if (err) console.log(err);
+          if (err) return next(err);
           next(err, player);
         });
     },
@@ -28,7 +28,7 @@ exports.player_detail = function(req, res) {
         .populate('rounds')
         .populate('currentRound')
         .exec(function(err, game) {
-          if (err) console.log(err);
+          if (err) return next(err);
           next(err, player, game);
         });
     },
@@ -40,7 +40,7 @@ exports.player_detail = function(req, res) {
         .populate('winningSubmission')
         .populate('judge')
         .exec(function(err, round) {
-          if (err) console.log(err);
+          if (err) return next(err);
           next(err, player, game, round, round.submissions);
         });
     },
@@ -50,7 +50,7 @@ exports.player_detail = function(req, res) {
       var submissionIds = round.submissions.map(x => x._id);
 
       Submission.find({ _id: { $in: submissionIds }, isSubmitted: true }, function(err, submissions) {
-        if (err) console.log(err);
+        if (err) return next(err);
         console.log(submissions);
         next(err, player, game, round, submissions, submissions.length);
       })
@@ -69,7 +69,7 @@ exports.player_detail = function(req, res) {
         .populate('selectedBass')
         .populate('selectedPercussion')
         .exec(function(err, submission) {
-          if (err) console.log(err);
+          if (err) return next(err);
           var isJudge = player._id.toString() == round.judge._id.toString();
           var results = {
             player: player,
@@ -89,7 +89,7 @@ exports.player_detail = function(req, res) {
     },
 
   ], function(err, results) {
-    if (err) console.log(err);
+    if (err) return next(err);
     console.log('is submitted? ', results.isSubmitted);
     if (results.isJudge) {
       res.render('judge', { title: 'Player', id: req.params.id, error: err, data: results })
