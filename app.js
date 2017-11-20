@@ -13,7 +13,7 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 var gameplay = require('./routes/gameplay');
 
-var mongoDB = 'mongodb://musician:eranegozy@ds111476.mlab.com:11476/music_for_humanity';
+var mongoDB = process.env.MONGODB_URI || 'mongodb://musician:eranegozy@ds111476.mlab.com:11476/music_for_humanity';
 mongoose.connect(mongoDB, {
   useMongoClient: true
 });
