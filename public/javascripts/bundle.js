@@ -6477,7 +6477,8 @@ function publishSubmission() {
     selectedMelodyId: melodyIndex ? melodyLines[melodyIndex-1].id : null,
     selectedBassId: bassIndex ? bassLines[bassIndex-1].id : null,
     selectedPercussionId: percussionIndex ? percussionLines[percussionIndex-1].id : null,
-    playerId: playerId
+    playerId: playerId,
+    isSubmitted: true
   };
 
   $.post('/gameplay/submission/update', data, function(res) {
