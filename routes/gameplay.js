@@ -32,6 +32,6 @@ router.post('/round/:id/update', round_controller.round_update_on_post);
 router.get('/submissions', submission_controller.submission_list);
 router.get('/submission/:id', submission_controller.submission_detail);
 router.post('/submission/create', submission_controller.submission_create_on_post);
-router.post('/submission/:id/update', submission_controller.submission_update_on_post);
+router.post('/submission/update', submission_controller.submission_update_on_post);
 
 module.exports = router;
