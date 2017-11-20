@@ -203,6 +203,25 @@ function initializeScheduler() {
   }, 3000)
 }
 
+/////////////////////////////////////////////////////////
+///                    GAME LOGIC                     ///
+/////////////////////////////////////////////////////////
+
+function publishSubmission() {
+  var data = {
+    submissionId: submissionId,
+    selectedMelodyId: melodyIndex ? melodyLines[melodyIndex-1].id : null,
+    selectedBassId: bassIndex ? bassLines[bassIndex-1].id : null,
+    selectedPercussionId: percussionIndex ? percussionLines[percussionIndex-1].id : null,
+    playerId: playerId
+  };
+
+  $.post('/gameplay/submission/update', data, function(res) {
+    console.log(res);
+    location.reload(true);
+  });
+}
+
 function onMidiLoaded() {
   alert("Let's begin!");
   console.log(MIDI.getContext());
@@ -220,6 +239,15 @@ function onMidiLoaded() {
   $('#bass-button').click(function(event) {
     nextBass();
   });
+
+  $('#publish-submission-btn').click(function(event) {
+    publishSubmission();
+    $('#publish-submission-btn').prop('disabled', true);
+  })
+
+  if(isSubmitted) {
+    $('#publish-submission-btn').prop('disabled', true);
+  }
 
   if(roundNumber == 2) animateSnail();
 }

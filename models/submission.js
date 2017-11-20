@@ -14,6 +14,7 @@ var SubmissionSchema = new Schema({
     selectedMelody: { type: Schema.Types.ObjectId, ref: 'Melody' },
     selectedBass: { type: Schema.Types.ObjectId, ref: 'Bass' },
     selectedPercussion: { type: Schema.Types.ObjectId, ref: 'Percussion' },
+    isSubmitted: { type: Boolean, default: false }
 });
 
 module.exports = mongoose.model('Submission', SubmissionSchema);

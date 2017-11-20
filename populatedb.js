@@ -231,7 +231,7 @@ function createPlayers(cb) {
 
 
 function createSubmissions(cb) {
-    async.parallel([
+    async.series([
         function(callback) {
           submissionCreate(players[0], [melody_lines[0], melody_lines[3]], [bass_lines[1], bass_lines[2], bass_lines[4]], [percussion_lines[0]], melody_lines[0], bass_lines[2], percussion_lines[0], callback);
         },
