@@ -24,6 +24,7 @@ router.post('/player/:id/update', player_controller.player_update_on_post);
 /// ROUND ROUTES ///
 router.get('/rounds', round_controller.round_list);
 router.get('/round/:id', round_controller.round_detail);
+router.post('/round/reset', round_controller.round_reset_submissions);
 router.post('/round/create', round_controller.round_create_on_post);
 router.post('/round/:id/update', round_controller.round_update_on_post);
 

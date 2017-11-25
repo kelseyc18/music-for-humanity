@@ -3,6 +3,7 @@ extends layout
 block script
   script(type='text/javascript').
     var allSubmissionsReceived = #{data.submittedCount} == #{data.expectedSubmissionCount};
+    var roundId = '#{data.round._id}';
 
   script(src='/javascripts/judge_bundle.js')
 
@@ -32,6 +33,9 @@ block content
             | Option 3
       
       button(type='button' class='btn btn-success' id='select-winner-btn') Select Winner
+
+      div(style='margin: 10px 0px')
+        button(type='button' class='btn btn-secondary' id='reset-round-btn') Reset Submissions
 
   else
     p That player does not exist in our records.

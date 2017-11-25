@@ -26,7 +26,7 @@ exports.submission_update_on_post = function(req, res, next) {
 
   Submission.findByIdAndUpdate(submissionId,
       {
-        isSubmitted: true, 
+        isSubmitted: req.body.isSubmitted,
         selectedMelody: selectedMelodyId,
         selectedPercussion: selectedPercussionId,
         selectedBass: selectedBassId

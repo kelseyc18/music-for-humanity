@@ -11,6 +11,11 @@
   cursor: pointer;
 }
 
+.music-button:disabled,
+.music-button[disabled] {
+  cursor: auto;
+}
+
 .melody-button {
   background-color: #3498db;
 }
