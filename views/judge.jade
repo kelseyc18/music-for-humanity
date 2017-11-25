@@ -4,7 +4,7 @@ block script
   script(type='text/javascript').
     var allSubmissionsReceived = #{data.submittedCount} == #{data.expectedSubmissionCount};
 
-  script(src='/javascripts/judge.js')
+  script(src='/javascripts/judge_bundle.js')
 
 block content
   if data.player
@@ -12,8 +12,26 @@ block content
       p Welcome, #[b #{data.player.name}]! You are the judge for #[b #{data.game.name}, Round #{data.round.roundNumber}].
 
       p #{data.submittedCount} out of #{data.expectedSubmissionCount} players have submitted.
-
-      button(type='button' class='btn btn-success' id='next-round-btn') Start Next Round
+      
+      div(class='vertical-container')
+        p(style='color: gray; font-style: italic;') Everything below should only show up once all players have submitted.
+        div(class='col-center' style='background-color: blue; width: 500px; height: 300px; margin-bottom: 30px;')
+        
+        div(class='btn-group col-center' data-toggle='buttons' style='margin-bottom: 20px;')
+          label(class='btn btn-primary active')
+            input(type='radio' name='options' id='option0' autocomplete='off' checked)
+            | None
+          label(class='btn btn-primary')
+            input(type='radio' name='options' id='option1' autocomplete='off' checked)
+            | Option 1
+          label(class='btn btn-primary')
+            input(type='radio' name='options' id='option2' autocomplete='off' checked)
+            | Option 2
+          label(class='btn btn-primary')
+            input(type='radio' name='options' id='option3' autocomplete='off' checked)
+            | Option 3
+      
+      button(type='button' class='btn btn-success' id='select-winner-btn') Select Winner
 
   else
     p That player does not exist in our records.

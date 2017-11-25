@@ -28,6 +28,15 @@
   display: inline;
 }
 
+.vertical-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.col-center {
+  margin: 0 auto;
+}
+
 #snail {
   position: absolute;
   top: 0;

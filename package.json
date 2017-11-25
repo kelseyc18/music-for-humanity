@@ -8,8 +8,9 @@
   "scripts": {
     "start": "node ./bin/www",
     "dev-start": "nodemon ./bin/www",
-    "build-js": "browserify public/javascripts/player.js > public/javascripts/bundle.js",
-    "watch-js": "watchify public/javascripts/player.js -o public/javascripts/bundle.js -v"
+    "build-js": "browserify public/javascripts/player.js > public/javascripts/player_bundle.js; browserify public/javascripts/judge.js > public/javascripts/judge_bundle.js;",
+    "watch-player-js": "watchify public/javascripts/player.js -o public/javascripts/player_bundle.js -v",
+    "watch-judge-js": "watchify public/javascripts/judge.js -o public/javascripts/judge_bundle.js -v"
   },
   "dependencies": {
     "async": "^2.6.0",
