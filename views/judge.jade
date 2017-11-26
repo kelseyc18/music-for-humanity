@@ -4,8 +4,24 @@ block script
   script(type='text/javascript').
     var allSubmissionsReceived = #{data.submittedCount} == #{data.expectedSubmissionCount};
     var roundId = '#{data.round._id}';
+    var linesFromSubmissions = [!{data.linesFromSubmissions.map(x => JSON.stringify(x))}];
+    console.log('lines', linesFromSubmissions);
 
   script(src='/javascripts/judge_bundle.js')
+
+  script(src='/javascripts/midi/inc/shim/Base64.js')
+  script(src='/javascripts/midi/inc/shim/Base64binary.js')
+  script(src='/javascripts/midi/inc/shim/WebAudioAPI.js')
+
+  script(src='/javascripts/midi/js/midi/audioDetect.js')
+  script(src='/javascripts/midi/js/midi/gm.js')
+  script(src='/javascripts/midi/js/midi/loader.js')
+  script(src='/javascripts/midi/js/midi/plugin.audiotag.js')
+  script(src='/javascripts/midi/js/midi/plugin.webaudio.js')
+  script(src='/javascripts/midi/js/midi/plugin.webmidi.js')
+
+  script(src='/javascripts/midi/js/util/dom_request_xhr.js')
+  script(src='/javascripts/midi/js/util/dom_request_script.js')
 
 block content
   if data.player
@@ -19,17 +35,17 @@ block content
         div(class='col-center' style='background-color: blue; width: 500px; height: 300px; margin-bottom: 30px;')
         
         div(class='btn-group col-center' data-toggle='buttons' style='margin-bottom: 20px;')
-          label(class='btn btn-primary active')
+          label(class='btn btn-primary active' id='option0-btn')
             input(type='radio' name='options' id='option0' autocomplete='off' checked)
             | None
-          label(class='btn btn-primary')
-            input(type='radio' name='options' id='option1' autocomplete='off' checked)
+          label(class='btn btn-primary' id='option1-btn')
+            input(type='radio' name='options' id='option1' autocomplete='off')
             | Option 1
-          label(class='btn btn-primary')
-            input(type='radio' name='options' id='option2' autocomplete='off' checked)
+          label(class='btn btn-primary' id='option2-btn')
+            input(type='radio' name='options' id='option2' autocomplete='off')
             | Option 2
-          label(class='btn btn-primary')
-            input(type='radio' name='options' id='option3' autocomplete='off' checked)
+          label(class='btn btn-primary' id='option3-btn')
+            input(type='radio' name='options' id='option3' autocomplete='off')
             | Option 3
       
       button(type='button' class='btn btn-success' id='select-winner-btn') Select Winner
