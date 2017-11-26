@@ -23,9 +23,9 @@ var offsets = {
 }
 
 var baseChannel = {
-  'melody': 1,
-  'percussion': 5,
-  'bass': 11
+  'melody': 1, // 1 to 4
+  'percussion': 5, // 5 to 8
+  'bass': 11 // 11 to 14
 }
 
 var channelOn = [null, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false];

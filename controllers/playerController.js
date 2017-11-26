@@ -50,20 +50,32 @@ exports.player_detail = function(req, res) {
         });
     },
 
-    // find number of submitted submissions in given round
+    // find selected lines for submitted submissions in given round
     function(player, game, round, submissions, next) {
       var submissionIds = round.submissions.map(x => x._id);
 
-      Submission.find({ _id: { $in: submissionIds }, isSubmitted: true }, function(err, submissions) {
-        if (err) return next(err);
-        console.log(submissions);
-        next(err, player, game, round, submissions, submissions.length);
-      })
+      Submission.find({ _id: { $in: submissionIds }, isSubmitted: true })
+        .populate('player')
+        .populate('selectedMelody')
+        .populate('selectedBass')
+        .populate('selectedPercussion')
+        .exec(function(err, submissions) {
+          if (err) return next(err);
+          var linesFromSubmissions = submissions.map(function cb(submission, index, array) {
+            var entry = { playerId: submission.player._id.toString(), lines: [] };
+            if (submission.selectedMelody) entry.lines.push(submission.selectedMelody.toJSON);
+            if (submission.selectedBass) entry.lines.push(submission.selectedBass.toJSON);
+            if (submission.selectedPercussion) entry.lines.push(submission.selectedPercussion.toJSON);
+            return entry;
+          })
+          next(err, player, game, round, submissions, linesFromSubmissions);
+      });
     },
 
     // find submission that belongs to current player in this round
-    function(player, game, round, submissions, submittedCount, next) {
+    function(player, game, round, submissions, linesFromSubmissions, next) {
       var submissionIds = round.submissions.map(x => x._id);
+      console.log('submissionIds for current round', submissionIds);
 
       Submission.findOne({ _id: { $in: submissionIds }, player: player._id })
         .populate('player')
@@ -76,6 +88,7 @@ exports.player_detail = function(req, res) {
         .exec(function(err, submission) {
           if (err) return next(err);
           var isJudge = player._id.toString() == round.judge._id.toString();
+          console.log('submission', submission);
           var results = {
             player: player,
             game: game,
@@ -84,10 +97,11 @@ exports.player_detail = function(req, res) {
             melodyLines: submission ? submission.melodyLines : [],
             bassLines: submission ? submission.bassLines : [],
             percussionLines: submission ? submission.percussionLines : [],
-            submittedCount: submittedCount,
+            submittedCount: linesFromSubmissions.length,
             expectedSubmissionCount: Math.max(round.submissions.length-1, 0),
             isJudge: isJudge,
-            isSubmitted: submission ? submission.isSubmitted : false
+            isSubmitted: submission ? submission.isSubmitted : false,
+            linesFromSubmissions: linesFromSubmissions
           };
           next(err, results);
         });

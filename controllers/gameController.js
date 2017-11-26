@@ -69,6 +69,7 @@ exports.game_detail = function(req, res) {
         error: 'Game ID ' + req.params.id + ' not found',
       });
     }
+    console.log(results);
     res.render('game_detail', { error: err, data: results, title: 'Join Game' })
   });
 
