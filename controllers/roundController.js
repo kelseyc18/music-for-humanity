@@ -32,7 +32,6 @@ function getRandomLines(lineInventory, selectionNumber) {
     }
     selectedLines.add(item);
   }
-  console.log('getRandomLines', selectedLines);
   return Array.from(selectedLines);
 }
 
@@ -149,7 +148,7 @@ exports.round_create_on_post = function(req, res) {
       var newRoundNumber = game.currentRound.roundNumber + 1;
       var round = {
         roundNumber: newRoundNumber,
-        videoID: getVideoId(newRoundNumber),
+        videoId: getVideoId(newRoundNumber),
         submissions: submissions,
         judge: getJudge(players, newRoundNumber)
       };

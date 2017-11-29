@@ -6463,8 +6463,8 @@ function initializeScheduler() {
   scheduler.setTempo(120)
   setTimeout(function(){
     scheduler.start();
-    enableButtonsAsNeeded();
-    // if(roundNumber == 2) animateSnail();
+    $('#loading').hide();
+    $('.content').css('visibility', 'visible');
   }, 3000)
 }
 
@@ -6488,16 +6488,6 @@ function publishSubmission() {
   });
 }
 
-function enableButtonsAsNeeded() {
-  $('#melody-button').prop('disabled', false);
-  $('#bass-button').prop('disabled', false);
-  $('#percussion-button').prop('disabled', false);
-
-  if(!isSubmitted) {
-    $('#publish-submission-btn').prop('disabled', false);
-  }
-}
-
 function onMidiLoaded() {
   initializeScheduler();
 
@@ -6517,15 +6507,15 @@ function onMidiLoaded() {
   $('#publish-submission-btn').click(function(event) {
     publishSubmission();
     $('#publish-submission-btn').prop('disabled', true);
-  })
+  });
 }
 
-window.onload = function () {
-  $('#melody-button').prop('disabled', true);
-  $('#bass-button').prop('disabled', true);
-  $('#percussion-button').prop('disabled', true);
-  $('#publish-submission-btn').prop('disabled', true);
+$(function() {
+  $('.content').css('visibility', 'hidden');
+  $('#loading').show();
+});
 
+window.onload = function () {
   // load MIDI plugin
   MIDI.loadPlugin({
     soundfontUrl: "http://www.song-data.com/3rd/MIDIjs/soundfont/",
