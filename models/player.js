@@ -8,6 +8,7 @@ var Schema = mongoose.Schema;
 
 var PlayerSchema = new Schema({
     name: String,
+    winCount: { type: Number, default: 0 },
     game: { type: Schema.Types.ObjectId, ref: 'Game' }
 });
 

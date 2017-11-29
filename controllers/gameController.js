@@ -15,7 +15,6 @@ exports.index = function(req, res) {
         .exec(callback);
     }
   }, function(err, results) {
-    console.log(results);
     res.render('gameplay', { title: 'Play', error: err, data: results })
   });
 
@@ -69,7 +68,6 @@ exports.game_detail = function(req, res) {
         error: 'Game ID ' + req.params.id + ' not found',
       });
     }
-    console.log(results);
     res.render('game_detail', { error: err, data: results, title: 'Join Game' })
   });
 

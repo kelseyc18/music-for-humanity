@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  p Congratulations to #[b #{data.winner.name}] for winning #[b #{data.game.name}, Round #{data.round.roundNumber}]!
+  
+  div(class='card' style='width: 20rem; margin: 20px 0px')
+    div(class='card-body')
+      h2(class='card-title') Updated Scores
+      ul(class='card-text')
+      each player in data.players
+        li #[b #{player.name}]: #{player.winCount}
+  
+  if data.isJudge
+    button(type='button' class='btn btn-primary' id='reset-round-btn') Start Next Round
+  else
+    p Please wait for #[b #{data.round.judge.name}] (the former judge) to start the next round.

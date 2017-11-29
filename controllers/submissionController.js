@@ -32,7 +32,6 @@ exports.submission_update_on_post = function(req, res, next) {
         selectedBass: selectedBassId
       }, function(err, submission) {
         if (err) return next(err);
-        console.log('Updated submission response: ' + submission);
         res.send(submission);
       });
 }
