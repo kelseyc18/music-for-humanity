@@ -190,15 +190,4 @@ window.onload = function () {
   $('#select-winner-btn').click(function(event) {
     selectWinner();
   });
-
-  $('#reset-round-btn').click(function(event) {
-    var data = {
-      roundId: roundId
-    }
-
-    $.post('/gameplay/round/reset', data, function(res) {
-      console.log(res);
-      location.reload(true);
-    });
-  });
 }
