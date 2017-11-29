@@ -7,7 +7,7 @@ $(function() {
 
     $.post('/gameplay/round/reset', data, function(res) {
       console.log(res);
-      // location.reload(true);
+      location.reload(true);
     });
   });
 });

@@ -61,7 +61,8 @@ exports.round_reset_submissions = function(req, res) {
     function(round, next) {
       var submissionIds = round.submissions.map(x => x._id);
 
-      Submission.update({ _id: { $in: submissionIds } }, { isSubmitted: false })
+      console.log(submissionIds);
+      Submission.update({ _id: { $in: submissionIds } }, { $set: { isSubmitted: false } }, { multi: true } )
         .exec(function(err, numAffected) {
           console.log(numAffected)
           if (err) return next(err);
