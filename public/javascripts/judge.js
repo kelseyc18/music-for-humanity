@@ -99,7 +99,8 @@ function initializeScheduler() {
   scheduler.setTempo(120)
   setTimeout(function(){
     scheduler.start();
-    alert('done loading');
+    $('#loading').hide();
+    $('.content').css('visibility', 'visible');
   }, 3000)
 }
 
@@ -163,6 +164,11 @@ function onMidiLoaded() {
     selectOption(3);
   });
 }
+
+$(function() {
+  $('.content').css('visibility', 'hidden');
+  $('#loading').show();
+});
 
 window.onload = function () {
   // load MIDI plugin
