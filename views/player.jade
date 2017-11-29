@@ -36,9 +36,12 @@ block content
       p Welcome, #[b #{data.player.name}]! You are participating in #[b #{data.game.name}, Round #{data.round.roundNumber}] with #[b #{data.round.judge.name}] as judge.
 
       if data.round.roundNumber == 2
-        div(class='animation-container')
-          img(src='/images/round#{data.round.roundNumber}.png' class='rounded' style='max-width:800px;' id='background')
-          img(src='/images/gary_the_snail.png' id='snail')
+        //- div(class='animation-container')
+        //-   img(src='/images/round#{data.round.roundNumber}.png' class='rounded' style='max-width:800px;' id='background')
+        //-   img(src='/images/gary_the_snail.png' id='snail')
+        iframe(type='text/html' width='640' height='390'
+          src='https://www.youtube.com/embed/7VObGixJhP8?autoplay=1&version=3&loop=1&playlist=7VObGixJhP8'
+          frameborder='0')
 
     div(class='d-flex justify-content-center text-center')
       button(type='button' class='music-button melody-button btn' id='melody-button') No Melody Selected
