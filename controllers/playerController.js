@@ -113,6 +113,7 @@ exports.player_detail = function(req, res) {
               error: 'Player ID ' + req.params.id + ' not found',
             });
     }
+    results.allSubmissionsReceived = results.submittedCount == results.expectedSubmissionCount;
     if (results.isJudge) {
       res.render('judge', { title: 'Player', id: req.params.id, error: err, data: results })
     } if (results.isSubmitted) {
