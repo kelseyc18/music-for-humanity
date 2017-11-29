@@ -157,185 +157,215 @@ function gameCreate(name, cb) {
   }  );
 }
 
+/////////////////////////////////////////////////////////
+///                  MELODY SELECTION                 ///
+/////////////////////////////////////////////////////////
 
-var melody_instrument_0 = 0
-var melody_times_0 = {54: [20.0],
-  55: [16.0, 24.0],
-  57: [12.0, 28.0],
-  59: [8.0],
-  61: [4.0],
-  62: [0.0]}
-var melody_dur_0 = 3.8
-
-var melody_instrument_1 = 65
-var melody_times_1 = {57: [20.0],
-  59: [16.0, 24.0],
-  61: [12.0, 28.0],
-  62: [8.0],
-  64: [4.0],
-  66: [0.0]}
-var melody_dur_1 = 3.8
-
-var melody_instrument_2 = 0
-var melody_times_2 = {57: [20.0],
-  59: [16.0, 24.0],
-  61: [12.0, 28.0],
-  62: [8.0],
-  64: [4.0],
-  66: [0.0]}
-var melody_dur_2 = 3.8
-
-var melody_instrument_3 = 0
-var melody_times_3 = {66: [20.0],
-  67: [16.0, 24.0],
-  69: [12.0, 28.0],
-  71: [8.0],
-  73: [4.0],
-  74: [0.0]}
-var melody_dur_3 = 3.8
-
-var melody_instrument_4 = 65
-var melody_times_4 = {61: [4.0],
-  62: [3.0, 8.0],
-  64: [6.0, 28.0, 31.0],
-  66: [7.0, 27.0, 30.0],
-  67: [26.0, 29.0],
-  69: [5.0, 25.0],
-  71: [11.0, 24.0],
-  73: [1.0, 10.0, 12.0, 23.0],
-  74: [0.0, 2.0, 9.0, 22.0],
-  76: [18.0, 21.0],
-  78: [13.0, 17.0, 20.0],
-  79: [16.0, 19.0],
-  81: [14.0],
-  83: [15.0]}
-var melody_dur_4 = 0.8
-
-var melody_instrument_5 = 0
-var melody_times_5 = {0: [0.5, 2.5, 8.5, 10.5, 16.5, 18.5, 24.5, 26.5],
-  62: [21.0],
-  64: [19.5, 20.5, 21.5],
-  66: [11.0, 14.5, 19.0, 20.0, 22.0],
-  67: [11.5, 13.5, 15.0, 16.0, 18.0, 22.5, 24.0],
-  69: [4.5, 12.0, 13.0, 14.0, 15.5, 17.5, 23.0, 25.5, 28.0],
-  71: [5.0, 12.5, 17.0, 23.5, 25.0, 26.0, 28.5],
-  73: [5.5, 27.0, 29.0],
-  74: [6.0, 9.0, 27.5, 29.5],
-  76: [6.5, 9.5, 30.0],
-  78: [1.0, 3.0, 7.0, 8.0, 10.0, 30.5],
-  79: [1.5, 3.5, 7.5, 31.0],
-  81: [0.0, 2.0, 4.0, 31.5]}
+var melody_instrument_0 = 41
+var melody_times_0 = {64: [0.0, 12.0], 0: [5.0, 6.0, 7.0, 13.0, 14.0, 15.0], 69: [1.0, 9.0], 65: [4.0, 8.0], 72.0: [3.0, 11.0], 71.0: [2.0, 10.0]}
+var melody_dur_0 = 0.9
+var melody_instrument_1 = 41
+var melody_times_1 = {64: [0.0, 12.0], 0: [5.0, 6.0, 7.0, 13.0, 14.0, 15.0], 69: [1.0, 11.0], 65: [4.0], 72.0: [3.0, 9.0], 74.0: [8.0], 71.0: [2.0, 10.0]}
+var melody_dur_1 = 0.9
+var melody_instrument_2 = 43
+var melody_times_2 = {64: [8.0, 12.0], 57.0: [0.0, 4.0, 8.0, 12.0], 60: [4.0, 8.0, 12.0], 69: [12.0]}
+var melody_dur_2 = 3.9
+var melody_instrument_3 = 43
+var melody_times_3 = {64: [8.0, 10.0, 12.0, 14.0], 57.0: [0.0, 2.0, 4.0, 6.0, 8.0, 10.0, 12.0, 14.0], 60: [4.0, 6.0, 8.0, 10.0, 12.0, 14.0], 69: [12.0, 14.0]}
+var melody_dur_3 = 1.9
+var melody_instrument_4 = 43
+var melody_times_4 = {64: [8.0, 9.0, 10.0, 11.0, 12.0, 13.0, 14.0, 15.0], 57.0: [0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0, 13.0, 14.0, 15.0], 60: [4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0, 13.0, 14.0, 15.0], 69: [12.0, 13.0, 14.0, 15.0]}
+var melody_dur_4 = 0.9
+var melody_instrument_5 = 43
+var melody_times_5 = {64: [8.0, 8.5, 9.0, 9.5, 10.0, 10.5, 11.0, 11.5, 12.0, 12.5, 13.0, 13.5, 14.0, 14.5, 15.0, 15.5], 57.0: [0.0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0, 5.5, 6.0, 6.5, 7.0, 7.5, 8.0, 8.5, 9.0, 9.5, 10.0, 10.5, 11.0, 11.5, 12.0, 12.5, 13.0, 13.5, 14.0, 14.5, 15.0, 15.5], 60: [4.0, 4.5, 5.0, 5.5, 6.0, 6.5, 7.0, 7.5, 8.0, 8.5, 9.0, 9.5, 10.0, 10.5, 11.0, 11.5, 12.0, 12.5, 13.0, 13.5, 14.0, 14.5, 15.0, 15.5], 69: [12.0, 12.5, 13.0, 13.5, 14.0, 14.5, 15.0, 15.5]}
 var melody_dur_5 = 0.4
+var melody_instrument_6 = 1
+var melody_times_6 = {64: [0.0, 1.5, 4.0, 5.5, 10.0, 13.0], 0: [1.0, 2.5, 3.5, 5.0, 6.5, 7.5, 12.5, 13.5, 14.5, 15.0, 15.5], 67: [0.5, 4.5, 9.0], 69: [8.5], 65: [9.5], 71.0: [8.0], 72.0: [7.0], 59: [11.5], 60: [2.0, 3.0, 6.0, 11.0, 12.0, 14.0], 62: [10.5]}
+var melody_dur_6 = 0.4
+var melody_instrument_7 = 57
+var melody_times_7 = {0: [1.0, 5.0, 6.0, 7.0, 9.0, 13.0, 14.0, 15.0], 65: [2.0, 3.0, 4.0, 12.0], 67: [10.0], 60: [0.0, 8.0], 64: [11.0]}
+var melody_dur_7 = 0.9
+var melody_instrument_8 = 43
+var melody_times_8 = {64: [4.0, 12.0], 0: [5.0, 6.0, 9.0, 10.0, 11.0, 13.0, 14.0, 15.0], 65: [8.0], 48.0: [0.0], 55.0: [1.0], 60: [2.0], 62: [3.0, 7.0]}
+var melody_dur_8 = 0.9
+var melody_instrument_9 = 43
+var melody_times_9 = {0: [1.0, 2.0, 3.0, 4.0, 5.0, 9.0, 13.0, 14.0], 65: [6.0, 11.0], 67: [0.0, 7.0, 10.0, 12.0, 15.0], 69: [8.0]}
+var melody_dur_9 = 0.9
+var melody_instrument_10 = 41
+var melody_times_10 = {64: [0.0, 1.0, 2.0, 3.0, 8.0, 10.0], 0: [5.0, 6.0, 13.0, 14.0, 15.0], 65: [9.0], 57.0: [12.0], 60: [11.0], 62: [4.0, 7.0]}
+var melody_dur_10 = 0.9
+var melody_instrument_11 = 41
+var melody_times_11 = {0: [0.0, 0.5, 4.5, 5.0, 5.5, 6.0, 6.5, 7.0, 7.5, 8.0, 8.5, 12.5, 13.0, 13.5, 14.0, 14.5, 15.0, 15.5], 64: [2.5], 52.0: [11.0, 12.0], 53.0: [10.5, 11.5], 55.0: [3.5, 9.0, 9.5, 10.0], 57.0: [1.0, 4.0], 59: [1.5], 60: [2.0], 62: [3.0]}
+var melody_dur_11 = 0.4
+var melody_instrument_12 = 43
+var melody_times_12 = {64: [0.0], 60: [4.0], 62: [8.0], 55.0: [12.0]}
+var melody_dur_12 = 3.9
+var melody_instrument_13 = 1
+var melody_times_13 = {0: [0.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0, 5.5, 8.5, 10.0, 10.5, 11.5, 12.5, 13.0, 13.5], 64: [7.5, 11.0, 12.0, 15.5], 60: [1.0, 1.5, 6.5, 9.0, 14.5], 62: [0.0, 7.0, 8.0, 9.5, 15.0], 55.0: [6.0, 14.0]}
+var melody_dur_13 = 0.4
 
-var percussion_times_0 = {50: [0.0, 1.0, 1.5, 2.25, 2.5, 3.0, 3.5,
-    4.0, 5.0, 5.5, 6.25, 6.5, 7.0, 7.5,
-    8.0, 9.0, 9.5, 10.25, 10.5, 11.0, 11.5,
-    12.0, 13.0, 13.5, 14.25, 14.5, 15.0, 15.5,
-    16.0, 17.0, 17.5, 18.25, 18.5, 19.0, 19.5,
-    20.0, 21.0, 21.5, 22.25, 22.5, 23.0, 23.5,
-    24.0, 25.0, 25.5, 26.25, 26.5, 27.0, 27.5,
-    28.0, 29.0, 29.5, 30.25, 30.5, 31.0, 31.5]}
-var percussion_dur_0 = 0.2
+/////////////////////////////////////////////////////////
+///                   BASS SELECTION                  ///
+/////////////////////////////////////////////////////////
 
-var percussion_times_1 = {50: [0.0, 1.5, 2.0, 2.5, 3.5,
-    4.0, 5.5, 6.0, 6.5, 7.5,
-    8.0, 9.5, 10.0, 10.5, 11.5,
-    12.0, 13.5, 14.0, 14.5, 15.5,
-    16.0, 17.5, 18.0, 18.5, 19.5,
-    20.0, 21.5, 22.0, 22.5, 23.5,
-    24.0, 25.5, 26.0, 26.5, 27.5,
-    28.0, 29.5, 30.0, 30.5, 31.5]}
-var percussion_dur_1 = 0.4
-
-var percussion_times_2 = {50: [0.0, 2.5, 4.0, 6.5,
-    8.0, 10.5, 12.0, 14.5,
-    16.0, 18.5, 20.0, 22.5,
-    24.0, 26.5, 28.0, 30.5]}
-var percussion_dur_2 = 1.2
-
-var percussion_times_3 = {50: [0.0, 1.0, 2.0, 3.0,
-    4.0, 5.0, 6.0, 7.0,
-    8.0, 9.0, 10.0, 11.0,
-    12.0, 13.0, 14.0, 15.0,
-    16.0, 17.0, 18.0, 19.0,
-    20.0, 21.0, 22.0, 23.0,
-    24.0, 25.0, 26.0, 27.0,
-    28.0, 29.0, 30.0, 31.0]}
-var percussion_dur_3 = 0.9
-
-var percussion_times_4 = {50: [0.0, 0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 1.75,
-    2.0, 2.25, 2.5, 2.75, 3.0, 3.25, 3.5, 3.75,
-    4.0, 4.25, 4.5, 4.75, 5.0, 5.25, 5.5, 5.75,
-    6.0, 6.25, 6.5, 6.75, 7.0, 7.25, 7.5, 7.75,
-    8.0, 8.25, 8.5, 8.75, 9.0, 9.25, 9.5, 9.75,
-    10.0, 10.25, 10.5, 10.75, 11.0, 11.25, 11.5, 11.75,
-    12.0, 12.25, 12.5, 12.75, 13.0, 13.25, 13.5, 13.75,
-    14.0, 14.25, 14.5, 14.75, 15.0, 15.25, 15.5, 15.75,
-    16.0, 16.25, 16.5, 16.75, 17.0, 17.25, 17.5, 17.75,
-    18.0, 18.25, 18.5, 18.75, 19.0, 19.25, 19.5, 19.75,
-    20.0, 20.25, 20.5, 20.75, 21.0, 21.25, 21.5, 21.75,
-    22.0, 22.25, 22.5, 22.75, 23.0, 23.25, 23.5, 23.75,
-    24.0, 24.25, 24.5, 24.75, 25.0, 25.25, 25.5, 25.75,
-    26.0, 26.25, 26.5, 26.75, 27.0, 27.25, 27.5, 27.75,
-    28.0, 28.25, 28.5, 28.75, 29.0, 29.25, 29.5, 29.75,
-    30.0, 30.25, 30.5, 30.75, 31.0, 31.25, 31.5, 31.75]}
-var percussion_dur_4 = 0.2
-
-var percussion_times_5 = {50: [0.0, 1.5, 2.0, 3.5, 4.0, 5.5, 6.0, 7.5,
-    8.0, 9.5, 10.0, 11.5, 12.0, 13.5, 14.0, 15.5,
-    16.0, 17.5, 18.0, 19.5, 20.0, 21.5, 22.0, 23.5,
-    24.0, 25.5, 26.0, 27.5, 28.0, 29.5, 30.0, 31.5]}
-var percussion_dur_5 = 0.4
-
-var percussion_times_6 = {50: [0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5,
-    8.5, 9.5, 10.5, 11.5, 12.5, 13.5, 14.5, 15.5,
-    16.5, 17.5, 18.5, 19.5, 20.5, 21.5, 22.5, 23.5,
-    24.5, 25.5, 26.5, 27.5, 28.5, 29.5, 30.5, 31.5]}
-var percussion_dur_6 = 0.9
-
-var bass_instrument_0 = 0
-var bass_times_0 = {0: [0.5, 1.0, 2.5, 3.0, 8.5, 9.0, 10.5, 11.0, 16.5, 17.0, 18.5, 19.0, 20.5, 21.0, 21.5, 22.5, 23.0, 23.5, 28.5, 29.0, 29.5, 30.5, 31.0, 31.5],
-  59: [16.0],
-  61: [13.5],
-  62: [8.0, 9.5, 12.0, 13.0, 18.0],
-  64: [5.5, 12.5, 15.5],
-  66: [0.0, 1.5, 4.0, 5.0, 10.0, 11.5, 14.0, 15.0, 20.0],
-  67: [4.5, 7.5, 14.5, 17.5, 25.0],
-  69: [2.0, 3.5, 6.0, 7.0, 22.0, 24.5, 25.5, 28.0],
-  71: [6.5, 19.5, 24.0, 27.0],
-  72: [26.5, 27.5],
-  73: [30.0],
-  74: [26.0]}
-var bass_dur_0 = 0.4
-
-var bass_instrument_1 = 65
-var bass_times_1 = {59: [16.0],
-  62: [0.0],
-  64: [12.0, 24.0],
-  66: [8.0, 20.0],
-  67: [18.0],
-  69: [4.0, 14.0, 22.0, 28.0],
-  71: [10.0],
-  73: [6.0, 30.0],
-  74: [2.0, 26.0]}
-var bass_dur_1 = 1.9
-
-var bass_instrument_2 = 0
-var bass_times_2 = {38: [20.0],
-  42: [12.0, 21.0],
-  43: [16.0, 24.0],
-  45: [4.0, 13.0, 22.0, 28.0],
-  47: [8.0, 17.0, 25.0],
-  49: [5.0, 14.0, 29.0],
-  50: [0.0, 9.0, 18.0, 23.0, 26.0],
-  52: [6.0, 30.0],
-  54: [1.0, 10.0, 15.0],
-  55: [19.0, 27.0],
-  57: [2.0, 7.0, 31.0],
-  59: [11.0],
-  62: [3.0]}
+var bass_instrument_0 = 1
+var bass_times_0 = {36: [0.0, 12.0], 40: [1.0, 13.0], 41: [4.0], 43: [2.0, 8.0, 14.0], 45: [5.0], 47.0: [9.0], 48.0: [3.0, 6.0, 15.0], 50.0: [10.0], 53.0: [7.0], 55.0: [11.0]}
+var bass_dur_0 = 0.9
+var bass_instrument_1 = 1
+var bass_times_1 = {36: [0.0, 6.0, 8.0, 14.0], 40: [0.5, 6.5, 8.5, 14.5], 41: [2.0, 10.0], 43: [1.0, 4.0, 7.0, 9.0, 12.0, 15.0], 45: [2.5, 10.5], 47.0: [4.5, 12.5], 48.0: [1.5, 3.0, 7.5, 9.5, 11.0, 15.5], 50.0: [5.0, 13.0], 53.0: [3.5, 11.5], 55.0: [5.5, 13.5]}
+var bass_dur_1 = 0.4
+var bass_instrument_2 = 1
+var bass_times_2 = {36: [0.0, 12.0], 40: [2.0, 14.0], 41: [4.0], 43: [3.0, 8.0, 15.0], 45: [6.0], 47.0: [10.0], 48.0: [1.0, 7.0, 13.0], 50.0: [11.0], 53.0: [5.0], 55.0: [9.0]}
 var bass_dur_2 = 0.9
+var bass_instrument_3 = 1
+var bass_times_3 = {36: [0.0, 6.0, 8.0, 14.0], 40: [1.0, 7.0, 9.0, 15.0], 41: [2.0, 10.0], 43: [1.5, 4.0, 7.5, 9.5, 12.0, 15.5], 45: [3.0, 11.0], 47.0: [5.0, 13.0], 48.0: [0.5, 3.5, 6.5, 8.5, 11.5, 14.5], 50.0: [5.5, 13.5], 53.0: [2.5, 10.5], 55.0: [4.5, 12.5]}
+var bass_dur_3 = 0.4
+var bass_instrument_4 = 1
+var bass_times_4 = {36: [0.0, 12.0], 40: [2.0, 14.0], 41: [4.0], 43: [1.0, 3.0, 8.0, 13.0, 15.0], 45: [6.0], 47.0: [10.0], 48.0: [5.0, 7.0], 50.0: [9.0, 11.0]}
+var bass_dur_4 = 0.9
+var bass_instrument_5 = 1
+var bass_times_5 = {36: [0.0, 6.0, 8.0, 14.0], 40: [1.0, 7.0, 9.0, 15.0], 41: [2.0, 10.0], 43: [0.5, 1.5, 4.0, 6.5, 7.5, 8.5, 9.5, 12.0, 14.5, 15.5], 45: [3.0, 11.0], 47.0: [5.0, 13.0], 48.0: [2.5, 3.5, 10.5, 11.5], 50.0: [4.5, 5.5, 12.5, 13.5]}
+var bass_dur_5 = 0.4
+var bass_instrument_6 = 1
+var bass_times_6 = {38: [4.0, 8.0], 41: [5.0, 9.0], 45: [0.0, 6.0, 10.0, 12.0], 48.0: [1.0, 13.0], 50.0: [7.0, 11.0], 52.0: [2.0, 14.0], 57.0: [3.0, 15.0]}
+var bass_dur_6 = 0.9
+var bass_instrument_7 = 1
+var bass_times_7 = {38: [2.0, 4.0, 10.0, 12.0], 41: [2.5, 4.5, 10.5, 12.5], 45: [0.0, 3.0, 5.0, 6.0, 8.0, 11.0, 13.0, 14.0], 48.0: [0.5, 6.5, 8.5, 14.5], 50.0: [3.5, 5.5, 11.5, 13.5], 52.0: [1.0, 7.0, 9.0, 15.0], 57.0: [1.5, 7.5, 9.5, 15.5]}
+var bass_dur_7 = 0.4
+var bass_instrument_8 = 1
+var bass_times_8 = {38: [4.0, 8.0], 41: [6.0, 10.0], 45: [0.0, 7.0, 11.0, 12.0], 48.0: [2.0, 14.0], 50.0: [5.0, 9.0], 52.0: [3.0, 15.0], 57.0: [1.0, 13.0]}
+var bass_dur_8 = 0.9
+var bass_instrument_9 = 1
+var bass_times_9 = {38: [2.0, 4.0, 10.0, 12.0], 41: [3.0, 5.0, 11.0, 13.0], 45: [0.0, 3.5, 5.5, 6.0, 8.0, 11.5, 13.5, 14.0], 48.0: [1.0, 7.0, 9.0, 15.0], 50.0: [2.5, 4.5, 10.5, 12.5], 52.0: [1.5, 7.5, 9.5, 15.5], 57.0: [0.5, 6.5, 8.5, 14.5]}
+var bass_dur_9 = 0.4
+var bass_instrument_10 = 1
+var bass_times_10 = {48.0: [2.0, 14.0], 41: [6.0, 10.0], 52.0: [1.0, 3.0, 13.0, 15.0], 45: [0.0, 5.0, 7.0, 9.0, 11.0, 12.0], 38: [4.0, 8.0]}
+var bass_dur_10 = 0.9
+var bass_instrument_11 = 1
+var bass_times_11 = {48.0: [1.0, 7.0, 9.0, 15.0], 41: [3.0, 5.0, 11.0, 13.0], 52.0: [0.5, 1.5, 6.5, 7.5, 8.5, 9.5, 14.5, 15.5], 45: [0.0, 2.5, 3.5, 4.5, 5.5, 6.0, 8.0, 10.5, 11.5, 12.5, 13.5, 14.0], 38: [2.0, 4.0, 10.0, 12.0]}
+var bass_dur_11 = 0.4
+var bass_instrument_12 = 1
+var bass_times_12 = {36: [0.0, 4.0, 12.0], 40: [1.0, 5.0, 13.0], 41: [8.0], 43: [2.0, 6.0, 14.0], 45: [9.0], 48.0: [3.0, 7.0, 10.0, 15.0], 53.0: [11.0]}
+var bass_dur_12 = 0.9
+var bass_instrument_13 = 1
+var bass_times_13 = {36: [0.0, 2.0, 6.0, 8.0, 10.0, 14.0], 40: [0.5, 2.5, 6.5, 8.5, 10.5, 14.5], 41: [4.0, 12.0], 43: [1.0, 3.0, 7.0, 9.0, 11.0, 15.0], 45: [4.5, 12.5], 48.0: [1.5, 3.5, 5.0, 7.5, 9.5, 11.5, 13.0, 15.5], 53.0: [5.5, 13.5]}
+var bass_dur_13 = 0.4
+var bass_instrument_14 = 1
+var bass_times_14 = {36: [0.0, 4.0, 12.0], 40: [2.0, 6.0, 14.0], 41: [8.0], 43: [3.0, 7.0, 15.0], 45: [10.0], 48.0: [1.0, 5.0, 11.0, 13.0], 53.0: [9.0]}
+var bass_dur_14 = 0.9
+var bass_instrument_15 = 1
+var bass_times_15 = {36: [0.0, 2.0, 6.0, 8.0, 10.0, 14.0], 40: [1.0, 3.0, 7.0, 9.0, 11.0, 15.0], 41: [4.0, 12.0], 43: [1.5, 3.5, 7.5, 9.5, 11.5, 15.5], 45: [5.0, 13.0], 48.0: [0.5, 2.5, 5.5, 6.5, 8.5, 10.5, 13.5, 14.5], 53.0: [4.5, 12.5]}
+var bass_dur_15 = 0.4
+var bass_instrument_16 = 1
+var bass_times_16 = {36: [0.0, 4.0, 12.0], 40: [2.0, 6.0, 14.0], 41: [8.0], 43: [1.0, 3.0, 5.0, 7.0, 13.0, 15.0], 45: [10.0], 48.0: [9.0, 11.0]}
+var bass_dur_16 = 0.9
+var bass_instrument_17 = 1
+var bass_times_17 = {36: [0.0, 2.0, 6.0, 8.0, 10.0, 14.0], 40: [1.0, 3.0, 7.0, 9.0, 11.0, 15.0], 41: [4.0, 12.0], 43: [0.5, 1.5, 2.5, 3.5, 6.5, 7.5, 8.5, 9.5, 10.5, 11.5, 14.5, 15.5], 45: [5.0, 13.0], 48.0: [4.5, 5.5, 12.5, 13.5]}
+var bass_dur_17 = 0.4
+var bass_instrument_18 = 1
+var bass_times_18 = {36: [0.0], 40: [1.0], 41: [12.0], 43: [2.0, 4.0], 45: [8.0, 13.0], 47.0: [5.0], 48.0: [3.0, 9.0, 14.0], 50.0: [6.0], 52.0: [10.0], 53.0: [15.0], 55.0: [7.0], 57.0: [11.0]}
+var bass_dur_18 = 0.9
+var bass_instrument_19 = 1
+var bass_times_19 = {36: [0.0, 8.0], 40: [0.5, 8.5], 41: [6.0, 14.0], 43: [1.0, 2.0, 9.0, 10.0], 45: [4.0, 6.5, 12.0, 14.5], 47.0: [2.5, 10.5], 48.0: [1.5, 4.5, 7.0, 9.5, 12.5, 15.0], 50.0: [3.0, 11.0], 52.0: [5.0, 13.0], 53.0: [7.5, 15.5], 55.0: [3.5, 11.5], 57.0: [5.5, 13.5]}
+var bass_dur_19 = 0.4
+var bass_instrument_20 = 1
+var bass_times_20 = {36: [0.0], 40: [2.0], 41: [12.0], 43: [3.0, 4.0], 45: [8.0, 14.0], 47.0: [6.0], 48.0: [1.0, 10.0, 15.0], 50.0: [7.0], 52.0: [11.0], 53.0: [13.0], 55.0: [5.0], 57.0: [9.0]}
+var bass_dur_20 = 0.9
+var bass_instrument_21 = 1
+var bass_times_21 = {36: [0.0, 8.0], 40: [1.0, 9.0], 41: [6.0, 14.0], 43: [1.5, 2.0, 9.5, 10.0], 45: [4.0, 7.0, 12.0, 15.0], 47.0: [3.0, 11.0], 48.0: [0.5, 5.0, 7.5, 8.5, 13.0, 15.5], 50.0: [3.5, 11.5], 52.0: [5.5, 13.5], 53.0: [6.5, 14.5], 55.0: [2.5, 10.5], 57.0: [4.5, 12.5]}
+var bass_dur_21 = 0.4
+var bass_instrument_22 = 1
+var bass_times_22 = {36: [0.0], 40: [2.0], 41: [12.0], 43: [1.0, 3.0, 4.0], 45: [8.0, 14.0], 47.0: [6.0], 48.0: [10.0, 13.0, 15.0], 50.0: [5.0, 7.0], 52.0: [9.0, 11.0]}
+var bass_dur_22 = 0.9
+var bass_instrument_23 = 1
+var bass_times_23 = {36: [0.0, 8.0], 40: [1.0, 9.0], 41: [6.0, 14.0], 43: [0.5, 1.5, 2.0, 8.5, 9.5, 10.0], 45: [4.0, 7.0, 12.0, 15.0], 47.0: [3.0, 11.0], 48.0: [5.0, 6.5, 7.5, 13.0, 14.5, 15.5], 50.0: [2.5, 3.5, 10.5, 11.5], 52.0: [4.5, 5.5, 12.5, 13.5]}
+var bass_dur_23 = 0.4
+var bass_instrument_24 = 1
+var bass_times_24 = {36: [12.0], 40: [13.0], 41: [4.0], 43: [8.0, 14.0], 45: [0.0, 5.0], 47.0: [9.0], 48.0: [1.0, 6.0, 15.0], 50.0: [10.0], 52.0: [2.0], 53.0: [7.0], 55.0: [11.0], 57.0: [3.0]}
+var bass_dur_24 = 0.9
+var bass_instrument_25 = 1
+var bass_times_25 = {36: [6.0, 14.0], 40: [6.5, 14.5], 41: [2.0, 10.0], 43: [4.0, 7.0, 12.0, 15.0], 45: [0.0, 2.5, 8.0, 10.5], 47.0: [4.5, 12.5], 48.0: [0.5, 3.0, 7.5, 8.5, 11.0, 15.5], 50.0: [5.0, 13.0], 52.0: [1.0, 9.0], 53.0: [3.5, 11.5], 55.0: [5.5, 13.5], 57.0: [1.5, 9.5]}
+var bass_dur_25 = 0.4
+var bass_instrument_26 = 1
+var bass_times_26 = {36: [12.0], 40: [14.0], 41: [4.0], 43: [8.0, 15.0], 45: [0.0, 6.0], 47.0: [10.0], 48.0: [2.0, 7.0, 13.0], 50.0: [11.0], 52.0: [3.0], 53.0: [5.0], 55.0: [9.0], 57.0: [1.0]}
+var bass_dur_26 = 0.9
+var bass_instrument_27 = 1
+var bass_times_27 = {36: [6.0, 14.0], 40: [7.0, 15.0], 41: [2.0, 10.0], 43: [4.0, 7.5, 12.0, 15.5], 45: [0.0, 3.0, 8.0, 11.0], 47.0: [5.0, 13.0], 48.0: [1.0, 3.5, 6.5, 9.0, 11.5, 14.5], 50.0: [5.5, 13.5], 52.0: [1.5, 9.5], 53.0: [2.5, 10.5], 55.0: [4.5, 12.5], 57.0: [0.5, 8.5]}
+var bass_dur_27 = 0.4
+var bass_instrument_28 = 1
+var bass_times_28 = {36: [12.0], 40: [14.0], 41: [4.0], 43: [8.0, 13.0, 15.0], 45: [0.0, 6.0], 47.0: [10.0], 48.0: [2.0, 5.0, 7.0], 50.0: [9.0, 11.0], 52.0: [1.0, 3.0]}
+var bass_dur_28 = 0.9
+var bass_instrument_29 = 1
+var bass_times_29 = {36: [6.0, 14.0], 40: [7.0, 15.0], 41: [2.0, 10.0], 43: [4.0, 6.5, 7.5, 12.0, 14.5, 15.5], 45: [0.0, 3.0, 8.0, 11.0], 47.0: [5.0, 13.0], 48.0: [1.0, 2.5, 3.5, 9.0, 10.5, 11.5], 50.0: [4.5, 5.5, 12.5, 13.5], 52.0: [0.5, 1.5, 8.5, 9.5]}
+var bass_dur_29 = 0.4
 
+/////////////////////////////////////////////////////////
+///               PERCUSSION SELECTION                ///
+/////////////////////////////////////////////////////////
+
+var percussion_instrument_0 = 118
+var percussion_times_0 = {50: [0.0, 1.0, 1.5, 2.25, 2.5, 3.0, 3.5, 4.0, 5.0, 5.5, 6.25, 6.5, 7.0, 7.5, 8.0, 9.0, 9.5, 10.25, 10.5, 11.0, 11.5, 12.0, 13.0, 13.5, 14.25, 14.5, 15.0, 15.5]}
+var percussion_dur_0 = 0.15
+var percussion_instrument_1 = 119
+var percussion_times_1 = {50: [0.0, 1.0, 1.5, 2.25, 2.5, 3.0, 3.5, 4.0, 5.0, 5.5, 6.25, 6.5, 7.0, 7.5, 8.0, 9.0, 9.5, 10.25, 10.5, 11.0, 11.5, 12.0, 13.0, 13.5, 14.25, 14.5, 15.0, 15.5]}
+var percussion_dur_1 = 0.15
+var percussion_instrument_2 = 120
+var percussion_times_2 = {50: [0.0, 1.0, 1.5, 2.25, 2.5, 3.0, 3.5, 4.0, 5.0, 5.5, 6.25, 6.5, 7.0, 7.5, 8.0, 9.0, 9.5, 10.25, 10.5, 11.0, 11.5, 12.0, 13.0, 13.5, 14.25, 14.5, 15.0, 15.5]}
+var percussion_dur_2 = 0.15
+var percussion_instrument_3 = 118
+var percussion_times_3 = {50: [0.0, 1.5, 2.0, 2.5, 3.5, 4.0, 5.5, 6.0, 6.5, 7.5, 8.0, 9.5, 10.0, 10.5, 11.5, 12.0, 13.5, 14.0, 14.5, 15.5]}
+var percussion_dur_3 = 0.4
+var percussion_instrument_4 = 119
+var percussion_times_4 = {50: [0.0, 1.5, 2.0, 2.5, 3.5, 4.0, 5.5, 6.0, 6.5, 7.5, 8.0, 9.5, 10.0, 10.5, 11.5, 12.0, 13.5, 14.0, 14.5, 15.5]}
+var percussion_dur_4 = 0.4
+var percussion_instrument_5 = 120
+var percussion_times_5 = {50: [0.0, 1.5, 2.0, 2.5, 3.5, 4.0, 5.5, 6.0, 6.5, 7.5, 8.0, 9.5, 10.0, 10.5, 11.5, 12.0, 13.5, 14.0, 14.5, 15.5]}
+var percussion_dur_5 = 0.4
+var percussion_instrument_6 = 118
+var percussion_times_6 = {50: [0.0, 2.5, 4.0, 6.5, 8.0, 10.5, 12.0, 14.5]}
+var percussion_dur_6 = 0.4
+var percussion_instrument_7 = 119
+var percussion_times_7 = {50: [0.0, 2.5, 4.0, 6.5, 8.0, 10.5, 12.0, 14.5]}
+var percussion_dur_7 = 0.4
+var percussion_instrument_8 = 120
+var percussion_times_8 = {50: [0.0, 2.5, 4.0, 6.5, 8.0, 10.5, 12.0, 14.5]}
+var percussion_dur_8 = 0.4
+var percussion_instrument_9 = 118
+var percussion_times_9 = {50: [0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0, 13.0, 14.0, 15.0]}
+var percussion_dur_9 = 0.4
+var percussion_instrument_10 = 119
+var percussion_times_10 = {50: [0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0, 13.0, 14.0, 15.0]}
+var percussion_dur_10 = 0.4
+var percussion_instrument_11 = 120
+var percussion_times_11 = {50: [0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0, 13.0, 14.0, 15.0]}
+var percussion_dur_11 = 0.4
+var percussion_instrument_12 = 118
+var percussion_times_12 = {50: [0.0, 0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0, 2.25, 2.5, 2.75, 3.0, 3.25, 3.5, 3.75, 4.0, 4.25, 4.5, 4.75, 5.0, 5.25, 5.5, 5.75, 6.0, 6.25, 6.5, 6.75, 7.0, 7.25, 7.5, 7.75, 8.0, 8.25, 8.5, 8.75, 9.0, 9.25, 9.5, 9.75, 10.0, 10.25, 10.5, 10.75, 11.0, 11.25, 11.5, 11.75, 12.0, 12.25, 12.5, 12.75, 13.0, 13.25, 13.5, 13.75, 14.0, 14.25, 14.5, 14.75, 15.0, 15.25, 15.5, 15.75]}
+var percussion_dur_12 = 0.4
+var percussion_instrument_13 = 119
+var percussion_times_13 = {50: [0.0, 0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0, 2.25, 2.5, 2.75, 3.0, 3.25, 3.5, 3.75, 4.0, 4.25, 4.5, 4.75, 5.0, 5.25, 5.5, 5.75, 6.0, 6.25, 6.5, 6.75, 7.0, 7.25, 7.5, 7.75, 8.0, 8.25, 8.5, 8.75, 9.0, 9.25, 9.5, 9.75, 10.0, 10.25, 10.5, 10.75, 11.0, 11.25, 11.5, 11.75, 12.0, 12.25, 12.5, 12.75, 13.0, 13.25, 13.5, 13.75, 14.0, 14.25, 14.5, 14.75, 15.0, 15.25, 15.5, 15.75]}
+var percussion_dur_13 = 0.4
+var percussion_instrument_14 = 120
+var percussion_times_14 = {50: [0.0, 0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0, 2.25, 2.5, 2.75, 3.0, 3.25, 3.5, 3.75, 4.0, 4.25, 4.5, 4.75, 5.0, 5.25, 5.5, 5.75, 6.0, 6.25, 6.5, 6.75, 7.0, 7.25, 7.5, 7.75, 8.0, 8.25, 8.5, 8.75, 9.0, 9.25, 9.5, 9.75, 10.0, 10.25, 10.5, 10.75, 11.0, 11.25, 11.5, 11.75, 12.0, 12.25, 12.5, 12.75, 13.0, 13.25, 13.5, 13.75, 14.0, 14.25, 14.5, 14.75, 15.0, 15.25, 15.5, 15.75]}
+var percussion_dur_14 = 0.4
+var percussion_instrument_15 = 118
+var percussion_times_15 = {50: [0.0, 1.5, 2.0, 3.5, 4.0, 5.5, 6.0, 7.5, 8.0, 9.5, 10.0, 11.5, 12.0, 13.5, 14.0, 15.5]}
+var percussion_dur_15 = 0.4
+var percussion_instrument_16 = 119
+var percussion_times_16 = {50: [0.0, 1.5, 2.0, 3.5, 4.0, 5.5, 6.0, 7.5, 8.0, 9.5, 10.0, 11.5, 12.0, 13.5, 14.0, 15.5]}
+var percussion_dur_16 = 0.4
+var percussion_instrument_17 = 120
+var percussion_times_17 = {50: [0.0, 1.5, 2.0, 3.5, 4.0, 5.5, 6.0, 7.5, 8.0, 9.5, 10.0, 11.5, 12.0, 13.5, 14.0, 15.5]}
+var percussion_dur_17 = 0.4
+var percussion_instrument_18 = 118
+var percussion_times_18 = {50: [0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5, 8.5, 9.5, 10.5, 11.5, 12.5, 13.5, 14.5, 15.5]}
+var percussion_dur_18 = 0.4
+var percussion_instrument_19 = 119
+var percussion_times_19 = {50: [0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5, 8.5, 9.5, 10.5, 11.5, 12.5, 13.5, 14.5, 15.5]}
+var percussion_dur_19 = 0.4
+var percussion_instrument_20 = 120
+var percussion_times_20 = {50: [0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5, 8.5, 9.5, 10.5, 11.5, 12.5, 13.5, 14.5, 15.5]}
+var percussion_dur_20 = 0.4
 
 // name, instrument, notesequence, notelength
 function createMusicLines(cb) {
@@ -344,16 +374,91 @@ function createMusicLines(cb) {
           bassLineCreate('bass 1', bass_instrument_0, bass_times_0, bass_dur_0, callback);
         },
         function(callback) {
-          bassLineCreate('bass 2', bass_instrument_1, bass_times_1, bass_instrument_1, callback);
+          bassLineCreate('bass 2', bass_instrument_1, bass_times_1, bass_dur_1, callback);
         },
         function(callback) {
-          bassLineCreate('bass 3', bass_instrument_2, bass_times_2, bass_instrument_2, callback);
+          bassLineCreate('bass 3', bass_instrument_2, bass_times_2, bass_dur_2, callback);
         },
         function(callback) {
-          bassLineCreate('bass 4', bass_instrument_1, bass_times_1, bass_instrument_2, callback);
+          bassLineCreate('bass 4', bass_instrument_3, bass_times_3, bass_dur_3, callback);
         },
         function(callback) {
-          bassLineCreate('bass 5', bass_instrument_0, bass_times_0, bass_dur_1, callback);
+          bassLineCreate('bass 5', bass_instrument_4, bass_times_4, bass_dur_4, callback);
+        },
+        function(callback) {
+          bassLineCreate('bass 6', bass_instrument_5, bass_times_5, bass_dur_5, callback);
+        },
+        function(callback) {
+          bassLineCreate('bass 7', bass_instrument_6, bass_times_6, bass_dur_6, callback);
+        },
+        function(callback) {
+          bassLineCreate('bass 8', bass_instrument_7, bass_times_7, bass_dur_7, callback);
+        },
+        function(callback) {
+          bassLineCreate('bass 9', bass_instrument_8, bass_times_8, bass_dur_8, callback);
+        },
+        function(callback) {
+          bassLineCreate('bass 10', bass_instrument_9, bass_times_9, bass_dur_9, callback);
+        },
+        function(callback) {
+          bassLineCreate('bass 11', bass_instrument_10, bass_times_10, bass_dur_10, callback);
+        },
+        function(callback) {
+          bassLineCreate('bass 12', bass_instrument_11, bass_times_11, bass_dur_11, callback);
+        },
+        function(callback) {
+          bassLineCreate('bass 13', bass_instrument_12, bass_times_12, bass_dur_12, callback);
+        },
+        function(callback) {
+          bassLineCreate('bass 14', bass_instrument_13, bass_times_13, bass_dur_13, callback);
+        },
+        function(callback) {
+          bassLineCreate('bass 15', bass_instrument_14, bass_times_14, bass_dur_14, callback);
+        },
+        function(callback) {
+          bassLineCreate('bass 16', bass_instrument_15, bass_times_15, bass_dur_15, callback);
+        },
+        function(callback) {
+          bassLineCreate('bass 17', bass_instrument_16, bass_times_16, bass_dur_16, callback);
+        },
+        function(callback) {
+          bassLineCreate('bass 18', bass_instrument_17, bass_times_17, bass_dur_17, callback);
+        },
+        function(callback) {
+          bassLineCreate('bass 19', bass_instrument_18, bass_times_18, bass_dur_18, callback);
+        },
+        function(callback) {
+          bassLineCreate('bass 20', bass_instrument_19, bass_times_19, bass_dur_19, callback);
+        },
+        function(callback) {
+          bassLineCreate('bass 21', bass_instrument_20, bass_times_20, bass_dur_20, callback);
+        },
+        function(callback) {
+          bassLineCreate('bass 22', bass_instrument_21, bass_times_21, bass_dur_21, callback);
+        },
+        function(callback) {
+          bassLineCreate('bass 23', bass_instrument_22, bass_times_22, bass_dur_22, callback);
+        },
+        function(callback) {
+          bassLineCreate('bass 24', bass_instrument_23, bass_times_23, bass_dur_23, callback);
+        },
+        function(callback) {
+          bassLineCreate('bass 25', bass_instrument_24, bass_times_24, bass_dur_24, callback);
+        },
+        function(callback) {
+          bassLineCreate('bass 26', bass_instrument_25, bass_times_25, bass_dur_25, callback);
+        },
+        function(callback) {
+          bassLineCreate('bass 27', bass_instrument_26, bass_times_26, bass_dur_26, callback);
+        },
+        function(callback) {
+          bassLineCreate('bass 28', bass_instrument_27, bass_times_27, bass_dur_27, callback);
+        },
+        function(callback) {
+          bassLineCreate('bass 29', bass_instrument_28, bass_times_28, bass_dur_28, callback);
+        },
+        function(callback) {
+          bassLineCreate('bass 30', bass_instrument_29, bass_times_29, bass_dur_29, callback);
         },
         function(callback) {
           melodyLineCreate('melody 1', melody_instrument_0, melody_times_0, melody_dur_0, callback);
@@ -374,25 +479,88 @@ function createMusicLines(cb) {
           melodyLineCreate('melody 6', melody_instrument_5, melody_times_5, melody_dur_5, callback);
         },
         function(callback) {
-          percussionLineCreate('percussion 1', 118, percussion_times_0, percussion_dur_0, callback);
+          melodyLineCreate('melody 7', melody_instrument_6, melody_times_6, melody_dur_6, callback);
         },
         function(callback) {
-          percussionLineCreate('percussion 2', 118, percussion_times_1, percussion_dur_1, callback);
+          melodyLineCreate('melody 8', melody_instrument_7, melody_times_7, melody_dur_7, callback);
         },
         function(callback) {
-          percussionLineCreate('percussion 3', 118, percussion_times_2, percussion_dur_2, callback);
+          melodyLineCreate('melody 9', melody_instrument_8, melody_times_8, melody_dur_8, callback);
         },
         function(callback) {
-          percussionLineCreate('percussion 4', 118, percussion_times_3, percussion_dur_3, callback);
+          melodyLineCreate('melody 10', melody_instrument_9, melody_times_9, melody_dur_9, callback);
         },
         function(callback) {
-          percussionLineCreate('percussion 5', 118, percussion_times_4, percussion_dur_4, callback);
+          melodyLineCreate('melody 11', melody_instrument_10, melody_times_10, melody_dur_10, callback);
         },
         function(callback) {
-          percussionLineCreate('percussion 6', 118, percussion_times_5, percussion_dur_5, callback);
+          melodyLineCreate('melody 12', melody_instrument_11, melody_times_11, melody_dur_11, callback);
         },
         function(callback) {
-          percussionLineCreate('percussion 7', 118, percussion_times_6, percussion_dur_6, callback);
+          melodyLineCreate('melody 13', melody_instrument_12, melody_times_12, melody_dur_12, callback);
+        },
+        function(callback) {
+          melodyLineCreate('melody 14', melody_instrument_13, melody_times_13, melody_dur_13, callback);
+        },
+        function(callback) {
+          percussionLineCreate('percussion 1', percussion_instrument_0, percussion_times_0, percussion_dur_0, callback);
+        },
+        function(callback) {
+          percussionLineCreate('percussion 2', percussion_instrument_1, percussion_times_1, percussion_dur_1, callback);
+        },
+        function(callback) {
+          percussionLineCreate('percussion 3', percussion_instrument_2, percussion_times_2, percussion_dur_2, callback);
+        },
+        function(callback) {
+          percussionLineCreate('percussion 4', percussion_instrument_3, percussion_times_3, percussion_dur_3, callback);
+        },
+        function(callback) {
+          percussionLineCreate('percussion 5', percussion_instrument_4, percussion_times_4, percussion_dur_4, callback);
+        },
+        function(callback) {
+          percussionLineCreate('percussion 6', percussion_instrument_5, percussion_times_5, percussion_dur_5, callback);
+        },
+        function(callback) {
+          percussionLineCreate('percussion 7', percussion_instrument_6, percussion_times_6, percussion_dur_6, callback);
+        },
+        function(callback) {
+          percussionLineCreate('percussion 8', percussion_instrument_7, percussion_times_7, percussion_dur_7, callback);
+        },
+        function(callback) {
+          percussionLineCreate('percussion 9', percussion_instrument_8, percussion_times_8, percussion_dur_8, callback);
+        },
+        function(callback) {
+          percussionLineCreate('percussion 10', percussion_instrument_9, percussion_times_9, percussion_dur_9, callback);
+        },
+        function(callback) {
+          percussionLineCreate('percussion 11', percussion_instrument_10, percussion_times_10, percussion_dur_10, callback);
+        },
+        function(callback) {
+          percussionLineCreate('percussion 12', percussion_instrument_11, percussion_times_11, percussion_dur_11, callback);
+        },
+        function(callback) {
+          percussionLineCreate('percussion 13', percussion_instrument_12, percussion_times_12, percussion_dur_12, callback);
+        },
+        function(callback) {
+          percussionLineCreate('percussion 14', percussion_instrument_13, percussion_times_13, percussion_dur_13, callback);
+        },
+        function(callback) {
+          percussionLineCreate('percussion 15', percussion_instrument_14, percussion_times_14, percussion_dur_14, callback);
+        },
+        function(callback) {
+          percussionLineCreate('percussion 16', percussion_instrument_15, percussion_times_15, percussion_dur_15, callback);
+        },
+        function(callback) {
+          percussionLineCreate('percussion 17', percussion_instrument_16, percussion_times_16, percussion_dur_16, callback);
+        },
+        function(callback) {
+          percussionLineCreate('percussion 18', percussion_instrument_17, percussion_times_17, percussion_dur_17, callback);
+        },
+        function(callback) {
+          percussionLineCreate('percussion 19', percussion_instrument_18, percussion_times_18, percussion_dur_18, callback);
+        },
+        function(callback) {
+          percussionLineCreate('percussion 20', percussion_instrument_19, percussion_times_19, percussion_dur_19, callback);
         },
         ],
         // optional callback
@@ -431,6 +599,19 @@ function createPlayers(cb) {
         cb);
 }
 
+function getRandomLines(lineInventory) {
+  var numToSelect = Math.min(lineInventory.length, 3);
+  var selectedLines = new Set();
+
+  for(var i=0; i < numToSelect; i++) {
+    var item = lineInventory[Math.floor(Math.random()*lineInventory.length)];
+    while (selectedLines.has(item)) {
+      item = lineInventory[Math.floor(Math.random()*lineInventory.length)];
+    }
+    selectedLines.add(item);
+  }
+  return Array.from(selectedLines);
+}
 
 function createSubmissions(cb) {
     async.series([
@@ -438,28 +619,28 @@ function createSubmissions(cb) {
           submissionCreate(players[0], [melody_lines[0], melody_lines[1], melody_lines[3]], [bass_lines[1], bass_lines[2], bass_lines[4]], [percussion_lines[0], percussion_lines[1], percussion_lines[2]], melody_lines[0], bass_lines[2], percussion_lines[0], true, callback);
         },
         function(callback) {
-          submissionCreate(players[0], [melody_lines[1], melody_lines[2], melody_lines[3]], [bass_lines[1], bass_lines[2], bass_lines[4]], [percussion_lines[0], percussion_lines[2], percussion_lines[5]], false, false, false, false, callback);
+          submissionCreate(players[0], getRandomLines(melody_lines), getRandomLines(bass_lines), getRandomLines(percussion_lines), false, false, false, false, callback);
         },
         function(callback) {
           submissionCreate(players[1], [melody_lines[2], melody_lines[3], melody_lines[5]], [bass_lines[4], bass_lines[3], bass_lines[2]], [percussion_lines[0], percussion_lines[3], percussion_lines[6]], melody_lines[3], bass_lines[4], percussion_lines[0], true, callback);
         },
         function(callback) {
-          submissionCreate(players[1], [melody_lines[3], melody_lines[4], melody_lines[0]], [bass_lines[1], bass_lines[2], bass_lines[4]], [percussion_lines[1], percussion_lines[2], percussion_lines[4]], false, false, false, false, callback);
+          submissionCreate(players[1], getRandomLines(melody_lines), getRandomLines(bass_lines), getRandomLines(percussion_lines), false, false, false, false, callback);
         },
         function(callback) {
           submissionCreate(players[2], [melody_lines[4], melody_lines[3], melody_lines[2]], [bass_lines[1], bass_lines[2], bass_lines[4]], [percussion_lines[1], percussion_lines[2], percussion_lines[4]], melody_lines[3], bass_lines[4], percussion_lines[0], true, callback);
         },
         function(callback) {
-          submissionCreate(players[2], [melody_lines[4], melody_lines[5], melody_lines[2]], [bass_lines[1], bass_lines[2], bass_lines[4]], [percussion_lines[1], percussion_lines[2], percussion_lines[4]], false, false, false, false, callback);
+          submissionCreate(players[2], getRandomLines(melody_lines), getRandomLines(bass_lines), getRandomLines(percussion_lines), false, false, false, false, callback);
         },
         function(callback) {
           submissionCreate(players[3], [melody_lines[0], melody_lines[1], melody_lines[3]], [bass_lines[1], bass_lines[2], bass_lines[4]], [percussion_lines[0], percussion_lines[1], percussion_lines[2]], melody_lines[1], bass_lines[1], percussion_lines[0], true, callback);
         },
         function(callback) {
-          submissionCreate(players[3], [melody_lines[2], melody_lines[3], melody_lines[5]], [bass_lines[1], bass_lines[2], bass_lines[4]], [percussion_lines[4], percussion_lines[6], percussion_lines[5]], false, false, false, false, callback);
+          submissionCreate(players[3], getRandomLines(melody_lines), getRandomLines(bass_lines), getRandomLines(percussion_lines), false, false, false, false, callback);
         },
         function(callback) {
-          submissionCreate(players[4], [melody_lines[0], melody_lines[1], melody_lines[3]], [bass_lines[1], bass_lines[2], bass_lines[4]], [percussion_lines[0], percussion_lines[1], percussion_lines[2]], false, false, false, false, callback);
+          submissionCreate(players[4], getRandomLines(melody_lines), getRandomLines(bass_lines), getRandomLines(percussion_lines), false, false, false, false, callback);
         },
         function(callback) {
           submissionCreate(players[5], [melody_lines[2], melody_lines[3], melody_lines[5]], [bass_lines[4], bass_lines[3], bass_lines[2]], [percussion_lines[0], percussion_lines[3], percussion_lines[6]], melody_lines[3], bass_lines[4], percussion_lines[0], true, callback);
@@ -477,13 +658,13 @@ function createSubmissions(cb) {
 function createRounds(cb) {
     async.series([
         function(callback) {
-          roundCreate(1, 'W_B2UZ_ZoxU', [submissions[0], submissions[2], submissions[4], submissions[6]], submissions[4], players[0], callback);
+          roundCreate(1, 'GV9-R7WOM-o', [submissions[0], submissions[2], submissions[4], submissions[6]], submissions[4], players[0], callback);
         },
         function(callback) {
-          roundCreate(2, 'W_B2UZ_ZoxU', [submissions[1], submissions[3], submissions[5], submissions[7]], false, players[1], callback);
+          roundCreate(2, 'AbeABOfx82Q', [submissions[1], submissions[3], submissions[5], submissions[7]], false, players[1], callback);
         },
         function(callback) {
-          roundCreate(1, 'W_B2UZ_ZoxU', [submissions[8], submissions[9], submissions[10], submissions[11]], false, players[4], callback);
+          roundCreate(1, 'GV9-R7WOM-o', [submissions[8], submissions[9], submissions[10], submissions[11]], false, players[4], callback);
         }
       ], cb);
 }

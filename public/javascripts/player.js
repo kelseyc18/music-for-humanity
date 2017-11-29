@@ -135,29 +135,6 @@ function animateSnail() {
 }
 
 /////////////////////////////////////////////////////////
-///                       VIDEO                       ///
-/////////////////////////////////////////////////////////
-
-function embedVideo() {
-  // Load the IFrame Player API code asynchronously.
-  var tag = document.createElement('script');
-  tag.src = "https://www.youtube.com/player_api";
-  var firstScriptTag = document.getElementsByTagName('script')[0];
-  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-  // Replace the 'ytplayer' element with an <iframe> and
-  // YouTube player after the API code downloads.
-  var player;
-  function onYouTubePlayerAPIReady() {
-    player = new YT.Player('ytplayer', {
-      height: '360',
-      width: '640',
-      videoId: 'M7lc1UVf-VE'
-    });
-  }
-}
-
-/////////////////////////////////////////////////////////
 ///                 AUDIO SCHEDULER                   ///
 /////////////////////////////////////////////////////////
 
@@ -193,7 +170,7 @@ function initializeScheduler() {
       for (var note_id in sequence) {
         var val = sequence[note_id]
         var events = val.map(time => [time, line.notelength])
-        ditty.set([channel, note_id], events, 32)
+        ditty.set([channel, note_id], events, 16)
       }
 
       MIDI.programChange(channel, line.instrument);
@@ -209,7 +186,7 @@ function initializeScheduler() {
       for (var note_id in sequence) {
         var val = sequence[note_id]
         var events = val.map(time => [time, line.notelength])
-        ditty.set([channel, note_id], events, 32)
+        ditty.set([channel, note_id], events, 16)
       }
 
       MIDI.programChange(channel, line.instrument);
@@ -225,7 +202,7 @@ function initializeScheduler() {
       for (var note_id in sequence) {
         var val = sequence[note_id]
         var events = val.map(time => [time, line.notelength])
-        ditty.set([channel, note_id], events, 32)
+        ditty.set([channel, note_id], events, 16)
       }
 
       MIDI.programChange(channel, line.instrument);
@@ -244,6 +221,7 @@ function initializeScheduler() {
   function noteOn(time, id){
     var [channel, note_id] = id
     MIDI.noteOn(channel, note_id, channelOn[channel] ? 127 : 0, time)
+    console.log('noteOn');
     onNotes.add(id);
   }
 
@@ -326,18 +304,14 @@ window.onload = function () {
   MIDI.loadPlugin({
     soundfontUrl: "http://www.song-data.com/3rd/MIDIjs/soundfont/",
     instrument: [
-      "acoustic_grand_piano",
-      "harpsichord",
-      "synth_drum",
-      "alto_sax",
-      "acoustic_guitar_nylon",
-      "acoustic_guitar_steel",
-      "baritone_sax",
-      "brass_section",
-      "electric_bass_pick",
-      "electric_guitar_jazz",
-      "trumpet",
-      "flute",
+      "synth_drum", // 118
+      "reverse_cymbal", // 119
+      "guitar_fret_noise", // 120
+      "bright_acoustic_piano", // 1
+      "trombone", // 57
+      "viola", // 41
+      "contrabass", // 43
+      "harpsichord", // 6
     ],
     onprogress: function(state, progress) {
       console.log(state, progress);
