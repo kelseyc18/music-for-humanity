@@ -36,7 +36,7 @@ var submissions = []
 
 function bassLineCreate(name, instrument, notesequence, notelength, cb) {
   var bass = new Bass({ name:name, instrument:instrument, notesequence:notesequence, notelength:notelength });
-       
+
   bass.save(function (err) {
     if (err) {
       cb(err, null)
@@ -51,7 +51,7 @@ function bassLineCreate(name, instrument, notesequence, notelength, cb) {
 
 function melodyLineCreate(name, instrument, notesequence, notelength, cb) {
   var melody = new Melody({ name:name, instrument:instrument, notesequence:notesequence, notelength:notelength });
-       
+
   melody.save(function (err) {
     if (err) {
       cb(err, null)
@@ -66,7 +66,7 @@ function melodyLineCreate(name, instrument, notesequence, notelength, cb) {
 
 function percussionLineCreate(name, instrument, notesequence, notelength, cb) {
   var percussion = new Percussion({ name:name, instrument:instrument, notesequence:notesequence, notelength:notelength });
-       
+
   percussion.save(function (err) {
     if (err) {
       cb(err, null)
@@ -80,7 +80,7 @@ function percussionLineCreate(name, instrument, notesequence, notelength, cb) {
 
 
 function playerCreate(name, game, cb) {
-  var player = new Player({ name:name, game:game, winCount:0 });
+  var player = new Player({ name:name, game:game });
 
   player.save(function (err) {
     if (err) {
@@ -130,7 +130,7 @@ function roundCreate(roundNumber, videoURL, submissions, winningSubmission, judg
   if (winningSubmission != false) rounddetail.winningSubmission = winningSubmission;
 
   var round = new Round(rounddetail);
-       
+
   round.save(function (err) {
     if (err) {
       cb(err, null);
@@ -143,9 +143,9 @@ function roundCreate(roundNumber, videoURL, submissions, winningSubmission, judg
 }
 
 
-function gameCreate(name, cb) {  
+function gameCreate(name, cb) {
   var game = new Game({ name:name, currentRound: null, rounds: [] });
-  
+
   game.save(function (err) {
     if (err) {
       cb(err, null)
@@ -227,69 +227,69 @@ var melody_times_5 = {0: [0.5, 2.5, 8.5, 10.5, 16.5, 18.5, 24.5, 26.5],
   81: [0.0, 2.0, 4.0, 31.5]}
 var melody_dur_5 = 0.4
 
-var percussion_times_0 = {50: [0.0, 1.0, 1.5, 2.25, 2.5, 3.0, 3.5, 
-    4.0, 5.0, 5.5, 6.25, 6.5, 7.0, 7.5, 
-    8.0, 9.0, 9.5, 10.25, 10.5, 11.0, 11.5, 
-    12.0, 13.0, 13.5, 14.25, 14.5, 15.0, 15.5, 
-    16.0, 17.0, 17.5, 18.25, 18.5, 19.0, 19.5, 
-    20.0, 21.0, 21.5, 22.25, 22.5, 23.0, 23.5, 
-    24.0, 25.0, 25.5, 26.25, 26.5, 27.0, 27.5, 
+var percussion_times_0 = {50: [0.0, 1.0, 1.5, 2.25, 2.5, 3.0, 3.5,
+    4.0, 5.0, 5.5, 6.25, 6.5, 7.0, 7.5,
+    8.0, 9.0, 9.5, 10.25, 10.5, 11.0, 11.5,
+    12.0, 13.0, 13.5, 14.25, 14.5, 15.0, 15.5,
+    16.0, 17.0, 17.5, 18.25, 18.5, 19.0, 19.5,
+    20.0, 21.0, 21.5, 22.25, 22.5, 23.0, 23.5,
+    24.0, 25.0, 25.5, 26.25, 26.5, 27.0, 27.5,
     28.0, 29.0, 29.5, 30.25, 30.5, 31.0, 31.5]}
 var percussion_dur_0 = 0.2
 
-var percussion_times_1 = {50: [0.0, 1.5, 2.0, 2.5, 3.5, 
-    4.0, 5.5, 6.0, 6.5, 7.5, 
-    8.0, 9.5, 10.0, 10.5, 11.5, 
-    12.0, 13.5, 14.0, 14.5, 15.5, 
-    16.0, 17.5, 18.0, 18.5, 19.5, 
-    20.0, 21.5, 22.0, 22.5, 23.5, 
-    24.0, 25.5, 26.0, 26.5, 27.5, 
+var percussion_times_1 = {50: [0.0, 1.5, 2.0, 2.5, 3.5,
+    4.0, 5.5, 6.0, 6.5, 7.5,
+    8.0, 9.5, 10.0, 10.5, 11.5,
+    12.0, 13.5, 14.0, 14.5, 15.5,
+    16.0, 17.5, 18.0, 18.5, 19.5,
+    20.0, 21.5, 22.0, 22.5, 23.5,
+    24.0, 25.5, 26.0, 26.5, 27.5,
     28.0, 29.5, 30.0, 30.5, 31.5]}
 var percussion_dur_1 = 0.4
 
-var percussion_times_2 = {50: [0.0, 2.5, 4.0, 6.5, 
-    8.0, 10.5, 12.0, 14.5, 
-    16.0, 18.5, 20.0, 22.5, 
+var percussion_times_2 = {50: [0.0, 2.5, 4.0, 6.5,
+    8.0, 10.5, 12.0, 14.5,
+    16.0, 18.5, 20.0, 22.5,
     24.0, 26.5, 28.0, 30.5]}
 var percussion_dur_2 = 1.2
 
-var percussion_times_3 = {50: [0.0, 1.0, 2.0, 3.0, 
-    4.0, 5.0, 6.0, 7.0, 
-    8.0, 9.0, 10.0, 11.0, 
-    12.0, 13.0, 14.0, 15.0, 
-    16.0, 17.0, 18.0, 19.0, 
-    20.0, 21.0, 22.0, 23.0, 
-    24.0, 25.0, 26.0, 27.0, 
+var percussion_times_3 = {50: [0.0, 1.0, 2.0, 3.0,
+    4.0, 5.0, 6.0, 7.0,
+    8.0, 9.0, 10.0, 11.0,
+    12.0, 13.0, 14.0, 15.0,
+    16.0, 17.0, 18.0, 19.0,
+    20.0, 21.0, 22.0, 23.0,
+    24.0, 25.0, 26.0, 27.0,
     28.0, 29.0, 30.0, 31.0]}
 var percussion_dur_3 = 0.9
 
-var percussion_times_4 = {50: [0.0, 0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 
-    2.0, 2.25, 2.5, 2.75, 3.0, 3.25, 3.5, 3.75, 
-    4.0, 4.25, 4.5, 4.75, 5.0, 5.25, 5.5, 5.75, 
-    6.0, 6.25, 6.5, 6.75, 7.0, 7.25, 7.5, 7.75, 
-    8.0, 8.25, 8.5, 8.75, 9.0, 9.25, 9.5, 9.75, 
-    10.0, 10.25, 10.5, 10.75, 11.0, 11.25, 11.5, 11.75, 
-    12.0, 12.25, 12.5, 12.75, 13.0, 13.25, 13.5, 13.75, 
-    14.0, 14.25, 14.5, 14.75, 15.0, 15.25, 15.5, 15.75, 
-    16.0, 16.25, 16.5, 16.75, 17.0, 17.25, 17.5, 17.75, 
-    18.0, 18.25, 18.5, 18.75, 19.0, 19.25, 19.5, 19.75, 
-    20.0, 20.25, 20.5, 20.75, 21.0, 21.25, 21.5, 21.75, 
-    22.0, 22.25, 22.5, 22.75, 23.0, 23.25, 23.5, 23.75, 
-    24.0, 24.25, 24.5, 24.75, 25.0, 25.25, 25.5, 25.75, 
-    26.0, 26.25, 26.5, 26.75, 27.0, 27.25, 27.5, 27.75, 
-    28.0, 28.25, 28.5, 28.75, 29.0, 29.25, 29.5, 29.75, 
+var percussion_times_4 = {50: [0.0, 0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 1.75,
+    2.0, 2.25, 2.5, 2.75, 3.0, 3.25, 3.5, 3.75,
+    4.0, 4.25, 4.5, 4.75, 5.0, 5.25, 5.5, 5.75,
+    6.0, 6.25, 6.5, 6.75, 7.0, 7.25, 7.5, 7.75,
+    8.0, 8.25, 8.5, 8.75, 9.0, 9.25, 9.5, 9.75,
+    10.0, 10.25, 10.5, 10.75, 11.0, 11.25, 11.5, 11.75,
+    12.0, 12.25, 12.5, 12.75, 13.0, 13.25, 13.5, 13.75,
+    14.0, 14.25, 14.5, 14.75, 15.0, 15.25, 15.5, 15.75,
+    16.0, 16.25, 16.5, 16.75, 17.0, 17.25, 17.5, 17.75,
+    18.0, 18.25, 18.5, 18.75, 19.0, 19.25, 19.5, 19.75,
+    20.0, 20.25, 20.5, 20.75, 21.0, 21.25, 21.5, 21.75,
+    22.0, 22.25, 22.5, 22.75, 23.0, 23.25, 23.5, 23.75,
+    24.0, 24.25, 24.5, 24.75, 25.0, 25.25, 25.5, 25.75,
+    26.0, 26.25, 26.5, 26.75, 27.0, 27.25, 27.5, 27.75,
+    28.0, 28.25, 28.5, 28.75, 29.0, 29.25, 29.5, 29.75,
     30.0, 30.25, 30.5, 30.75, 31.0, 31.25, 31.5, 31.75]}
 var percussion_dur_4 = 0.2
 
-var percussion_times_5 = {50: [0.0, 1.5, 2.0, 3.5, 4.0, 5.5, 6.0, 7.5, 
-    8.0, 9.5, 10.0, 11.5, 12.0, 13.5, 14.0, 15.5, 
-    16.0, 17.5, 18.0, 19.5, 20.0, 21.5, 22.0, 23.5, 
+var percussion_times_5 = {50: [0.0, 1.5, 2.0, 3.5, 4.0, 5.5, 6.0, 7.5,
+    8.0, 9.5, 10.0, 11.5, 12.0, 13.5, 14.0, 15.5,
+    16.0, 17.5, 18.0, 19.5, 20.0, 21.5, 22.0, 23.5,
     24.0, 25.5, 26.0, 27.5, 28.0, 29.5, 30.0, 31.5]}
 var percussion_dur_5 = 0.4
 
-var percussion_times_6 = {50: [0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5, 
-    8.5, 9.5, 10.5, 11.5, 12.5, 13.5, 14.5, 15.5, 
-    16.5, 17.5, 18.5, 19.5, 20.5, 21.5, 22.5, 23.5, 
+var percussion_times_6 = {50: [0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5,
+    8.5, 9.5, 10.5, 11.5, 12.5, 13.5, 14.5, 15.5,
+    16.5, 17.5, 18.5, 19.5, 20.5, 21.5, 22.5, 23.5,
     24.5, 25.5, 26.5, 27.5, 28.5, 29.5, 30.5, 31.5]}
 var percussion_dur_6 = 0.9
 
@@ -541,11 +541,8 @@ function(err, results) {
     }
     else {
         console.log('Game Instances: '+games);
-        
+
     }
     //All done, disconnect from database
     mongoose.connection.close();
 });
-
-
-

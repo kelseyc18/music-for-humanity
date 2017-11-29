@@ -52,3 +52,28 @@ exports.round_create_on_post = function(req, res) {
 exports.round_update_on_post = function(req, res) {
   res.send('NOT IMPLEMENTED: Round update POST');
 }
+
+exports.round_set_winner_on_post = function(req, res) {
+  async.waterfall([
+
+    function(next) {
+      Submission.findById(req.body.submissionId)
+        .exec(function(err, submission) {
+          if (err) return next(err);
+          next(err, submission);
+        })
+    },
+
+    function(submission, next) {
+      Round.findByIdAndUpdate(req.body.roundId, { winningSubmission: submission } )
+        .exec(function(err, round) {
+          if (err) return next(err);
+          next(err, round);
+        });
+    },
+
+  ], function(err, result) {
+    if (err) return res.send(err);
+    res.send(result);
+  });
+}
