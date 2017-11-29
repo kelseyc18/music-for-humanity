@@ -63,7 +63,7 @@ function initializeScheduler() {
           for (var note_id in sequence) {
             var val = sequence[note_id]
             var events = val.map(time => [time, line.notelength])
-            ditty.set([channel, note_id], events, 32)
+            ditty.set([channel, note_id], events, 16)
           }
 
           console.log('channel number', channel);
@@ -167,19 +167,16 @@ function onMidiLoaded() {
 window.onload = function () {
   // load MIDI plugin
   MIDI.loadPlugin({
-    soundfontUrl: "/javascripts/midi/soundfont/",
+    soundfontUrl: "http://www.song-data.com/3rd/MIDIjs/soundfont/",
     instrument: [
-      "acoustic_grand_piano",
-      "synth_drum",
-      "alto_sax",
-      "acoustic_guitar_nylon",
-      "acoustic_guitar_steel",
-      "baritone_sax",
-      "brass_section",
-      "electric_bass_pick",
-      "electric_guitar_jazz",
-      "trumpet",
-      "flute",
+      "synth_drum", // 118
+      "reverse_cymbal", // 119
+      "guitar_fret_noise", // 120
+      "bright_acoustic_piano", // 1
+      "trombone", // 57
+      "viola", // 41
+      "contrabass", // 43
+      "harpsichord", // 6
     ],
     onprogress: function(state, progress) {
       console.log(state, progress);
