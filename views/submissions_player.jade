@@ -1,4 +1,7 @@
-div(class='col-center' style='background-color: blue; width: 500px; height: 300px; margin-bottom: 30px;')
+div(class='col-center' style='margin-bottom: 20px;')
+  iframe(type='text/html' width='640' height='390'
+    src='https://www.youtube.com/embed/' + data.round.videoId + '?autoplay=1&amp;version=3&amp;loop=1'
+    frameborder='0')
 
 div(class='btn-group col-center' data-toggle='buttons' style='margin-bottom: 20px;')
   label(class='btn btn-primary active' id='option0-btn')
