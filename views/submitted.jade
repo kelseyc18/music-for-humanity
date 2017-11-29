@@ -5,7 +5,8 @@ block script
     var allSubmissionsReceived = #{data.allSubmissionsReceived};
     var linesFromSubmissions = [!{data.linesFromSubmissions.map(x => JSON.stringify(x))}];
 
-  script(src='/javascripts/judge_bundle.js')
+  if data.allSubmissionsReceived
+    script(src='/javascripts/judge_bundle.js')
 
   script(src='/javascripts/midi/inc/shim/Base64.js')
   script(src='/javascripts/midi/inc/shim/Base64binary.js')
