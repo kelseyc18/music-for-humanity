@@ -79,8 +79,8 @@ function percussionLineCreate(name, instrument, notesequence, notelength, cb) {
 }
 
 
-function playerCreate(name, game, cb) {
-  var player = new Player({ name:name, game:game });
+function playerCreate(name, game, winCount, cb) {
+  var player = new Player({ name:name, game:game, winCount:winCount });
 
   player.save(function (err) {
     if (err) {
@@ -403,28 +403,28 @@ function createMusicLines(cb) {
 function createPlayers(cb) {
     async.series([
         function(callback) {
-          playerCreate('Abigail', games[0], callback);
+          playerCreate('Abigail', games[0], 1, callback);
         },
         function(callback) {
-          playerCreate('Bob', games[0], callback);
+          playerCreate('Bob', games[0], 0, callback);
         },
         function(callback) {
-          playerCreate('Charlie', games[0], callback);
+          playerCreate('Charlie', games[0], 0, callback);
         },
         function(callback) {
-          playerCreate('Danielle', games[0], callback);
+          playerCreate('Danielle', games[0], 0, callback);
         },
         function(callback) {
-          playerCreate('Emily', games[1], callback);
+          playerCreate('Emily', games[1], 0, callback);
         },
         function(callback) {
-          playerCreate('Farah', games[1], callback);
+          playerCreate('Farah', games[1], 0, callback);
         },
         function(callback) {
-          playerCreate('Giselle', games[1], callback);
+          playerCreate('Giselle', games[1], 0, callback);
         },
         function(callback) {
-          playerCreate('Hitch', games[1], callback);
+          playerCreate('Hitch', games[1], 0, callback);
         },
         ],
         // optional callback
@@ -480,7 +480,7 @@ function createRounds(cb) {
           roundCreate(1, 'https://www.youtube.com/watch?v=W_B2UZ_ZoxU', [submissions[0], submissions[2], submissions[4], submissions[6]], submissions[4], players[0], callback);
         },
         function(callback) {
-          roundCreate(2, 'https://www.youtube.com/watch?v=W_B2UZ_ZoxU', [submissions[1], submissions[3], submissions[5], submissions[7]], submissions[3], players[1], callback);
+          roundCreate(2, 'https://www.youtube.com/watch?v=W_B2UZ_ZoxU', [submissions[1], submissions[3], submissions[5], submissions[7]], false, players[1], callback);
         },
         function(callback) {
           roundCreate(1, 'https://www.youtube.com/watch?v=W_B2UZ_ZoxU', [submissions[8], submissions[9], submissions[10], submissions[11]], false, players[4], callback);

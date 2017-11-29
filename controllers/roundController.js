@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var Round = require('../models/round');
+var Player = require('../models/player');
 var Submission = require('../models/submission');
 
 var async = require('async');
@@ -58,6 +59,7 @@ exports.round_set_winner_on_post = function(req, res) {
 
     function(next) {
       Submission.findById(req.body.submissionId)
+        .populate('player')
         .exec(function(err, submission) {
           if (err) return next(err);
           next(err, submission);
@@ -68,8 +70,23 @@ exports.round_set_winner_on_post = function(req, res) {
       Round.findByIdAndUpdate(req.body.roundId, { winningSubmission: submission } )
         .exec(function(err, round) {
           if (err) return next(err);
-          next(err, round);
+          next(err, submission, round);
         });
+    },
+
+    function(submission, round, next) {
+      console.log('winning submission player id', submission.player._id.toString());
+      Player.findByIdAndUpdate(submission.player._id, { $inc: { winCount: 1 } })
+        .exec(function(err, player) {
+          if (err) return next(err);
+          var result = {
+            submission: submission,
+            round: round,
+            player: player,
+          }
+          console.log('result', result);
+          next(err, result)
+        })
     },
 
   ], function(err, result) {

@@ -169,8 +169,8 @@ window.onload = function () {
   // load MIDI plugin
   MIDI.loadPlugin({
     soundfontUrl: "/javascripts/midi/soundfont/",
-    instrument: [ 
-      "acoustic_grand_piano", 
+    instrument: [
+      "acoustic_grand_piano",
       "synth_drum",
       "alto_sax",
       "acoustic_guitar_nylon",

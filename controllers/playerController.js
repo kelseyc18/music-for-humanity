@@ -46,12 +46,25 @@ exports.player_detail = function(req, res) {
         .populate('judge')
         .exec(function(err, round) {
           if (err) return next(err);
-          next(err, player, game, round, round.submissions);
+          next(err, player, game, round, round.winningSubmission != undefined, round.submissions);
         });
     },
 
+    function(player, game, round, isWinnerSelected, submissions, next) {
+      if(isWinnerSelected) {
+        Submission.findById(round.winningSubmission._id)
+          .populate('player')
+          .exec(function(err, submission) {
+            if (err) return next(err);
+            next(err, player, game, round, isWinnerSelected, submission.player, submissions);
+          })
+      } else {
+        next(null, player, game, round, isWinnerSelected, null, submissions);
+      }
+    },
+
     // find selected lines for submitted submissions in given round
-    function(player, game, round, submissions, next) {
+    function(player, game, round, isWinnerSelected, winner, submissions, next) {
       var submissionIds = round.submissions.map(x => x._id);
 
       Submission.find({ _id: { $in: submissionIds }, isSubmitted: true })
@@ -68,14 +81,22 @@ exports.player_detail = function(req, res) {
             if (submission.selectedPercussion) entry.lines.push(submission.selectedPercussion.toJSON);
             return entry;
           })
-          next(err, player, game, round, submissions, linesFromSubmissions);
+          next(err, player, game, round, isWinnerSelected, winner, submissions, linesFromSubmissions);
       });
     },
 
+    function(player, game, round, isWinnerSelected, winner, submissions, linesFromSubmissions, next) {
+      Player.find({ game: game })
+        .sort([['winCount', 'descending']])
+        .exec(function(err, players) {
+          if (err) return next(err);
+          next(err, player, game, round, isWinnerSelected, winner, submissions, linesFromSubmissions, players);
+        })
+    },
+
     // find submission that belongs to current player in this round
-    function(player, game, round, submissions, linesFromSubmissions, next) {
+    function(player, game, round, isWinnerSelected, winner, submissions, linesFromSubmissions, players, next) {
       var submissionIds = round.submissions.map(x => x._id);
-      console.log('submissionIds for current round', submissionIds);
 
       Submission.findOne({ _id: { $in: submissionIds }, player: player._id })
         .populate('player')
@@ -88,9 +109,9 @@ exports.player_detail = function(req, res) {
         .exec(function(err, submission) {
           if (err) return next(err);
           var isJudge = player._id.toString() == round.judge._id.toString();
-          console.log('submission', submission);
           var results = {
             player: player,
+            players: players,
             game: game,
             round: round,
             submission: submission,
@@ -101,7 +122,9 @@ exports.player_detail = function(req, res) {
             expectedSubmissionCount: Math.max(round.submissions.length-1, 0),
             isJudge: isJudge,
             isSubmitted: submission ? submission.isSubmitted : false,
-            linesFromSubmissions: linesFromSubmissions
+            linesFromSubmissions: linesFromSubmissions,
+            isWinnerSelected: isWinnerSelected,
+            winner: isWinnerSelected ? winner : null,
           };
           next(err, results);
         });
@@ -114,9 +137,11 @@ exports.player_detail = function(req, res) {
             });
     }
     results.allSubmissionsReceived = results.submittedCount == results.expectedSubmissionCount;
-    if (results.isJudge) {
+    if (results.isWinnerSelected) {
+      res.render('round_results', { title: 'Player', id: req.params.id, error: err, data: results })
+    } else if (results.isJudge) {
       res.render('judge', { title: 'Player', id: req.params.id, error: err, data: results })
-    } if (results.isSubmitted) {
+    } else if (results.isSubmitted) {
       res.render('submitted', { title: 'Player', id: req.params.id, error: err, data: results })
     } else {
       res.render('player', { title: 'Player', id: req.params.id, error: err, data: results })
