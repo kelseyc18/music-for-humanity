@@ -18,16 +18,15 @@ router.post('/game/:id/update', game_controller.game_update_on_post);
 /// PLAYER ROUTES ///
 router.get('/player/:id', player_controller.player_detail);
 router.post('/player/create', player_controller.player_create_on_post);
-router.post('/player/:id/update', player_controller.player_update_on_post);
-
+router.post('/player/update', player_controller.player_update_on_post);
 
 /// ROUND ROUTES ///
 router.get('/rounds', round_controller.round_list);
 router.get('/round/:id', round_controller.round_detail);
 router.post('/round/reset', round_controller.round_reset_submissions);
 router.post('/round/create', round_controller.round_create_on_post);
-router.post('/round/:id/update', round_controller.round_update_on_post);
-
+router.post('/round/update', round_controller.round_update_on_post);
+router.post('/round/select_winner', round_controller.round_set_winner_on_post);
 
 /// SUBMISSION ROUTES ///
 router.get('/submissions', submission_controller.submission_list);

@@ -6243,6 +6243,7 @@ var Bopper = require('bopper');
 // channels 7, 8, 9 unmuted
 
 var optionNumberToPlayerId = {};
+var optionNumberToSubmissionId = {};
 var baseChannel = [null, 1, 4, 7]
 
 var channelOn = [null, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false];
@@ -6259,7 +6260,7 @@ function initializeScheduler() {
   window.scheduler = scheduler
 
   scheduler.pipe(ditty).on('data', function(data){
-    // data: id, event (start or stop), time, position, args 
+    // data: id, event (start or stop), time, position, args
     if (data.event == 'start'){
       noteOn(data.time, data.id, data.args)
     } else if (data.event == 'stop'){
@@ -6269,14 +6270,15 @@ function initializeScheduler() {
 
   // // ditty set format:
   // ([channel, note_id], [
-  //   [beatPosition, length], 
+  //   [beatPosition, length],
   //   [beatPosition, length],
   //    ...
   //   ], loop_length)
 
   linesFromSubmissions.forEach(function(submission, submissionIndex) {
     if(submissionIndex < 3) {
-      optionNumberToPlayerId[submissionIndex] = submission.playerId;
+      optionNumberToPlayerId[(submissionIndex + 1).toString()] = submission.playerId;
+      optionNumberToSubmissionId[(submissionIndex + 1).toString()] = submission.submissionId;
       var lines = submission.lines;
 
       lines.forEach(function(line, index) {
@@ -6350,22 +6352,23 @@ function selectOption(optionNumber) {
   console.log(channelOn);
 }
 
-function selectWinner() {
-  // var data = {
-  //   submissionId: submissionId,
-  //   selectedMelodyId: melodyIndex ? melodyLines[melodyIndex-1].id : null,
-  //   selectedBassId: bassIndex ? bassLines[bassIndex-1].id : null,
-  //   selectedPercussionId: percussionIndex ? percussionLines[percussionIndex-1].id : null,
-  //   playerId: playerId,
-  //   isSubmitted: true
-  // };
-
-  // $.post('/gameplay/submission/update', data, function(res) {
-  //   console.log(res);
-  //   location.reload(true);
-  // });
+function optionNameToNumber(optionName) {
+  return parseInt(optionName.substring('option'.length));
 }
 
+function selectWinner() {
+  var selectedOptionNumber = optionNameToNumber($('#winner-selection input:radio:checked').val());
+  var data = {
+    submissionId: optionNumberToSubmissionId[selectedOptionNumber],
+    roundId: roundId,
+  };
+  console.log("select winner data: ", data);
+
+  $.post('/gameplay/round/select_winner', data, function(res) {
+    console.log(res);
+    location.reload(true);
+  });
+}
 
 function onMidiLoaded() {
   initializeScheduler();
@@ -6392,9 +6395,9 @@ window.onload = function () {
   // load MIDI plugin
   MIDI.loadPlugin({
     soundfontUrl: "/javascripts/midi/soundfont/",
-    instrument: [ 
-      "acoustic_grand_piano", 
-      "synth_drum", 
+    instrument: [
+      "acoustic_grand_piano",
+      "synth_drum",
       "alto_sax",
       "acoustic_guitar_nylon",
       "acoustic_guitar_steel",

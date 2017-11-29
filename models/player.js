@@ -8,7 +8,6 @@ var Schema = mongoose.Schema;
 
 var PlayerSchema = new Schema({
     name: String,
-    winCount: Number,
     game: { type: Schema.Types.ObjectId, ref: 'Game' }
 });
 
