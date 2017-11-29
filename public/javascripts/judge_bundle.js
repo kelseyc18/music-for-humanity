@@ -6362,7 +6362,6 @@ function selectWinner() {
     submissionId: optionNumberToSubmissionId[selectedOptionNumber],
     roundId: roundId,
   };
-  console.log("select winner data: ", data);
 
   $.post('/gameplay/round/select_winner', data, function(res) {
     console.log(res);
@@ -6395,8 +6394,8 @@ window.onload = function () {
   // load MIDI plugin
   MIDI.loadPlugin({
     soundfontUrl: "/javascripts/midi/soundfont/",
-    instrument: [ 
-      "acoustic_grand_piano", 
+    instrument: [
+      "acoustic_grand_piano",
       "synth_drum",
       "alto_sax",
       "acoustic_guitar_nylon",

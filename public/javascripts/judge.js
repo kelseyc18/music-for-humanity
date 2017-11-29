@@ -136,7 +136,6 @@ function selectWinner() {
     submissionId: optionNumberToSubmissionId[selectedOptionNumber],
     roundId: roundId,
   };
-  console.log("select winner data: ", data);
 
   $.post('/gameplay/round/select_winner', data, function(res) {
     console.log(res);

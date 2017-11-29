@@ -107,6 +107,7 @@ exports.player_detail = function(req, res) {
         .populate('selectedBass')
         .populate('selectedPercussion')
         .exec(function(err, submission) {
+          // console.log(submission);
           if (err) return next(err);
           var isJudge = player._id.toString() == round.judge._id.toString();
           var results = {

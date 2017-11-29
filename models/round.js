@@ -8,7 +8,7 @@ var Schema = mongoose.Schema;
 
 var RoundSchema = new Schema({
     roundNumber: Number,
-    videoUrl: String,
+    videoId: String,
     submissions: [{ type: Schema.Types.ObjectId, ref: 'Submission' }],
     winningSubmission: { type: Schema.Types.ObjectId, ref: 'Submission' },
     judge: { type: Schema.Types.ObjectId, ref: 'Player' }
