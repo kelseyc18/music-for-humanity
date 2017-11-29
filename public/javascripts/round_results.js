@@ -8,5 +8,16 @@ $(function() {
       console.log(res);
       location.reload(true);
     });
+  });
+
+  $('#clear-winner-btn').click(function() {
+    var data = {
+      roundId: roundId
+    };
+
+    $.post('/gameplay/round/clear_winner', data, function(res) {
+      console.log(res);
+      location.reload(true);
+    });
   })
 })

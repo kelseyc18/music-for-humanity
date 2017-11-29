@@ -218,3 +218,51 @@ exports.round_set_winner_on_post = function(req, res) {
     res.send(result);
   });
 }
+
+exports.round_clear_winner_on_post = function(req, res) {
+  async.waterfall([
+
+    function(next) {
+      Round.findById(req.body.roundId)
+        .populate('winningSubmission')
+        .exec(function(err, round) {
+          if (err) return next(err);
+          next(err, round, round.winningSubmission);
+        });
+    },
+
+    function(round, winningSubmission, next) {
+      Round.findByIdAndUpdate(round._id, { winningSubmission: undefined })
+        .exec(function(err, round) {
+          if (err) return next(err);
+          next(err, round, winningSubmission);
+        });
+    },
+
+    function(round, winningSubmission, next) {
+      Submission.findById(winningSubmission._id)
+        .populate('player')
+        .exec(function(err, submission) {
+          if (err) return next(err);
+          next(err, round, submission);
+        })
+    },
+
+    function(round, submission, next) {
+      Player.findByIdAndUpdate(submission.player._id, { $inc: { winCount: -1 } })
+        .exec(function(err, player) {
+          if (err) return next(err);
+          var result = {
+            submission: submission,
+            round: round,
+            player: player,
+          }
+          next(err, result)
+        })
+    },
+
+  ], function(err, result) {
+    if (err) return res.send(err);
+    res.send(result);
+  });
+}

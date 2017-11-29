@@ -27,6 +27,7 @@ router.post('/round/reset', round_controller.round_reset_submissions);
 router.post('/round/create', round_controller.round_create_on_post);
 router.post('/round/update', round_controller.round_update_on_post);
 router.post('/round/select_winner', round_controller.round_set_winner_on_post);
+router.post('/round/clear_winner', round_controller.round_clear_winner_on_post);
 
 /// SUBMISSION ROUTES ///
 router.get('/submissions', submission_controller.submission_list);

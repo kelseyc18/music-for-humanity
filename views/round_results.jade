@@ -3,6 +3,7 @@ extends layout
 block script
   script(type='text/javascript').
     var gameId = '#{data.game._id}';
+    var roundId = '#{data.round._id}';
 
   script(src='/javascripts/round_results.js')
 
@@ -17,6 +18,9 @@ block content
         li #[b #{player.name}]: #{player.winCount}
   
   if data.isJudge
-    button(type='button' class='btn btn-primary' id='next-round-btn') Start Next Round
+    div(style='margin-bottom: 20px;')
+      button(type='button' class='btn btn-primary' id='next-round-btn') Start Next Round
+    div
+      button(type='button' class='btn btn-secondary' id='clear-winner-btn') Clear Round Winner
   else
     p Please wait for #[b #{data.round.judge.name}] (the former judge) to start the next round.
