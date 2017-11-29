@@ -6395,7 +6395,7 @@ function initializeScheduler() {
   window.scheduler = scheduler
 
   scheduler.pipe(ditty).on('data', function(data){
-    // data: id, event (start or stop), time, position, args 
+    // data: id, event (start or stop), time, position, args
     if (data.event == 'start'){
       noteOn(data.time, data.id, data.args)
     } else if (data.event == 'stop'){
@@ -6405,7 +6405,7 @@ function initializeScheduler() {
 
   // // ditty set format:
   // ([channel, note_id], [
-  //   [beatPosition, length], 
+  //   [beatPosition, length],
   //   [beatPosition, length],
   //    ...
   //   ], loop_length)
@@ -6550,10 +6550,11 @@ window.onload = function () {
 
   // load MIDI plugin
   MIDI.loadPlugin({
-    soundfontUrl: "/javascripts/midi/soundfont/",
-    instrument: [ 
-      "acoustic_grand_piano", 
-      "synth_drum", 
+    soundfontUrl: "http://www.song-data.com/3rd/MIDIjs/soundfont/",
+    instrument: [
+      "acoustic_grand_piano",
+      "harpsichord",
+      "synth_drum",
       "alto_sax",
       "acoustic_guitar_nylon",
       "acoustic_guitar_steel",

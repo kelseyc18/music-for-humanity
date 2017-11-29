@@ -120,10 +120,10 @@ function submissionCreate(player, melodyLines, bassLines, percussionLines, selec
 }
 
 
-function roundCreate(roundNumber, videoURL, submissions, winningSubmission, judge, cb) {
+function roundCreate(roundNumber, videoId, submissions, winningSubmission, judge, cb) {
   var rounddetail = {
     roundNumber: roundNumber,
-    videoURL: videoURL,
+    videoId: videoId,
     submissions: submissions,
     judge: judge
   }
@@ -477,13 +477,13 @@ function createSubmissions(cb) {
 function createRounds(cb) {
     async.series([
         function(callback) {
-          roundCreate(1, 'https://www.youtube.com/watch?v=W_B2UZ_ZoxU', [submissions[0], submissions[2], submissions[4], submissions[6]], submissions[4], players[0], callback);
+          roundCreate(1, 'W_B2UZ_ZoxU', [submissions[0], submissions[2], submissions[4], submissions[6]], submissions[4], players[0], callback);
         },
         function(callback) {
-          roundCreate(2, 'https://www.youtube.com/watch?v=W_B2UZ_ZoxU', [submissions[1], submissions[3], submissions[5], submissions[7]], false, players[1], callback);
+          roundCreate(2, 'W_B2UZ_ZoxU', [submissions[1], submissions[3], submissions[5], submissions[7]], false, players[1], callback);
         },
         function(callback) {
-          roundCreate(1, 'https://www.youtube.com/watch?v=W_B2UZ_ZoxU', [submissions[8], submissions[9], submissions[10], submissions[11]], false, players[4], callback);
+          roundCreate(1, 'W_B2UZ_ZoxU', [submissions[8], submissions[9], submissions[10], submissions[11]], false, players[4], callback);
         }
       ], cb);
 }
