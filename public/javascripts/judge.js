@@ -20,8 +20,6 @@ var optionNumberToPlayerId = {};
 var optionNumberToSubmissionId = {};
 var baseChannel = [null, 1, 4, 7]
 
-var channelOn = [null, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false];
-
 /////////////////////////////////////////////////////////
 ///                 AUDIO SCHEDULER                   ///
 /////////////////////////////////////////////////////////
@@ -83,7 +81,7 @@ function initializeScheduler() {
 
   function noteOn(time, id){
     var [channel, note_id] = id
-    MIDI.noteOn(channel, note_id, channelOn[channel] ? 127 : 0, time)
+    MIDI.noteOn(channel, note_id, 127, time)
     onNotes.add(id);
   }
 
@@ -110,7 +108,9 @@ function initializeScheduler() {
 
 function selectNone() {
   console.log('None selected');
-  channelOn = [null, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false];
+  for(var i = 1; i <= 16; i++) {
+    MIDI.setVolume(i, 0);
+  }
 }
 
 function selectOption(optionNumber) {
@@ -122,9 +122,8 @@ function selectOption(optionNumber) {
   selectNone();
   for(var i = 0; i < 3; i++) {
     var channel = baseChannel[optionNumber] + i;
-    channelOn[channel] = true;
+    MIDI.setVolume(channel, 127);
   }
-  console.log(channelOn);
 }
 
 function optionNameToNumber(optionName) {
@@ -145,6 +144,7 @@ function selectWinner() {
 }
 
 function onMidiLoaded() {
+  selectNone();
   initializeScheduler();
 
   // set up button click handlers
