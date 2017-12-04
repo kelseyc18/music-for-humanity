@@ -6254,8 +6254,6 @@ var baseChannel = {
   'bass': 11 // 11 to 14
 }
 
-var channelOn = [null, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false];
-
 console.log(melodyLines);
 console.log(bassLines);
 console.log(percussionLines);
@@ -6304,9 +6302,11 @@ function nextMelody() {
 
   for(i = 0; i < 4; i++) {
     if(i == offsets['melody']) {
-      channelOn[getChannelNumber(MELODY, i)] = true;
+      console.log('channel %d on', getChannelNumber(MELODY, i));
+      MIDI.setVolume(getChannelNumber(MELODY, i), 127);
     } else {
-      channelOn[getChannelNumber(MELODY, i)] = false;
+      console.log('channel %d off', getChannelNumber(MELODY, i));
+      MIDI.setVolume(getChannelNumber(MELODY, i), 0);
     }
   }
   updateMelodyButton();
@@ -6318,9 +6318,11 @@ function nextPercussion() {
 
   for(i = 0; i < 4; i++) {
     if(i == offsets['percussion']) {
-      channelOn[getChannelNumber(PERCUSSION, i)] = true;
+      console.log('channel %d on', getChannelNumber(PERCUSSION, i));
+      MIDI.setVolume(getChannelNumber(PERCUSSION, i), 127);
     } else {
-      channelOn[getChannelNumber(PERCUSSION, i)] = false;
+      console.log('channel %d on', getChannelNumber(PERCUSSION, i));
+      MIDI.setVolume(getChannelNumber(PERCUSSION, i), 0);
     }
   }
   updatePercussionButton();
@@ -6332,32 +6334,14 @@ function nextBass() {
 
   for(i = 0; i < 4; i++) {
     if(i == offsets['bass']) {
-      channelOn[getChannelNumber(BASS, i)] = true;
+      console.log('channel %d on', getChannelNumber(BASS, i));
+      MIDI.setVolume(getChannelNumber(BASS, i), 127);
     } else {
-      channelOn[getChannelNumber(BASS, i)] = false;
+      console.log('channel %d on', getChannelNumber(BASS, i));
+      MIDI.setVolume(getChannelNumber(BASS, i), 0);
     }
   }
   updateBassButton();
-}
-
-/////////////////////////////////////////////////////////
-///                     ANIMATION                     ///
-/////////////////////////////////////////////////////////
-
-function animateSnail() {
-  let start = Date.now();
-
-  let timer = setInterval(function() {
-    let timePassed = Date.now() - start;
-
-    snail.style.left = timePassed / 50 + 'px';
-
-    if (timePassed / 50 > 520) {
-      snail.style.left = '0px';
-      start = Date.now();
-    }
-
-  }, 20);
 }
 
 /////////////////////////////////////////////////////////
@@ -6400,6 +6384,7 @@ function initializeScheduler() {
       }
 
       MIDI.programChange(channel, line.instrument);
+      MIDI.setVolume(channel, 0);
     }
   });
 
@@ -6416,6 +6401,7 @@ function initializeScheduler() {
       }
 
       MIDI.programChange(channel, line.instrument);
+      MIDI.setVolume(channel, 0);
     }
   });
 
@@ -6432,6 +6418,7 @@ function initializeScheduler() {
       }
 
       MIDI.programChange(channel, line.instrument);
+      MIDI.setVolume(channel, 0);
     }
   });
 
@@ -6446,8 +6433,8 @@ function initializeScheduler() {
 
   function noteOn(time, id){
     var [channel, note_id] = id
-    MIDI.noteOn(channel, note_id, channelOn[channel] ? 127 : 0, time)
-    console.log('noteOn');
+    MIDI.noteOn(channel, note_id, 127, time)
+    // console.log('noteOn');
     onNotes.add(id);
   }
 

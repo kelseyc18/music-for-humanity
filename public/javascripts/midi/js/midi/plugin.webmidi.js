@@ -85,7 +85,7 @@
 			if (output === undefined) { // nothing there...
 				errFunction();
 			} else {
-				opts.onsuccess && opts.onsuccess();			
+				opts.onsuccess && opts.onsuccess();
 			}
 		}, errFunction);
 	};
