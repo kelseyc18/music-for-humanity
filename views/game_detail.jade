@@ -1,27 +1,22 @@
 extends layout
 
 block content
-  if data.game
-    h1 #{data.game.name}
-    p Game ID: #{data.game._id}
+  div(class='page-container')
+    if data.game
+      h1 #{data.game.name}
+      h2 Round #{data.currentRound.roundNumber}
+      p Game ID: #{data.game._id}
 
-    div(class='card' style='width: 20rem; margin: 20px 0px')
-      div(class='card-body')
-        h2(class='card-title') Round #{data.currentRound.roundNumber}
-        p(class='card-text') Judge: #{data.currentRound.judge.name}
-
-    div(class='card' style='width: 20rem; margin: 20px 0px')
-      div(class='card-body')
-        h2(class='card-title') Players
-        ul(class='card-text')
+      hr(class='my-4')
+      div(class='flex-container')
         each player in data.player_list
-          li
-            a(href=player.url) #{player.name}
+          div(class='card player-card')
+            div(class='card-body')
+              h4(class='card-title') #{player.name} 
+                if data.currentRound.judge.name == player.name
+                  span(class='badge badge-secondary') Judge
+              p(class='card-text') Score: #{player.winCount}
+              a(href=player.url class='btn btn-primary') Play
 
-        else
-          li There are no players.
-
-        br
-        button(type='button' class='btn btn-primary' disabled) New Player
-  else
-    p That game does not exist in our records.
+    else
+      p That game does not exist in our records.
