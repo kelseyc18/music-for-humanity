@@ -1,21 +1,25 @@
 extends layout
 
 block content
-  h1= title
+  div(class='page-container')
+    h1= title
 
-  if error
-    p Error getting dynamic content.
-  else
-    p Join one of the following !{data.game_count} game(s):
-
-    ul
-    each game in data.game_list
-      li
-        | #[b #{game.name}] (#[em #{game._id}]) - 
-        a(href=game.url) View players
-
+    if error
+      p Error getting dynamic content.
     else
-      li There are no games.
+      p Join one of the following !{data.game_count} game(s):
 
-  br
-  button(type='button' class='btn btn-primary' disabled) Create new game
+      table(class='table table-hover')
+        thead
+          tr
+            th(scope='col') Name
+            th(scope='col') ID
+        tbody
+          each game in data.game_list
+            tr
+              td 
+                a(href=game.url) #{game.name}
+              td #{game._id}
+
+      br
+      button(type='button' class='btn btn-primary' disabled) Create new game
