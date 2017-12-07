@@ -6325,7 +6325,7 @@ function initializeScheduler() {
     scheduler.start();
     $('#loading').hide();
     $('.content').css('visibility', 'visible');
-  }, 3000)
+  }, 500)
 }
 
 /////////////////////////////////////////////////////////
