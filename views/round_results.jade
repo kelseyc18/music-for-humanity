@@ -4,23 +4,49 @@ block script
   script(type='text/javascript').
     var gameId = '#{data.game._id}';
     var roundId = '#{data.round._id}';
+    var videoId = '#{data.round.videoId}';
+    var winningLines = [!{data.winningLines.map(x => JSON.stringify(x))}];
+    var tempo = #{data.tempo};
+  
+  script(src='/javascripts/instrument_names.js')
+  
+  script(src='/javascripts/midi/inc/shim/Base64.js')
+  script(src='/javascripts/midi/inc/shim/Base64binary.js')
+  script(src='/javascripts/midi/inc/shim/WebAudioAPI.js')
 
-  script(src='/javascripts/round_results.js')
+  script(src='/javascripts/midi/js/midi/audioDetect.js')
+  script(src='/javascripts/midi/js/midi/gm.js')
+  script(src='/javascripts/midi/js/midi/loader.js')
+  script(src='/javascripts/midi/js/midi/plugin.audiotag.js')
+  script(src='/javascripts/midi/js/midi/plugin.webaudio.js')
+  script(src='/javascripts/midi/js/midi/plugin.webmidi.js')
+
+  script(src='/javascripts/midi/js/util/dom_request_xhr.js')
+  script(src='/javascripts/midi/js/util/dom_request_script.js')
 
 block content
-  p Congratulations to #[b #{data.winner.name}] for winning #[b #{data.game.name}, Round #{data.round.roundNumber}]!
-  
-  div(class='card' style='width: 20rem; margin: 20px 0px')
-    div(class='card-body')
-      h2(class='card-title') Updated Scores
-      ul(class='card-text')
-      each player in data.players
-        li #[b #{player.name}]: #{player.winCount}
-  
-  if data.isJudge
-    div(style='margin-bottom: 20px;')
-      button(type='button' class='btn btn-primary' id='next-round-btn') Start Next Round
+  div(class='page-container text-center')
+    p Congratulations to #[b #{data.winner.name}] for winning #[b #{data.game.name}, Round #{data.round.roundNumber}]!
+    
+    div(id='videoplayer' class='col-center')
+    script(src='/javascripts/videoplayer.js')
+    script(src='/javascripts/round_results_bundle.js')
+    
     div
-      button(type='button' class='btn btn-secondary' id='clear-winner-btn') Clear Round Winner
-  else
-    p Please wait for #[b #{data.round.judge.name}] (the former judge) to start the next round.
+      button(type='button' class='btn btn-light' id='volume-button' style='width: 100px')
+        i(class='fa fa-volume-up fa-5x' id='volume-icon' aria-hidden='true')
+    
+    div(class='card' style='width: 20rem; margin: 20px auto;')
+      div(class='card-body')
+        h2(class='card-title') Updated Scores
+        div(class='card-text')
+        each player in data.players
+           p(style='margin: 0;') #[b #{player.name}]: #{player.winCount}
+    
+    if data.isJudge
+      div(style='margin-bottom: 20px;')
+        button(type='button' class='btn btn-primary' id='next-round-btn') Start Next Round
+      div
+        button(type='button' class='btn btn-secondary' id='clear-winner-btn') Clear Round Winner
+    else
+      p Please wait for #[b #{data.round.judge.name}] (the former judge) to start the next round.

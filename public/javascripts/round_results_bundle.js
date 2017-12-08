@@ -6224,32 +6224,17 @@ if (global === global.window && global.URL && global.Blob && global.Worker) {
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],36:[function(require,module,exports){
-// judge.js
+// winner_player.js
 
 var Ditty = require('ditty');
 var ditty = Ditty();
 var Bopper = require('bopper');
 
-// option 0
-// all channels muted
-
-// option 1
-// channels 1, 2, 3 unmuted
-
-// option 2
-// channels 4, 5, 6 unmuted
-
-// option 3
-// channels 7, 8, 9 unmuted
-
-var optionNumberToPlayerId = {};
-var optionNumberToSubmissionId = {};
-var optionNumberToTempo = {};
-var baseChannel = [null, 1, 4, 7]
-
 /////////////////////////////////////////////////////////
 ///                 AUDIO SCHEDULER                   ///
 /////////////////////////////////////////////////////////
+
+var isPlaying = true;
 
 function getInstrumentsToLoad(musicLines) {
   console.log(musicLines);
@@ -6303,28 +6288,18 @@ function initializeScheduler() {
   //    ...
   //   ], loop_length)
 
-  linesFromSubmissions.forEach(function(submission, submissionIndex) {
-    if(submissionIndex < 3) {
-      optionNumberToPlayerId[(submissionIndex + 1).toString()] = submission.playerId;
-      optionNumberToSubmissionId[(submissionIndex + 1).toString()] = submission.submissionId;
-      optionNumberToTempo[(submissionIndex + 1).toString()] = submission.tempo;
-      var lines = submission.lines;
+  winningLines.forEach(function(line, index) {
+    if (index < 3) {
+      var sequence = line.notesequence;
+      var channel = index + 1;
 
-      lines.forEach(function(line, index) {
-        if (index < 3) {
-          var sequence = line.notesequence;
-          var channel = baseChannel[submissionIndex + 1] + index;
+      for (var note_id in sequence) {
+        var val = sequence[note_id]
+        var events = val.map(time => [time, line.notelength])
+        ditty.set([channel, note_id], events, 16)
+      }
 
-          for (var note_id in sequence) {
-            var val = sequence[note_id]
-            var events = val.map(time => [time, line.notelength])
-            ditty.set([channel, note_id], events, 16)
-          }
-
-          console.log('channel number', channel);
-          MIDI.programChange(channel, line.instrument);
-        }
-      });
+      MIDI.programChange(channel, line.instrument);
     }
   });
 
@@ -6334,7 +6309,7 @@ function initializeScheduler() {
   output.gain.value = 0.5
   output.connect(audioContext.destination)
 
-  scheduler.setTempo(120)
+  scheduler.setTempo(tempo);
   setTimeout(function(){
     scheduler.start();
     $('#loading').hide();
@@ -6357,103 +6332,69 @@ window.playerOnVideoRestart = function() {
 ///                    GAME LOGIC                     ///
 /////////////////////////////////////////////////////////
 
-function selectNone() {
+function toggleAudio() {
   for(var i = 1; i <= 16; i++) {
-    MIDI.setVolume(i, 0);
+    MIDI.setVolume(i, isPlaying ? 0 : 127);
   }
-  stopAllNotes();
-}
-
-function selectOption(optionNumber) {
-  if (optionNumber < 1 || optionNumber > 3) {
-    console.log('Option Number', optionNumber, 'is invalid.');
-  }
-
-  console.log('Option ' + optionNumber + ' selected.');
-  selectNone();
-  for(var i = 0; i < 3; i++) {
-    var channel = baseChannel[optionNumber] + i;
-    MIDI.setVolume(channel, 127);
-  }
-
-  scheduler.setTempo(optionNumberToTempo[optionNumber.toString()]);
-  window.playerOnVideoRestart();
-}
-
-function optionNameToNumber(optionName) {
-  return parseInt(optionName.substring('option'.length));
-}
-
-function selectWinner() {
-  var selectedOptionNumber = optionNameToNumber($('#winner-selection input:radio:checked').val());
-  var data = {
-    submissionId: optionNumberToSubmissionId[selectedOptionNumber],
-    roundId: roundId,
-  };
-
-  $.post('/gameplay/round/select_winner', data, function(res) {
-    console.log(res);
-    location.reload(true);
-  });
+  isPlaying = !isPlaying;
 }
 
 function onMidiLoaded() {
-  selectNone();
   initializeScheduler();
 
   // set up button click handlers
-  $('#option0-btn').click(function(event) {
-    selectNone();
-  });
-
-  $('#option1-btn').click(function(event) {
-    selectOption(1);
-  });
-
-  $('#option2-btn').click(function(event) {
-    selectOption(2);
-  });
-
-  $('#option3-btn').click(function(event) {
-    selectOption(3);
+  $('#volume-button').click(function(event) {
+    toggleAudio();
   });
 }
 
 $(function() {
   $('.content').css('visibility', 'hidden');
   $('#loading').show();
+
+  $('#next-round-btn').click(function() {
+    var data = {
+      gameId: gameId
+    };
+
+    $.post('/gameplay/round/create', data, function(res) {
+      console.log(res);
+      location.reload(true);
+    });
+  });
+
+  $('#clear-winner-btn').click(function() {
+    var data = {
+      roundId: roundId
+    };
+
+    $.post('/gameplay/round/clear_winner', data, function(res) {
+      console.log(res);
+      location.reload(true);
+    });
+  })
+
+  $('#volume-button').click(function() {
+    if ($('#volume-icon').hasClass('fa-volume-off')) {
+      $('#volume-icon').removeClass('fa-volume-off').addClass('fa-volume-up');
+    } else {
+      $('#volume-icon').removeClass('fa-volume-up').addClass('fa-volume-off');
+    }
+  });
 });
 
 window.onload = function () {
-  lines = []
-  linesFromSubmissions.forEach(function(submission) {
-    lines = lines.concat(submission.lines);
-  });
-
-  instruments_to_load = getInstrumentsToLoad(lines);
+  instruments_to_load = getInstrumentsToLoad(winningLines);
   console.log('loading instruments ', instruments_to_load);
 
   // load MIDI plugin
   MIDI.loadPlugin({
     soundfontUrl: "http://www.song-data.com/3rd/MIDIjs/soundfont/",
-    instrument: [
-      "synth_drum", // 118
-      "reverse_cymbal", // 119
-      "guitar_fret_noise", // 120
-      "bright_acoustic_piano", // 1
-      "trombone", // 57
-      "viola", // 41
-      "contrabass", // 43
-      "harpsichord", // 6
-    ],
+    instrument: instruments_to_load,
     onprogress: function(state, progress) {
       console.log(state, progress);
     },
     onsuccess: onMidiLoaded
-  });
-
-  $('#select-winner-btn').click(function(event) {
-    selectWinner();
   });
 }
 

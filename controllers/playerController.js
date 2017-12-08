@@ -54,17 +54,20 @@ exports.player_detail = function(req, res) {
       if(isWinnerSelected) {
         Submission.findById(round.winningSubmission._id)
           .populate('player')
+          .populate('selectedMelody')
+          .populate('selectedBass')
+          .populate('selectedPercussion')
           .exec(function(err, submission) {
             if (err) return next(err);
-            next(err, player, game, round, isWinnerSelected, submission.player, submissions);
+            next(err, player, game, round, isWinnerSelected, submission, submission.player, submissions);
           })
       } else {
-        next(null, player, game, round, isWinnerSelected, null, submissions);
+        next(null, player, game, round, isWinnerSelected, null, null, submissions);
       }
     },
 
     // find selected lines for submitted submissions in given round
-    function(player, game, round, isWinnerSelected, winner, submissions, next) {
+    function(player, game, round, isWinnerSelected, winningSubmission, winner, submissions, next) {
       var submissionIds = round.submissions.map(x => x._id);
 
       Submission.find({ _id: { $in: submissionIds }, isSubmitted: true })
@@ -81,21 +84,21 @@ exports.player_detail = function(req, res) {
             if (submission.selectedPercussion) entry.lines.push(submission.selectedPercussion.toJSON);
             return entry;
           })
-          next(err, player, game, round, isWinnerSelected, winner, submissions, linesFromSubmissions);
+          next(err, player, game, round, isWinnerSelected, winningSubmission, winner, submissions, linesFromSubmissions);
       });
     },
 
-    function(player, game, round, isWinnerSelected, winner, submissions, linesFromSubmissions, next) {
+    function(player, game, round, isWinnerSelected, winningSubmission, winner, submissions, linesFromSubmissions, next) {
       Player.find({ game: game })
         .sort([['winCount', 'descending']])
         .exec(function(err, players) {
           if (err) return next(err);
-          next(err, player, game, round, isWinnerSelected, winner, submissions, linesFromSubmissions, players);
+          next(err, player, game, round, isWinnerSelected, winningSubmission, winner, submissions, linesFromSubmissions, players);
         })
     },
 
     // find submission that belongs to current player in this round
-    function(player, game, round, isWinnerSelected, winner, submissions, linesFromSubmissions, players, next) {
+    function(player, game, round, isWinnerSelected, winningSubmission, winner, submissions, linesFromSubmissions, players, next) {
       var submissionIds = round.submissions.map(x => x._id);
 
       Submission.findOne({ _id: { $in: submissionIds }, player: player._id })
@@ -109,6 +112,14 @@ exports.player_detail = function(req, res) {
         .exec(function(err, submission) {
           // console.log(submission);
           if (err) return next(err);
+
+          var winningLines = [];
+          if (winningSubmission) {
+            if (winningSubmission.selectedMelody) winningLines.push(winningSubmission.selectedMelody.toJSON);
+            if (winningSubmission.selectedBass) winningLines.push(winningSubmission.selectedBass.toJSON);
+            if (winningSubmission.selectedPercussion) winningLines.push(winningSubmission.selectedPercussion.toJSON);
+          }
+
           var isJudge = player._id.toString() == round.judge._id.toString();
           var results = {
             player: player,
@@ -126,6 +137,8 @@ exports.player_detail = function(req, res) {
             linesFromSubmissions: linesFromSubmissions,
             isWinnerSelected: isWinnerSelected,
             winner: isWinnerSelected ? winner : null,
+            winningLines: winningLines,
+            tempo: winningSubmission ? winningSubmission.tempo : 120,
           };
           next(err, results);
         });
