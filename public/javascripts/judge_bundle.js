@@ -6244,6 +6244,7 @@ var Bopper = require('bopper');
 
 var optionNumberToPlayerId = {};
 var optionNumberToSubmissionId = {};
+var optionNumberToTempo = {};
 var baseChannel = [null, 1, 4, 7]
 
 /////////////////////////////////////////////////////////
@@ -6294,6 +6295,7 @@ function initializeScheduler() {
     if(submissionIndex < 3) {
       optionNumberToPlayerId[(submissionIndex + 1).toString()] = submission.playerId;
       optionNumberToSubmissionId[(submissionIndex + 1).toString()] = submission.submissionId;
+      optionNumberToTempo[(submissionIndex + 1).toString()] = submission.tempo;
       var lines = submission.lines;
 
       lines.forEach(function(line, index) {
@@ -6329,7 +6331,7 @@ function initializeScheduler() {
 }
 
 /////////////////////////////////////////////////////////
-///                    GAME LOGIC                     ///
+///                   VIDEO PLAYER                    ///
 /////////////////////////////////////////////////////////
 
 window.playerOnVideoRestart = function() {
@@ -6341,11 +6343,13 @@ window.playerOnVideoRestart = function() {
   player.seekTo(0);
   player.playVideo();
   scheduler.setPosition(0);
-  console.log('judge::playerOnVideoRestart');
 }
 
+/////////////////////////////////////////////////////////
+///                    GAME LOGIC                     ///
+/////////////////////////////////////////////////////////
+
 function selectNone() {
-  console.log('None selected');
   for(var i = 1; i <= 16; i++) {
     MIDI.setVolume(i, 0);
   }
@@ -6362,6 +6366,8 @@ function selectOption(optionNumber) {
     var channel = baseChannel[optionNumber] + i;
     MIDI.setVolume(channel, 127);
   }
+
+  scheduler.setTempo(optionNumberToTempo[optionNumber.toString()]);
   window.playerOnVideoRestart();
 }
 

@@ -94,7 +94,7 @@ function playerCreate(name, game, winCount, cb) {
 }
 
 
-function submissionCreate(player, melodyLines, bassLines, percussionLines, selectedMelody, selectedBass, selectedPercussion, isSubmitted, cb) {
+function submissionCreate(player, melodyLines, bassLines, percussionLines, selectedMelody, selectedBass, selectedPercussion, isSubmitted, tempo, cb) {
   var submissiondetail = {
     player: player,
     melodyLines: melodyLines,
@@ -105,6 +105,7 @@ function submissionCreate(player, melodyLines, bassLines, percussionLines, selec
   if (selectedPercussion != false) submissiondetail.selectedPercussion = selectedPercussion;
   if (selectedMelody != false) submissiondetail.selectedMelody = selectedMelody;
   if (selectedBass != false) submissiondetail.selectedBass = selectedBass;
+  if (tempo != false) submissiondetail.tempo = tempo;
 
   var submission = new Submission(submissiondetail);
 
@@ -616,40 +617,40 @@ function getRandomLines(lineInventory) {
 function createSubmissions(cb) {
     async.series([
         function(callback) {
-          submissionCreate(players[0], [melody_lines[0], melody_lines[1], melody_lines[3]], [bass_lines[1], bass_lines[2], bass_lines[4]], [percussion_lines[0], percussion_lines[1], percussion_lines[2]], melody_lines[0], bass_lines[2], percussion_lines[0], true, callback);
+          submissionCreate(players[0], [melody_lines[0], melody_lines[1], melody_lines[3]], [bass_lines[1], bass_lines[2], bass_lines[4]], [percussion_lines[0], percussion_lines[1], percussion_lines[2]], melody_lines[0], bass_lines[2], percussion_lines[0], 120, true, callback);
         },
         function(callback) {
-          submissionCreate(players[0], getRandomLines(melody_lines), getRandomLines(bass_lines), getRandomLines(percussion_lines), false, false, false, false, callback);
+          submissionCreate(players[0], getRandomLines(melody_lines), getRandomLines(bass_lines), getRandomLines(percussion_lines), false, false, false, false, false, callback);
         },
         function(callback) {
-          submissionCreate(players[1], [melody_lines[2], melody_lines[3], melody_lines[5]], [bass_lines[4], bass_lines[3], bass_lines[2]], [percussion_lines[0], percussion_lines[3], percussion_lines[6]], melody_lines[3], bass_lines[4], percussion_lines[0], true, callback);
+          submissionCreate(players[1], [melody_lines[2], melody_lines[3], melody_lines[5]], [bass_lines[4], bass_lines[3], bass_lines[2]], [percussion_lines[0], percussion_lines[3], percussion_lines[6]], melody_lines[3], bass_lines[4], percussion_lines[0], true, 120, callback);
         },
         function(callback) {
-          submissionCreate(players[1], getRandomLines(melody_lines), getRandomLines(bass_lines), getRandomLines(percussion_lines), false, false, false, false, callback);
+          submissionCreate(players[1], getRandomLines(melody_lines), getRandomLines(bass_lines), getRandomLines(percussion_lines), false, false, false, false, false, callback);
         },
         function(callback) {
-          submissionCreate(players[2], [melody_lines[4], melody_lines[3], melody_lines[2]], [bass_lines[1], bass_lines[2], bass_lines[4]], [percussion_lines[1], percussion_lines[2], percussion_lines[4]], melody_lines[3], bass_lines[4], percussion_lines[0], true, callback);
+          submissionCreate(players[2], [melody_lines[4], melody_lines[3], melody_lines[2]], [bass_lines[1], bass_lines[2], bass_lines[4]], [percussion_lines[1], percussion_lines[2], percussion_lines[4]], melody_lines[3], bass_lines[4], percussion_lines[0], true, 120, callback);
         },
         function(callback) {
-          submissionCreate(players[2], getRandomLines(melody_lines), getRandomLines(bass_lines), getRandomLines(percussion_lines), false, false, false, false, callback);
+          submissionCreate(players[2], getRandomLines(melody_lines), getRandomLines(bass_lines), getRandomLines(percussion_lines), false, false, false, false, false, callback);
         },
         function(callback) {
-          submissionCreate(players[3], [melody_lines[0], melody_lines[1], melody_lines[3]], [bass_lines[1], bass_lines[2], bass_lines[4]], [percussion_lines[0], percussion_lines[1], percussion_lines[2]], melody_lines[1], bass_lines[1], percussion_lines[0], true, callback);
+          submissionCreate(players[3], [melody_lines[0], melody_lines[1], melody_lines[3]], [bass_lines[1], bass_lines[2], bass_lines[4]], [percussion_lines[0], percussion_lines[1], percussion_lines[2]], melody_lines[1], bass_lines[1], percussion_lines[0], true, 120, callback);
         },
         function(callback) {
-          submissionCreate(players[3], getRandomLines(melody_lines), getRandomLines(bass_lines), getRandomLines(percussion_lines), false, false, false, false, callback);
+          submissionCreate(players[3], getRandomLines(melody_lines), getRandomLines(bass_lines), getRandomLines(percussion_lines), false, false, false, false, false, callback);
         },
         function(callback) {
-          submissionCreate(players[4], getRandomLines(melody_lines), getRandomLines(bass_lines), getRandomLines(percussion_lines), false, false, false, false, callback);
+          submissionCreate(players[4], getRandomLines(melody_lines), getRandomLines(bass_lines), getRandomLines(percussion_lines), false, false, false, false, false, callback);
         },
         function(callback) {
-          submissionCreate(players[5], [melody_lines[2], melody_lines[3], melody_lines[5]], [bass_lines[4], bass_lines[3], bass_lines[2]], [percussion_lines[0], percussion_lines[3], percussion_lines[6]], melody_lines[3], bass_lines[4], percussion_lines[0], true, callback);
+          submissionCreate(players[5], [melody_lines[2], melody_lines[3], melody_lines[5]], [bass_lines[4], bass_lines[3], bass_lines[2]], [percussion_lines[0], percussion_lines[3], percussion_lines[6]], melody_lines[3], bass_lines[4], percussion_lines[0], true, 60, callback);
         },
         function(callback) {
-          submissionCreate(players[6], [melody_lines[4], melody_lines[3], melody_lines[2]], [bass_lines[1], bass_lines[2], bass_lines[4]], [percussion_lines[1], percussion_lines[2], percussion_lines[4]], melody_lines[3], bass_lines[4], percussion_lines[1], true, callback);
+          submissionCreate(players[6], [melody_lines[4], melody_lines[3], melody_lines[2]], [bass_lines[1], bass_lines[2], bass_lines[4]], [percussion_lines[1], percussion_lines[2], percussion_lines[4]], melody_lines[3], bass_lines[4], percussion_lines[1], true, 120, callback);
         },
         function(callback) {
-          submissionCreate(players[7], [melody_lines[0], melody_lines[1], melody_lines[3]], [bass_lines[1], bass_lines[2], bass_lines[4]], [percussion_lines[0], percussion_lines[1], percussion_lines[2]], melody_lines[1], bass_lines[1], percussion_lines[2], true, callback);
+          submissionCreate(players[7], [melody_lines[0], melody_lines[1], melody_lines[3]], [bass_lines[1], bass_lines[2], bass_lines[4]], [percussion_lines[0], percussion_lines[1], percussion_lines[2]], melody_lines[1], bass_lines[1], percussion_lines[2], true, 200, callback);
         },
       ], cb);
 }

@@ -6461,7 +6461,7 @@ function initializeScheduler() {
 }
 
 /////////////////////////////////////////////////////////
-///                    GAME LOGIC                     ///
+///                   VIDEO PLAYER                    ///
 /////////////////////////////////////////////////////////
 
 window.playerOnVideoRestart = function() {
@@ -6476,6 +6476,10 @@ window.playerOnVideoRestart = function() {
   console.log('playerOnVideoRestart');
 }
 
+/////////////////////////////////////////////////////////
+///                    GAME LOGIC                     ///
+/////////////////////////////////////////////////////////
+
 function publishSubmission() {
   var data = {
     submissionId: submissionId,
@@ -6483,7 +6487,8 @@ function publishSubmission() {
     selectedBassId: bassIndex ? bassLines[bassIndex-1].id : null,
     selectedPercussionId: percussionIndex ? percussionLines[percussionIndex-1].id : null,
     playerId: playerId,
-    isSubmitted: true
+    isSubmitted: true,
+    tempo: document.getElementById('tempo-slider').value
   };
 
   $.post('/gameplay/submission/update', data, function(res) {
@@ -6512,6 +6517,11 @@ function onMidiLoaded() {
     publishSubmission();
     $('#publish-submission-btn').prop('disabled', true);
   });
+
+  document.getElementById('tempo-slider').onchange = function() {
+    scheduler.setTempo(this.value);
+    window.playerOnVideoRestart();
+  }
 }
 
 $(function() {
