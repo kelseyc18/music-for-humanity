@@ -46,28 +46,34 @@ function getChannelNumber(lineType, offset) {
 function updateMelodyButton() {
   melodyIndex = offsets['melody']
   if (melodyIndex == 0) {
-    $('#melody-button').text('No Melody Selected');
+    $('#melody-text').text('No Melody Selected');
+    document.getElementById('melody-button').style.backgroundImage = "url('/images/none.png')";
     return;
   }
-  $('#melody-button').text(melodyLines[melodyIndex-1].name);
+  $('#melody-text').text(melodyLines[melodyIndex-1].name);
+  // document.getElementById('melody-button').style.backgroundImage = "url('/images/" + melodyLines[melodyIndex-1].image + "')";
 }
 
 function updatePercussionButton() {
   percussionIndex = offsets['percussion']
   if (percussionIndex == 0) {
-    $('#percussion-button').text('No Percussion Selected');
+    $('#percussion-text').text('No Percussion Selected');
+    document.getElementById('percussion-button').style.backgroundImage = "url('/images/none.png')";
     return;
   }
-  $('#percussion-button').text(percussionLines[percussionIndex-1].name);
+  $('#percussion-text').text(percussionLines[percussionIndex-1].name);
+  // document.getElementById('percussion-button').style.backgroundImage = "url('/images/" + percussionLines[percussionIndex-1].image + "')";
 }
 
 function updateBassButton() {
   bassIndex = offsets['bass']
   if (bassIndex == 0) {
-    $('#bass-button').text('No Bass Selected');
+    $('#bass-text').text('No Bass Selected');
+    document.getElementById('bass-button').style.backgroundImage = "url('/images/none.png')";
     return;
   }
-  $('#bass-button').text(bassLines[bassIndex-1].name);
+  $('#bass-text').text(bassLines[bassIndex-1].name);
+  // document.getElementById('bass-button').style.backgroundImage = "url('/images/" + bassLines[bassIndex-1].image + "')";
 }
 
 function nextMelody() {
@@ -296,6 +302,10 @@ function onMidiLoaded() {
     scheduler.setTempo(this.value);
     window.playerOnVideoRestart();
   }
+
+  document.getElementById('melody-button').style.backgroundImage = "url('/images/none.png')";
+  document.getElementById('percussion-button').style.backgroundImage = "url('/images/none.png')";
+  document.getElementById('bass-button').style.backgroundImage = "url('/images/none.png')";
 }
 
 $(function() {

@@ -10,7 +10,8 @@ var PercussionSchema = new Schema({
     name: String,
     instrument: Number,
     notesequence: Object,
-    notelength: Number
+    notelength: Number,
+    image: String
 });
 
 PercussionSchema.virtual('toJSON').get(function() {
@@ -19,7 +20,8 @@ PercussionSchema.virtual('toJSON').get(function() {
     name: this.name,
     instrument: this.instrument,
     notesequence: this.notesequence,
-    notelength: this.notelength
+    notelength: this.notelength,
+    image: this.image
   }
 });
 
