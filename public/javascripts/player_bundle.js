@@ -6461,7 +6461,7 @@ function initializeScheduler() {
 }
 
 /////////////////////////////////////////////////////////
-///                    GAME LOGIC                     ///
+///                   VIDEO PLAYER                    ///
 /////////////////////////////////////////////////////////
 
 window.playerOnVideoRestart = function() {
@@ -6475,6 +6475,10 @@ window.playerOnVideoRestart = function() {
   scheduler.setPosition(0);
   console.log('playerOnVideoRestart');
 }
+
+/////////////////////////////////////////////////////////
+///                    GAME LOGIC                     ///
+/////////////////////////////////////////////////////////
 
 function publishSubmission() {
   var data = {
@@ -6512,6 +6516,11 @@ function onMidiLoaded() {
     publishSubmission();
     $('#publish-submission-btn').prop('disabled', true);
   });
+
+  document.getElementById('tempo-slider').onchange = function() {
+    scheduler.setTempo(this.value);
+    window.playerOnVideoRestart();
+  }
 }
 
 $(function() {

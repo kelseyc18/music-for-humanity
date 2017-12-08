@@ -103,7 +103,7 @@ function initializeScheduler() {
 }
 
 /////////////////////////////////////////////////////////
-///                    GAME LOGIC                     ///
+///                   VIDEO PLAYER                    ///
 /////////////////////////////////////////////////////////
 
 window.playerOnVideoRestart = function() {
@@ -117,6 +117,10 @@ window.playerOnVideoRestart = function() {
   scheduler.setPosition(0);
   console.log('judge::playerOnVideoRestart');
 }
+
+/////////////////////////////////////////////////////////
+///                    GAME LOGIC                     ///
+/////////////////////////////////////////////////////////
 
 function selectNone() {
   console.log('None selected');

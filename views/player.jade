@@ -42,7 +42,12 @@ block content
       button(type='button' class='music-button melody-button btn' id='melody-button') No Melody Selected
       button(type='button' class='music-button percussion-button btn' id='percussion-button') No Percussion Selected
       button(type='button' class='music-button bass-button btn' id='bass-button') No Bass Selected
-
+    
+    div(class='d-flex justify-content-center text-center' style='margin-bottom: 20px; align-items: center;')
+      img(class='tempo-image' src='/images/turtle.png' alt='turtle' width='30' height='30')
+      input(type='range' min='40' max='218' value='120' class='slider' id='tempo-slider')
+      img(class='tempo-image' src='/images/rabbit.jpg' alt='rabbit' width='30' height='30')
+      
     div.text-center
       button(type='button' class='btn btn-success' id='publish-submission-btn') Submit
   else
