@@ -5,6 +5,7 @@ block script
     var allSubmissionsReceived = #{data.allSubmissionsReceived};
     var roundId = '#{data.round._id}';
     var linesFromSubmissions = [!{data.linesFromSubmissions.map(x => JSON.stringify(x))}];
+    var videoId = '#{data.round.videoId}';
 
   if data.allSubmissionsReceived
     script(src='/javascripts/judge_bundle.js')
@@ -55,7 +56,7 @@ block content
       else
         div(class='col-center' style='margin-bottom: 20px;')
           iframe(type='text/html' width='640' height='390'
-            src='https://www.youtube.com/embed/' + data.round.videoId + '?autoplay=1&amp;controls=0&amp;version=3&amp;loop=1&amp;playlist=' + data.round.videoId
+            src='https://www.youtube.com/embed/' + data.round.videoId
             frameborder='0')
       
       div(style='margin: 10px 0px')

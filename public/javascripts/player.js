@@ -122,29 +122,7 @@ function nextBass() {
 ///                 AUDIO SCHEDULER                   ///
 /////////////////////////////////////////////////////////
 
-function initializeScheduler() {
-  var audioContext = MIDI.getContext();
-  var scheduler = Bopper(audioContext);
-
-  // prevent scheduler from being garbage collected
-  window.scheduler = scheduler
-
-  scheduler.pipe(ditty).on('data', function(data){
-    // data: id, event (start or stop), time, position, args
-    if (data.event == 'start'){
-      noteOn(data.time, data.id, data.args)
-    } else if (data.event == 'stop'){
-      noteOff(data.time, data.id, data.args)
-    }
-  });
-
-  // // ditty set format:
-  // ([channel, note_id], [
-  //   [beatPosition, length],
-  //   [beatPosition, length],
-  //    ...
-  //   ], loop_length)
-
+function addLinesToDitty() {
   melodyLines.forEach(function(line, index) {
     if(index < 3) {
       var offset = index + 1;
@@ -188,6 +166,7 @@ function initializeScheduler() {
       for (var note_id in sequence) {
         var val = sequence[note_id]
         var events = val.map(time => [time, line.notelength])
+        console.log(channel, note_id);
         ditty.set([channel, note_id], events, 16)
       }
 
@@ -195,6 +174,50 @@ function initializeScheduler() {
       MIDI.setVolume(channel, 0);
     }
   });
+}
+
+var onNotes = new Set(); // not sure if this is needed
+
+function noteOn(time, id){
+  var [channel, note_id] = id
+  MIDI.noteOn(channel, note_id, 127, time)
+  // console.log('noteOn');
+  onNotes.add(id);
+}
+
+function noteOff(time, id){
+  if (onNotes.has(id)){
+    var [channel, note_id] = id
+    // console.log('[off] time', time, 'channel', channel, 'note_id', note_id)
+    MIDI.noteOff(channel, note_id, time)
+    onNotes.delete(id)
+  }
+}
+
+function initializeScheduler() {
+  var audioContext = MIDI.getContext();
+  var scheduler = Bopper(audioContext);
+
+  // prevent scheduler from being garbage collected
+  window.scheduler = scheduler
+
+  scheduler.pipe(ditty).on('data', function(data){
+    // data: id, event (start or stop), time, position, args
+    if (data.event == 'start'){
+      noteOn(data.time, data.id, data.args)
+    } else if (data.event == 'stop'){
+      noteOff(data.time, data.id, data.args)
+    }
+  });
+
+  // // ditty set format:
+  // ([channel, note_id], [
+  //   [beatPosition, length],
+  //   [beatPosition, length],
+  //    ...
+  //   ], loop_length)
+
+  addLinesToDitty();
 
   //////////////////////////////
 
@@ -202,24 +225,6 @@ function initializeScheduler() {
   var output = audioContext.createGain()
   output.gain.value = 0.5
   output.connect(audioContext.destination)
-
-  var onNotes = new Set(); // not sure if this is needed
-
-  function noteOn(time, id){
-    var [channel, note_id] = id
-    MIDI.noteOn(channel, note_id, 127, time)
-    // console.log('noteOn');
-    onNotes.add(id);
-  }
-
-  function noteOff(time, id){
-    if (onNotes.has(id)){
-      var [channel, note_id] = id
-      // console.log('[off] time', time, 'channel', channel, 'note_id', note_id)
-      MIDI.noteOff(channel, note_id, time)
-      onNotes.delete(id)
-    }
-  }
 
   scheduler.setTempo(120)
   setTimeout(function(){
@@ -232,6 +237,18 @@ function initializeScheduler() {
 /////////////////////////////////////////////////////////
 ///                    GAME LOGIC                     ///
 /////////////////////////////////////////////////////////
+
+window.playerOnVideoRestart = function() {
+  onNotes.forEach(function callback([channel, note_id]) {
+    MIDI.noteOff(channel, note_id, 0);
+  });
+  onNotes.clear()
+
+  player.seekTo(0);
+  player.playVideo();
+  scheduler.setPosition(0);
+  console.log('playerOnVideoRestart');
+}
 
 function publishSubmission() {
   var data = {

@@ -6250,6 +6250,23 @@ var baseChannel = [null, 1, 4, 7]
 ///                 AUDIO SCHEDULER                   ///
 /////////////////////////////////////////////////////////
 
+var onNotes = new Set(); // not sure if this is needed
+
+function noteOn(time, id){
+  var [channel, note_id] = id
+  MIDI.noteOn(channel, note_id, 127, time)
+  onNotes.add(id);
+}
+
+function noteOff(time, id){
+  if (onNotes.has(id)){
+    var [channel, note_id] = id
+    // console.log('[off] time', time, 'channel', channel, 'note_id', note_id)
+    MIDI.noteOff(channel, note_id, time)
+    onNotes.delete(id)
+  }
+}
+
 function initializeScheduler() {
   var audioContext = MIDI.getContext();
   var scheduler = Bopper(audioContext);
@@ -6303,23 +6320,6 @@ function initializeScheduler() {
   output.gain.value = 0.5
   output.connect(audioContext.destination)
 
-  var onNotes = new Set(); // not sure if this is needed
-
-  function noteOn(time, id){
-    var [channel, note_id] = id
-    MIDI.noteOn(channel, note_id, 127, time)
-    onNotes.add(id);
-  }
-
-  function noteOff(time, id){
-    if (onNotes.has(id)){
-      var [channel, note_id] = id
-      // console.log('[off] time', time, 'channel', channel, 'note_id', note_id)
-      MIDI.noteOff(channel, note_id, time)
-      onNotes.delete(id)
-    }
-  }
-
   scheduler.setTempo(120)
   setTimeout(function(){
     scheduler.start();
@@ -6331,6 +6331,18 @@ function initializeScheduler() {
 /////////////////////////////////////////////////////////
 ///                    GAME LOGIC                     ///
 /////////////////////////////////////////////////////////
+
+window.playerOnVideoRestart = function() {
+  onNotes.forEach(function callback([channel, note_id]) {
+    MIDI.noteOff(channel, note_id, 0);
+  });
+  onNotes.clear()
+
+  player.seekTo(0);
+  player.playVideo();
+  scheduler.setPosition(0);
+  console.log('judge::playerOnVideoRestart');
+}
 
 function selectNone() {
   console.log('None selected');
@@ -6350,6 +6362,7 @@ function selectOption(optionNumber) {
     var channel = baseChannel[optionNumber] + i;
     MIDI.setVolume(channel, 127);
   }
+  window.playerOnVideoRestart();
 }
 
 function optionNameToNumber(optionName) {
