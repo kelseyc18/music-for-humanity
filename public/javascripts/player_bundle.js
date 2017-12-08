@@ -6273,27 +6273,33 @@ function updateMelodyButton() {
   melodyIndex = offsets['melody']
   if (melodyIndex == 0) {
     $('#melody-text').text('No Melody Selected');
+    document.getElementById('melody-button').style.backgroundImage = "url('/images/none.png')";
     return;
   }
   $('#melody-text').text(melodyLines[melodyIndex-1].name);
+  // document.getElementById('melody-button').style.backgroundImage = "url('/images/" + melodyLines[melodyIndex-1].image + "')";
 }
 
 function updatePercussionButton() {
   percussionIndex = offsets['percussion']
   if (percussionIndex == 0) {
     $('#percussion-text').text('No Percussion Selected');
+    document.getElementById('percussion-button').style.backgroundImage = "url('/images/none.png')";
     return;
   }
   $('#percussion-text').text(percussionLines[percussionIndex-1].name);
+  // document.getElementById('percussion-button').style.backgroundImage = "url('/images/" + percussionLines[percussionIndex-1].image + "')";
 }
 
 function updateBassButton() {
   bassIndex = offsets['bass']
   if (bassIndex == 0) {
     $('#bass-text').text('No Bass Selected');
+    document.getElementById('bass-button').style.backgroundImage = "url('/images/none.png')";
     return;
   }
   $('#bass-text').text(bassLines[bassIndex-1].name);
+  // document.getElementById('bass-button').style.backgroundImage = "url('/images/" + bassLines[bassIndex-1].image + "')";
 }
 
 function nextMelody() {
@@ -6347,6 +6353,10 @@ function nextBass() {
 /////////////////////////////////////////////////////////
 ///                 AUDIO SCHEDULER                   ///
 /////////////////////////////////////////////////////////
+
+function getInstrumentsToLoad(musicLines) {
+  return Array.from(new Set(musicLines.map(line => instrument_name_list[line.instrument])));
+}
 
 function addLinesToDitty() {
   melodyLines.forEach(function(line, index) {
@@ -6534,19 +6544,13 @@ $(function() {
 });
 
 window.onload = function () {
+  instruments_to_load = getInstrumentsToLoad(melodyLines.concat(percussionLines, bassLines));
+  console.log('loading instruments ', instruments_to_load);
+
   // load MIDI plugin
   MIDI.loadPlugin({
     soundfontUrl: "http://www.song-data.com/3rd/MIDIjs/soundfont/",
-    instrument: [
-      "synth_drum", // 118
-      "reverse_cymbal", // 119
-      "guitar_fret_noise", // 120
-      "bright_acoustic_piano", // 1
-      "trombone", // 57
-      "viola", // 41
-      "contrabass", // 43
-      "harpsichord", // 6
-    ],
+    instrument: instruments_to_load,
     onprogress: function(state, progress) {
       console.log(state, progress);
     },

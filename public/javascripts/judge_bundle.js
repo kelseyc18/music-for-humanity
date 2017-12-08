@@ -6251,6 +6251,10 @@ var baseChannel = [null, 1, 4, 7]
 ///                 AUDIO SCHEDULER                   ///
 /////////////////////////////////////////////////////////
 
+function getInstrumentsToLoad(musicLines) {
+  return Array.from(new Set(musicLines.map(line => instrument_name_list[line.instrument])));
+}
+
 var onNotes = new Set(); // not sure if this is needed
 
 function noteOn(time, id){
@@ -6416,19 +6420,13 @@ $(function() {
 });
 
 window.onload = function () {
+  instruments_to_load = getInstrumentsToLoad(melodyLines.concat(percussionLines, bassLines));
+  console.log('loading instruments ', instruments_to_load);
+  
   // load MIDI plugin
   MIDI.loadPlugin({
     soundfontUrl: "http://www.song-data.com/3rd/MIDIjs/soundfont/",
-    instrument: [
-      "synth_drum", // 118
-      "reverse_cymbal", // 119
-      "guitar_fret_noise", // 120
-      "bright_acoustic_piano", // 1
-      "trombone", // 57
-      "viola", // 41
-      "contrabass", // 43
-      "harpsichord", // 6
-    ],
+    instrument: instruments_to_load,
     onprogress: function(state, progress) {
       console.log(state, progress);
     },
