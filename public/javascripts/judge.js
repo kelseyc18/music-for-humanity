@@ -25,6 +25,11 @@ var baseChannel = [null, 1, 4, 7]
 ///                 AUDIO SCHEDULER                   ///
 /////////////////////////////////////////////////////////
 
+function getInstrumentsToLoad(musicLines) {
+  console.log(musicLines);
+  return Array.from(new Set(musicLines.map(line => instrument_name_list[line.instrument])));
+}
+
 var onNotes = new Set(); // not sure if this is needed
 
 function noteOn(time, id){
@@ -40,6 +45,13 @@ function noteOff(time, id){
     MIDI.noteOff(channel, note_id, time)
     onNotes.delete(id)
   }
+}
+
+function stopAllNotes() {
+  onNotes.forEach(function callback([channel, note_id]) {
+    MIDI.noteOff(channel, note_id, 0);
+  });
+  onNotes.clear();
 }
 
 function initializeScheduler() {
@@ -109,11 +121,7 @@ function initializeScheduler() {
 /////////////////////////////////////////////////////////
 
 window.playerOnVideoRestart = function() {
-  onNotes.forEach(function callback([channel, note_id]) {
-    MIDI.noteOff(channel, note_id, 0);
-  });
-  onNotes.clear()
-
+  stopAllNotes();
   player.seekTo(0);
   player.playVideo();
   scheduler.setPosition(0);
@@ -127,6 +135,7 @@ function selectNone() {
   for(var i = 1; i <= 16; i++) {
     MIDI.setVolume(i, 0);
   }
+  stopAllNotes();
 }
 
 function selectOption(optionNumber) {
@@ -190,6 +199,17 @@ $(function() {
 });
 
 window.onload = function () {
+<<<<<<< d8db975e6add8e5da678dd109e44ccce4de40e54
+=======
+  lines = []
+  linesFromSubmissions.forEach(function(submission) {
+    lines = lines.concat(submission.lines);
+  });
+
+  instruments_to_load = getInstrumentsToLoad(lines);
+  console.log('loading instruments ', instruments_to_load);
+
+>>>>>>> Only load instruments for current round
   // load MIDI plugin
   MIDI.loadPlugin({
     soundfontUrl: "http://www.song-data.com/3rd/MIDIjs/soundfont/",
