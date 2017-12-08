@@ -199,8 +199,6 @@ $(function() {
 });
 
 window.onload = function () {
-<<<<<<< d8db975e6add8e5da678dd109e44ccce4de40e54
-=======
   lines = []
   linesFromSubmissions.forEach(function(submission) {
     lines = lines.concat(submission.lines);
@@ -209,7 +207,6 @@ window.onload = function () {
   instruments_to_load = getInstrumentsToLoad(lines);
   console.log('loading instruments ', instruments_to_load);
 
->>>>>>> Only load instruments for current round
   // load MIDI plugin
   MIDI.loadPlugin({
     soundfontUrl: "http://www.song-data.com/3rd/MIDIjs/soundfont/",
