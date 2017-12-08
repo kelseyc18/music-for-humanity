@@ -10,7 +10,8 @@ var MelodySchema = new Schema({
     name: String,
     instrument: Number,
     notesequence: Object,
-    notelength: Number
+    notelength: Number,
+    image: String
 });
 
 MelodySchema.virtual('toJSON').get(function() {
@@ -19,7 +20,8 @@ MelodySchema.virtual('toJSON').get(function() {
     name: this.name,
     instrument: this.instrument,
     notesequence: this.notesequence,
-    notelength: this.notelength
+    notelength: this.notelength,
+    image: this.image
   }
 });
 

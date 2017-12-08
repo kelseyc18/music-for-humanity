@@ -29,12 +29,17 @@ h2 {
 }
 
 .music-button {
-  height: 100px;
-  width: 100px;
+  height: 130px;
+  width: 130px;
   color: white;
-  margin: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 20px;
+  margin-bottom: 5px;
   white-space: normal;
   cursor: pointer;
+  background-size: contain;
+  background-repeat:no-repeat;
 }
 
 .music-button:disabled,
@@ -43,14 +48,17 @@ h2 {
 }
 
 .melody-button {
+  border: 20px solid #3498db;
   background-color: #3498db;
 }
 
 .percussion-button {
+  border: 20px solid #f39c12;
   background-color: #f39c12;
 }
 
 .bass-button {
+  border: 20px solid #c0392b;
   background-color: #c0392b;
 }
 
