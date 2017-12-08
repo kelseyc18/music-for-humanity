@@ -6273,27 +6273,33 @@ function updateMelodyButton() {
   melodyIndex = offsets['melody']
   if (melodyIndex == 0) {
     $('#melody-text').text('No Melody Selected');
+    document.getElementById('melody-button').style.backgroundImage = "url('/images/none.png')";
     return;
   }
   $('#melody-text').text(melodyLines[melodyIndex-1].name);
+  // document.getElementById('melody-button').style.backgroundImage = "url('/images/" + melodyLines[melodyIndex-1].image + "')";
 }
 
 function updatePercussionButton() {
   percussionIndex = offsets['percussion']
   if (percussionIndex == 0) {
     $('#percussion-text').text('No Percussion Selected');
+    document.getElementById('percussion-button').style.backgroundImage = "url('/images/none.png')";
     return;
   }
   $('#percussion-text').text(percussionLines[percussionIndex-1].name);
+  // document.getElementById('percussion-button').style.backgroundImage = "url('/images/" + percussionLines[percussionIndex-1].image + "')";
 }
 
 function updateBassButton() {
   bassIndex = offsets['bass']
   if (bassIndex == 0) {
     $('#bass-text').text('No Bass Selected');
+    document.getElementById('bass-button').style.backgroundImage = "url('/images/none.png')";
     return;
   }
   $('#bass-text').text(bassLines[bassIndex-1].name);
+  // document.getElementById('bass-button').style.backgroundImage = "url('/images/" + bassLines[bassIndex-1].image + "')";
 }
 
 function nextMelody() {

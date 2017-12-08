@@ -29,9 +29,14 @@ If you use the `nodemon` command, your process will automatically restart when y
 ## Developer Notes
 The JavaScript for the player interface is located in `public/javascripts/player.js`.  Every time you make a change to this file, remember to run
 ```
-browserify player.js -o player_bundle.js; browserify judge.js -o judge_bundle.js
+browserify player.js -o player_bundle.js; browserify judge.js -o judge_bundle.js; browserify round_results.js -o round_results_bundle.js
 ```
 from within the `public/javascripts/` directory so that the node module dependencies are included in the `bundle.js` script.
+
+Or, you may run
+```
+npm run build-js
+```
 
 An alternative is to run
 ```
@@ -40,5 +45,9 @@ npm watch-player-js
 and
 ```
 npm watch-judge-js
+```
+and
+```
+npm watch-round-results-js
 ```
 in separate processes (e.g. two separate Terminal windows). This will automatically generate the `player_bundle.js` and `judge_bundle.js` files as you make changes to the `player.js` and `judge.js` files.

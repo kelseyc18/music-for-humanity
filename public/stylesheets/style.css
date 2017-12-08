@@ -32,8 +32,6 @@ h2 {
   height: 130px;
   width: 130px;
   color: white;
-  margin-left: 20px;
-  margin-right: 20px;
   margin-top: 20px;
   margin-bottom: 5px;
   white-space: normal;
@@ -60,6 +58,11 @@ h2 {
 .bass-button {
   border: 20px solid #c0392b;
   background-color: #c0392b;
+}
+
+.select-music-line {
+  width: 150px;
+  word-wrap: break-word;
 }
 
 .animation-container {
