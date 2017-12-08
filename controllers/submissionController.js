@@ -29,7 +29,8 @@ exports.submission_update_on_post = function(req, res, next) {
         isSubmitted: req.body.isSubmitted,
         selectedMelody: selectedMelodyId,
         selectedPercussion: selectedPercussionId,
-        selectedBass: selectedBassId
+        selectedBass: selectedBassId,
+        tempo: req.body.tempo,
       }, function(err, submission) {
         if (err) return next(err);
         res.send(submission);

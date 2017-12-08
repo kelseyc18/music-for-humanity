@@ -4,6 +4,7 @@ block script
   script(type='text/javascript').
     var allSubmissionsReceived = #{data.allSubmissionsReceived};
     var linesFromSubmissions = [!{data.linesFromSubmissions.map(x => JSON.stringify(x))}];
+    var videoId = '#{data.round.videoId}';
 
   if data.allSubmissionsReceived
     script(src='/javascripts/judge_bundle.js')

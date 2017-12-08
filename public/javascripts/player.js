@@ -261,7 +261,8 @@ function publishSubmission() {
     selectedBassId: bassIndex ? bassLines[bassIndex-1].id : null,
     selectedPercussionId: percussionIndex ? percussionLines[percussionIndex-1].id : null,
     playerId: playerId,
-    isSubmitted: true
+    isSubmitted: true,
+    tempo: document.getElementById('tempo-slider').value
   };
 
   $.post('/gameplay/submission/update', data, function(res) {

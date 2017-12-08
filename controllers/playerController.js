@@ -75,7 +75,7 @@ exports.player_detail = function(req, res) {
         .exec(function(err, submissions) {
           if (err) return next(err);
           var linesFromSubmissions = submissions.map(function cb(submission, index, array) {
-            var entry = { playerId: submission.player._id.toString(), submissionId: submission._id.toString(), lines: [] };
+            var entry = { playerId: submission.player._id.toString(), submissionId: submission._id.toString(), lines: [], tempo: submission.tempo };
             if (submission.selectedMelody) entry.lines.push(submission.selectedMelody.toJSON);
             if (submission.selectedBass) entry.lines.push(submission.selectedBass.toJSON);
             if (submission.selectedPercussion) entry.lines.push(submission.selectedPercussion.toJSON);
