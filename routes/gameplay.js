@@ -10,6 +10,7 @@ var submission_controller = require('../controllers/submissionController');
 
 /// GAME ROUTES ///
 router.get('/', game_controller.index);
+router.get('/game/create', game_controller.new_game);
 router.get('/game/:id', game_controller.game_detail);
 router.post('/game/create', game_controller.game_create_on_post);
 router.post('/game/:id/update', game_controller.game_update_on_post);

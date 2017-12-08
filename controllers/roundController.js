@@ -145,7 +145,7 @@ exports.round_create_on_post = function(req, res) {
 
     // create new round
     function(game, players, submissions, next) {
-      var newRoundNumber = game.currentRound.roundNumber + 1;
+      var newRoundNumber = game.currentRound != undefined ? game.currentRound.roundNumber + 1 : 1;
       var round = {
         roundNumber: newRoundNumber,
         videoId: getVideoId(newRoundNumber),
