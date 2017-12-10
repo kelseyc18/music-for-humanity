@@ -263,9 +263,9 @@ window.playerOnVideoRestart = function() {
 function publishSubmission() {
   var data = {
     submissionId: submissionId,
-    selectedMelodyId: melodyIndex ? melodyLines[melodyIndex-1].id : null,
-    selectedBassId: bassIndex ? bassLines[bassIndex-1].id : null,
-    selectedPercussionId: percussionIndex ? percussionLines[percussionIndex-1].id : null,
+    selectedMelodyId: offsets['melody'] != 0 ? melodyLines[melodyIndex-1].id : null,
+    selectedBassId: offsets['bass'] != 0 ? bassLines[bassIndex-1].id : null,
+    selectedPercussionId: offsets['percussion'] != 0 ? percussionLines[percussionIndex-1].id : null,
     playerId: playerId,
     isSubmitted: true,
     tempo: document.getElementById('tempo-slider').value
