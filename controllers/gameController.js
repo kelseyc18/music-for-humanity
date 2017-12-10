@@ -70,6 +70,8 @@ exports.game_detail = function(req, res) {
     },
 
     function(game, next) {
+      if (game.currentRound == undefined || game.currentRound == null)
+        return next('Error: No current round set');
       Round.findById(game.currentRound._id)
         .populate('judge')
         .exec(function(err, currentRound) {
