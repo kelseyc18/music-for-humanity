@@ -84,6 +84,9 @@ exports.player_detail = function(req, res) {
             if (submission.selectedPercussion) entry.lines.push(submission.selectedPercussion.toJSON);
             return entry;
           })
+          linesFromSubmissions.sort(function(a, b) {
+            return 0.5 - Math.random();
+          });
           next(err, player, game, round, isWinnerSelected, winningSubmission, winner, submissions, linesFromSubmissions);
       });
     },

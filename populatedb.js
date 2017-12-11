@@ -1025,16 +1025,16 @@ function createMusicLines(cb) {
 function createPlayers(cb) {
     async.series([
         function(callback) {
-          playerCreate('Abigail', games[0], 1, callback);
+          playerCreate('Annie', games[0], 0, callback);
         },
         function(callback) {
-          playerCreate('Bob', games[0], 0, callback);
+          playerCreate('Bobbette', games[0], 0, callback);
         },
         function(callback) {
-          playerCreate('Charlie', games[0], 0, callback);
+          playerCreate('Celia', games[0], 0, callback);
         },
         function(callback) {
-          playerCreate('Danielle', games[0], 0, callback);
+          playerCreate('Doug', games[0], 1, callback);
         },
         function(callback) {
           playerCreate('Emily', games[1], 0, callback);
