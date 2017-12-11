@@ -92,7 +92,7 @@ function initializeScheduler() {
           for (var note_id in sequence) {
             var val = sequence[note_id]
             var events;
-            if (Array.isArray(val)) {
+            if (Array.isArray(val[0])) {
               events = val;
             } else {
               events = val.map(time => [time, line.notelength])

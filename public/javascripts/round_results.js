@@ -70,11 +70,12 @@ function initializeScheduler() {
       for (var note_id in sequence) {
         var val = sequence[note_id]
         var events;
-        if (Array.isArray(val)) {
+        if (Array.isArray(val[0])) {
           events = val;
         } else {
           events = val.map(time => [time, line.notelength])
         }
+        console.log('setting channel ', channel, ' note_id ', note_id, ' with events ', events);
         ditty.set([channel, note_id], events, 16)
       }
 
