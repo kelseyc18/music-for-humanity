@@ -6277,7 +6277,7 @@ function updateMelodyButton() {
     return;
   }
   $('#melody-text').text(melodyLines[melodyIndex-1].name);
-  // document.getElementById('melody-button').style.backgroundImage = "url('/images/" + melodyLines[melodyIndex-1].image + "')";
+  document.getElementById('melody-button').style.backgroundImage = "url('/images/" + melodyLines[melodyIndex-1].image + "')";
 }
 
 function updatePercussionButton() {
@@ -6288,7 +6288,7 @@ function updatePercussionButton() {
     return;
   }
   $('#percussion-text').text(percussionLines[percussionIndex-1].name);
-  // document.getElementById('percussion-button').style.backgroundImage = "url('/images/" + percussionLines[percussionIndex-1].image + "')";
+  document.getElementById('percussion-button').style.backgroundImage = "url('/images/" + percussionLines[percussionIndex-1].image + "')";
 }
 
 function updateBassButton() {
@@ -6299,7 +6299,7 @@ function updateBassButton() {
     return;
   }
   $('#bass-text').text(bassLines[bassIndex-1].name);
-  // document.getElementById('bass-button').style.backgroundImage = "url('/images/" + bassLines[bassIndex-1].image + "')";
+  document.getElementById('bass-button').style.backgroundImage = "url('/images/" + bassLines[bassIndex-1].image + "')";
 }
 
 function nextMelody() {
@@ -6366,8 +6366,7 @@ function addLinesToDitty() {
       var channel = getChannelNumber(MELODY, offset);
 
       for (var note_id in sequence) {
-        var val = sequence[note_id]
-        var events = val.map(time => [time, line.notelength])
+        var events = sequence[note_id]
         ditty.set([channel, note_id], events, 16)
       }
 
