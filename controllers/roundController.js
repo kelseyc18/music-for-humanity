@@ -9,7 +9,7 @@ var Submission = require('../models/submission');
 
 var async = require('async');
 
-videoIds = ['GV9-R7WOM-o', 'AbeABOfx82Q', 'xJO7esEF7lo', 'CgSNxHQLt7g', '0tACkMMDN80', 'pbVt1F-6kbo']
+videoIds = ['GV9-R7WOM-o', 'xJO7esEF7lo', 'AbeABOfx82Q', 'CgSNxHQLt7g', '0tACkMMDN80', 'pbVt1F-6kbo']
 
 const LINE_SELECTION_PER_ROUND = 3;
 
