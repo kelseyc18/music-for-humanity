@@ -36,7 +36,14 @@ var submissions = []
 
 function bassLineCreate(name, instrument, notesequence, notelength, cb) {
   var temp = name.split(" ");
-  var image = temp[temp.length-1] + ".png";
+  var image;
+  if (instrument == tuba) {
+    image = "tuba_" + temp[temp.length-1] + ".png";
+  } else if (instrument == accoustic_grand_piano) {
+    image = "piano_" + temp[temp.length-1] + ".png";
+  } else {
+    image = temp[temp.length-1] + ".png";
+  }
 
   var bass = new Bass({ name:name, instrument:instrument, notesequence:notesequence, notelength:notelength, image:image });
 
@@ -168,8 +175,105 @@ function gameCreate(name, cb) {
 ///                  MELODY SELECTION                 ///
 /////////////////////////////////////////////////////////
 
-raw_melody_lines = [
-  {'instrument': 1,
+raw_melody_lines = [{'instrument': 1,
+  'name': 'amelie',
+  'notesequence': {69: [[8.75, 0.23541666666666666],
+                        [12.75, 0.23541666666666666]],
+                   71: [[0.75, 0.23541666666666666],
+                        [4.5, 0.23541666666666666],
+                        [5.0, 0.47291666666666665],
+                        [8.5, 0.23541666666666666],
+                        [9.0, 0.47291666666666665],
+                        [12.5, 0.23541666666666666],
+                        [13.0, 1.8979166666666667]],
+                   72: [[0.5, 0.23541666666666666],
+                        [1.0, 0.47291666666666665],
+                        [4.75, 0.23541666666666666],
+                        [5.5, 0.23541666666666666],
+                        [6.0, 1.8979166666666667]],
+                   74: [[5.75, 0.23541666666666666]],
+                   76: [[1.5, 0.23541666666666666],
+                        [2.0, 1.8979166666666667],
+                        [9.5, 0.23541666666666666],
+                        [10.0, 1.8979166666666667]],
+                   77: [[1.75, 0.23541666666666666],
+                        [9.75, 0.23541666666666666]]}},
+ {'instrument': 1,
+  'name': 'amelie2',
+  'notesequence': {59: [[8.0, 0.23541666666666666],
+                        [8.75, 0.23541666666666666],
+                        [9.5, 0.23541666666666666],
+                        [10.25, 0.23541666666666666],
+                        [11.0, 0.23541666666666666]],
+                   60: [[11.5, 0.23541666666666666],
+                        [15.5, 0.23541666666666666]],
+                   62: [[7.5, 0.23541666666666666],
+                        [12.0, 0.23541666666666666],
+                        [12.75, 0.23541666666666666],
+                        [13.5, 0.23541666666666666],
+                        [14.25, 0.23541666666666666],
+                        [15.0, 0.23541666666666666]],
+                   64: [[0.0, 0.23541666666666666],
+                        [0.75, 0.23541666666666666],
+                        [1.5, 0.23541666666666666],
+                        [2.25, 0.23541666666666666],
+                        [3.0, 0.23541666666666666],
+                        [4.0, 0.23541666666666666],
+                        [4.75, 0.23541666666666666],
+                        [5.5, 0.23541666666666666],
+                        [6.25, 0.23541666666666666],
+                        [7.0, 0.23541666666666666],
+                        [8.25, 0.23541666666666666],
+                        [9.0, 0.23541666666666666],
+                        [9.75, 0.23541666666666666],
+                        [10.5, 0.23541666666666666],
+                        [11.25, 0.23541666666666666],
+                        [11.75, 0.23541666666666666]],
+                   65: [[3.5, 0.23541666666666666]],
+                   67: [[4.25, 0.23541666666666666],
+                        [5.0, 0.23541666666666666],
+                        [5.75, 0.23541666666666666],
+                        [6.5, 0.23541666666666666],
+                        [7.25, 0.23541666666666666],
+                        [7.75, 0.23541666666666666],
+                        [12.25, 0.23541666666666666],
+                        [13.0, 0.23541666666666666],
+                        [13.75, 0.23541666666666666],
+                        [14.5, 0.23541666666666666],
+                        [15.25, 0.23541666666666666]],
+                   69: [[0.25, 0.23541666666666666],
+                        [1.0, 0.23541666666666666],
+                        [1.75, 0.23541666666666666],
+                        [2.5, 0.23541666666666666],
+                        [3.25, 0.23541666666666666],
+                        [3.75, 0.23541666666666666]],
+                   71: [[8.5, 0.23541666666666666],
+                        [9.25, 0.23541666666666666],
+                        [10.0, 0.23541666666666666],
+                        [10.75, 0.23541666666666666]],
+                   74: [[12.5, 0.23541666666666666],
+                        [13.25, 0.23541666666666666],
+                        [14.0, 0.23541666666666666],
+                        [14.75, 0.23541666666666666]],
+                   76: [[0.5, 0.23541666666666666],
+                        [1.25, 0.23541666666666666],
+                        [2.0, 0.23541666666666666],
+                        [2.75, 0.23541666666666666],
+                        [4.5, 0.23541666666666666],
+                        [5.25, 0.23541666666666666],
+                        [6.0, 0.23541666666666666],
+                        [6.75, 0.23541666666666666]]}},
+ {'instrument': 1,
+  'name': 'amelie3',
+  'notesequence': {62: [[13.5, 0.9479166666666666]],
+                   64: [[1.5, 0.9479166666666666],
+                        [5.5, 0.9479166666666666],
+                        [9.5, 0.9479166666666666]],
+                   67: [[4.0, 1.4229166666666666]],
+                   69: [[0.0, 1.4229166666666666]],
+                   71: [[8.0, 1.4229166666666666],
+                        [12.0, 1.4229166666666666]]}},
+ {'instrument': 1,
   'name': 'bumblebee',
   'notesequence': {59: [[9.75, 0.23541666666666666],
                         [11.75, 0.23541666666666666]],
@@ -435,6 +539,137 @@ raw_melody_lines = [
                    78: [[3.0, 0.47291666666666665],
                         [12.0, 0.47291666666666665]],
                    79: [[4.0, 0.47291666666666665]]}},
+ {'instrument': 57,
+  'name': 'jamesbond',
+  'notesequence': {64: [[0.0, 1.8979166666666667],
+                        [8.0, 1.8979166666666667]],
+                   65: [[2.0, 1.8979166666666667],
+                        [6.0, 1.8979166666666667],
+                        [10.0, 1.8979166666666667],
+                        [14.0, 1.8979166666666667]],
+                   66: [[4.0, 1.8979166666666667],
+                        [12.0, 1.8979166666666667]]}},
+ {'instrument': 57,
+  'name': 'jamesbond2',
+  'notesequence': {57: [[0.0, 0.47291666666666665],
+                        [2.5, 0.47291666666666665],
+                        [3.0, 0.47291666666666665],
+                        [3.5, 0.47291666666666665],
+                        [4.0, 0.47291666666666665],
+                        [8.0, 0.47291666666666665],
+                        [10.5, 0.47291666666666665],
+                        [11.0, 0.47291666666666665],
+                        [11.5, 0.47291666666666665],
+                        [12.0, 0.47291666666666665]],
+                   59: [[0.5, 0.23541666666666666],
+                        [0.75, 0.23541666666666666],
+                        [1.0, 0.47291666666666665],
+                        [1.5, 0.9479166666666666],
+                        [6.5, 0.47291666666666665],
+                        [7.0, 0.47291666666666665],
+                        [7.5, 0.47291666666666665],
+                        [8.5, 0.23541666666666666],
+                        [8.75, 0.23541666666666666],
+                        [9.0, 0.47291666666666665],
+                        [9.5, 0.9479166666666666],
+                        [14.5, 0.47291666666666665],
+                        [15.0, 0.47291666666666665],
+                        [15.5, 0.47291666666666665]],
+                   60: [[4.5, 0.23541666666666666],
+                        [4.75, 0.23541666666666666],
+                        [5.0, 0.47291666666666665],
+                        [5.5, 0.9479166666666666],
+                        [12.5, 0.23541666666666666],
+                        [12.75, 0.23541666666666666],
+                        [13.0, 0.47291666666666665],
+                        [13.5, 0.9479166666666666]]}},
+ {'instrument': 57,
+  'name': 'jamesbond3',
+  'notesequence': {52: [[10.5, 0.47291666666666665]],
+                   54: [[11.5, 4.272916666666666]],
+                   57: [[0.0, 0.47291666666666665],
+                        [9.0, 1.4229166666666666],
+                        [11.0, 0.47291666666666665]],
+                   60: [[0.5, 0.9479166666666666],
+                        [3.5, 0.47291666666666665],
+                        [7.5, 1.1854166666666666],
+                        [8.875, 0.11666666666666667]],
+                   62: [[8.75, 0.11666666666666667]],
+                   63: [[4.0, 0.47291666666666665]],
+                   64: [[4.5, 2.847916666666667]],
+                   67: [[2.0, 1.4229166666666666]],
+                   68: [[1.5, 0.47291666666666665]]}},
+ {'instrument': 48,
+  'name': 'jurassicpark',
+  'notesequence': {72: [[5.5, 0.47291666666666665]],
+                   77: [[1.0, 0.47291666666666665],
+                        [3.0, 0.47291666666666665],
+                        [9.0, 0.47291666666666665],
+                        [11.0, 0.47291666666666665]],
+                   79: [[0.5, 0.47291666666666665],
+                        [2.5, 0.47291666666666665],
+                        [5.0, 0.47291666666666665],
+                        [8.5, 0.47291666666666665],
+                        [10.5, 0.47291666666666665]],
+                   82: [[6.0, 1.4229166666666666]],
+                   83: [[1.75, 0.23541666666666666],
+                        [3.75, 0.23541666666666666],
+                        [4.0, 0.23541666666666666],
+                        [7.75, 0.23541666666666666],
+                        [9.75, 0.23541666666666666],
+                        [11.75, 0.23541666666666666],
+                        [12.0, 0.23541666666666666],
+                        [14.0, 1.4229166666666666],
+                        [15.75, 0.23541666666666666]],
+                   84: [[0.0, 0.47291666666666665],
+                        [1.5, 0.23541666666666666],
+                        [2.0, 0.47291666666666665],
+                        [3.5, 0.23541666666666666],
+                        [4.25, 0.7104166666666667],
+                        [7.5, 0.23541666666666666],
+                        [8.0, 0.47291666666666665],
+                        [9.5, 0.23541666666666666],
+                        [10.0, 0.47291666666666665],
+                        [11.5, 0.23541666666666666],
+                        [12.25, 1.6604166666666667],
+                        [15.5, 0.23541666666666666]]}},
+ {'instrument': 56,
+  'name': 'jurassicpark2',
+  'notesequence': {72: [[0.5, 0.24791666666666667],
+                        [12.0, 1.4229166666666666]],
+                   74: [[2.0, 0.24791666666666667],
+                        [13.5, 0.23541666666666666]],
+                   75: [[15.0, 0.9479166666666666]],
+                   76: [[10.75, 0.23541666666666666],
+                        [13.75, 0.23541666666666666],
+                        [14.0, 0.7104166666666667],
+                        [14.875, 0.11666666666666667]],
+                   78: [[14.75, 0.11666666666666667]],
+                   79: [[1.0, 0.9479166666666666],
+                        [5.5, 0.47291666666666665],
+                        [9.5, 0.47291666666666665]],
+                   80: [[10.0, 0.7104166666666667]],
+                   81: [[2.5, 0.9479166666666666],
+                        [3.5, 0.12291666666666666],
+                        [6.0, 1.8979166666666667],
+                        [11.0, 0.23541666666666666]],
+                   83: [[3.75, 0.12291666666666666],
+                        [5.0, 0.47291666666666665],
+                        [9.0, 0.47291666666666665],
+                        [11.25, 0.23541666666666666]],
+                   84: [[4.0, 0.7104166666666667],
+                        [4.75, 0.23541666666666666],
+                        [8.5, 0.47291666666666665],
+                        [11.5, 0.47291666666666665]]}},
+ {'instrument': 58,
+  'name': 'pinkpanther',
+  'notesequence': {61: [[6.75, 0.23541666666666666],
+                        [14.75, 0.23541666666666666]],
+                   62: [[7.0, 0.3729166666666667],
+                        [15.0, 0.3729166666666667]],
+                   63: [[7.75, 0.23541666666666666],
+                        [15.75, 0.23541666666666666]],
+                   64: [[0.0, 5.935416666666667], [8.0, 5.935416666666667]]}},
  {'instrument': 1,
   'name': 'riverflowsinyou',
   'notesequence': {72: [[7.5, 0.23541666666666666],
@@ -457,6 +692,37 @@ raw_melody_lines = [
                         [9.0, 0.47291666666666665],
                         [10.0, 0.47291666666666665],
                         [11.0, 0.47291666666666665]]}},
+ {'instrument': 1,
+  'name': 'schinderslist',
+  'notesequence': {50: [[4.5, 0.47291666666666665]],
+                   52: [[3.5, 0.47291666666666665]],
+                   53: [[12.5, 0.47291666666666665]],
+                   55: [[12.0, 0.47291666666666665]],
+                   57: [[0.5, 0.47291666666666665],
+                        [1.5, 0.47291666666666665],
+                        [8.5, 0.47291666666666665],
+                        [9.5, 0.47291666666666665]],
+                   59: [[13.0, 0.47291666666666665]],
+                   60: [[3.0, 0.47291666666666665],
+                        [4.0, 0.47291666666666665],
+                        [5.0, 0.47291666666666665],
+                        [15.5, 0.47291666666666665]],
+                   62: [[5.5, 0.47291666666666665],
+                        [11.5, 0.47291666666666665],
+                        [13.5, 0.47291666666666665],
+                        [15.0, 0.47291666666666665]],
+                   64: [[0.0, 0.47291666666666665],
+                        [1.0, 0.47291666666666665],
+                        [2.5, 0.47291666666666665],
+                        [6.0, 1.8979166666666667],
+                        [8.0, 0.47291666666666665],
+                        [9.0, 0.47291666666666665],
+                        [11.0, 0.47291666666666665],
+                        [14.5, 0.47291666666666665]],
+                   65: [[2.0, 0.47291666666666665],
+                        [10.5, 0.47291666666666665],
+                        [14.0, 0.47291666666666665]],
+                   67: [[10.0, 0.47291666666666665]]}},
  {'instrument': 11,
   'name': 'shelter',
   'notesequence': {60: [[0.0, 0.9479166666666666],
@@ -577,6 +843,36 @@ raw_melody_lines = [
                         [10.0, 0.9479166666666666]],
                    72: [[4.0, 1.8979166666666667],
                         [8.0, 1.8979166666666667]]}},
+ {'instrument': 52,
+  'name': 'titanic',
+  'notesequence': {67: [[13.0, 2.847916666666667]],
+                   69: [[12.0, 0.9479166666666666]],
+                   72: [[0.0, 0.47291666666666665],
+                        [4.5, 0.47291666666666665],
+                        [9.0, 2.847916666666667]],
+                   74: [[0.5, 0.47291666666666665],
+                        [4.0, 0.47291666666666665],
+                        [5.0, 0.9479166666666666]],
+                   76: [[1.0, 2.372916666666667],
+                        [3.75, 0.23541666666666666],
+                        [8.5, 0.47291666666666665]],
+                   77: [[3.5, 0.23541666666666666],
+                        [8.0, 0.47291666666666665]],
+                   79: [[6.0, 1.8979166666666667]]}},
+ {'instrument': 53,
+  'name': 'titanic2',
+  'notesequence': {71: [[5.0, 0.9479166666666666],
+                        [9.0, 0.9479166666666666]],
+                   72: [[1.0, 1.4229166666666666],
+                        [2.5, 0.47291666666666665],
+                        [3.0, 1.4229166666666666],
+                        [4.5, 0.47291666666666665],
+                        [6.0, 1.8979166666666667],
+                        [8.0, 0.9479166666666666],
+                        [10.0, 1.8979166666666667]],
+                   74: [[12.0, 0.9479166666666666],
+                        [15.0, 0.9479166666666666]],
+                   76: [[13.0, 1.8979166666666667]]}},
  {'instrument': 1,
   'name': 'umbridge',
   'notesequence': {57: [[1.0, 0.3729166666666667],
@@ -656,7 +952,22 @@ raw_melody_lines = [
                    76: [[3.3333333333333335, 0.3145833333333333],
                         [8.0, 0.63125],
                         [10.0, 0.63125],
-                        [15.333333333333334, 0.3145833333333333]]}}]
+                        [15.333333333333334, 0.3145833333333333]]}},
+ {'instrument': 40,
+  'name': 'wholenewworld',
+  'notesequence': {55: [[4.0, 3.7979166666666666]],
+                   60: [[3.0, 0.9479166666666666],
+                        [11.0, 0.9479166666666666]],
+                   62: [[1.0, 0.47291666666666665],
+                        [9.0, 0.47291666666666665],
+                        [14.0, 1.8979166666666667]],
+                   64: [[0.0, 0.9479166666666666],
+                        [2.5, 0.47291666666666665],
+                        [8.0, 0.9479166666666666],
+                        [10.5, 0.47291666666666665],
+                        [12.0, 1.8979166666666667]],
+                   65: [[1.5, 0.9479166666666666],
+                        [9.5, 0.9479166666666666]]}}]
 
 /////////////////////////////////////////////////////////
 ///                   BASS SELECTION                  ///
@@ -752,6 +1063,8 @@ var bass_dur_28 = 0.9
 var bass_instrument_29 = 34
 var bass_times_29 = {36: [6.0, 14.0], 40: [7.0, 15.0], 41: [2.0, 10.0], 43: [4.0, 6.5, 7.5, 12.0, 14.5, 15.5], 45: [0.0, 3.0, 8.0, 11.0], 47.0: [5.0, 13.0], 48.0: [1.0, 2.5, 3.5, 9.0, 10.5, 11.5], 50.0: [4.5, 5.5, 12.5, 13.5], 52.0: [0.5, 1.5, 8.5, 9.5]}
 var bass_dur_29 = 0.4
+var tuba = 58
+var accoustic_grand_piano = 0
 
 /////////////////////////////////////////////////////////
 ///               PERCUSSION SELECTION                ///
@@ -763,7 +1076,7 @@ var percussion_dur_0 = 0.15
 var percussion_instrument_1 = 118
 var percussion_times_1 = {50: [0.0, 1.0, 1.5, 2.25, 2.5, 3.0, 3.5, 4.0, 5.0, 5.5, 6.25, 6.5, 7.0, 7.5, 8.0, 9.0, 9.5, 10.25, 10.5, 11.0, 11.5, 12.0, 13.0, 13.5, 14.25, 14.5, 15.0, 15.5]}
 var percussion_dur_1 = 0.15
-var percussion_instrument_2 = 119
+var percussion_instrument_2 = 115
 var percussion_times_2 = {50: [0.0, 1.0, 1.5, 2.25, 2.5, 3.0, 3.5, 4.0, 5.0, 5.5, 6.25, 6.5, 7.0, 7.5, 8.0, 9.0, 9.5, 10.25, 10.5, 11.0, 11.5, 12.0, 13.0, 13.5, 14.25, 14.5, 15.0, 15.5]}
 var percussion_dur_2 = 0.15
 var percussion_instrument_3 = 117
@@ -772,7 +1085,7 @@ var percussion_dur_3 = 0.4
 var percussion_instrument_4 = 118
 var percussion_times_4 = {50: [0.0, 1.5, 2.0, 2.5, 3.5, 4.0, 5.5, 6.0, 6.5, 7.5, 8.0, 9.5, 10.0, 10.5, 11.5, 12.0, 13.5, 14.0, 14.5, 15.5]}
 var percussion_dur_4 = 0.4
-var percussion_instrument_5 = 119
+var percussion_instrument_5 = 115
 var percussion_times_5 = {50: [0.0, 1.5, 2.0, 2.5, 3.5, 4.0, 5.5, 6.0, 6.5, 7.5, 8.0, 9.5, 10.0, 10.5, 11.5, 12.0, 13.5, 14.0, 14.5, 15.5]}
 var percussion_dur_5 = 0.4
 var percussion_instrument_6 = 117
@@ -781,7 +1094,7 @@ var percussion_dur_6 = 0.4
 var percussion_instrument_7 = 118
 var percussion_times_7 = {50: [0.0, 2.5, 4.0, 6.5, 8.0, 10.5, 12.0, 14.5]}
 var percussion_dur_7 = 0.4
-var percussion_instrument_8 = 119
+var percussion_instrument_8 = 115
 var percussion_times_8 = {50: [0.0, 2.5, 4.0, 6.5, 8.0, 10.5, 12.0, 14.5]}
 var percussion_dur_8 = 0.4
 var percussion_instrument_9 = 117
@@ -790,7 +1103,7 @@ var percussion_dur_9 = 0.4
 var percussion_instrument_10 = 118
 var percussion_times_10 = {50: [0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0, 13.0, 14.0, 15.0]}
 var percussion_dur_10 = 0.4
-var percussion_instrument_11 = 119
+var percussion_instrument_11 = 115
 var percussion_times_11 = {50: [0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0, 13.0, 14.0, 15.0]}
 var percussion_dur_11 = 0.4
 var percussion_instrument_12 = 117
@@ -799,7 +1112,7 @@ var percussion_dur_12 = 0.4
 var percussion_instrument_13 = 118
 var percussion_times_13 = {50: [0.0, 0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0, 2.25, 2.5, 2.75, 3.0, 3.25, 3.5, 3.75, 4.0, 4.25, 4.5, 4.75, 5.0, 5.25, 5.5, 5.75, 6.0, 6.25, 6.5, 6.75, 7.0, 7.25, 7.5, 7.75, 8.0, 8.25, 8.5, 8.75, 9.0, 9.25, 9.5, 9.75, 10.0, 10.25, 10.5, 10.75, 11.0, 11.25, 11.5, 11.75, 12.0, 12.25, 12.5, 12.75, 13.0, 13.25, 13.5, 13.75, 14.0, 14.25, 14.5, 14.75, 15.0, 15.25, 15.5, 15.75]}
 var percussion_dur_13 = 0.4
-var percussion_instrument_14 = 119
+var percussion_instrument_14 = 115
 var percussion_times_14 = {50: [0.0, 0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0, 2.25, 2.5, 2.75, 3.0, 3.25, 3.5, 3.75, 4.0, 4.25, 4.5, 4.75, 5.0, 5.25, 5.5, 5.75, 6.0, 6.25, 6.5, 6.75, 7.0, 7.25, 7.5, 7.75, 8.0, 8.25, 8.5, 8.75, 9.0, 9.25, 9.5, 9.75, 10.0, 10.25, 10.5, 10.75, 11.0, 11.25, 11.5, 11.75, 12.0, 12.25, 12.5, 12.75, 13.0, 13.25, 13.5, 13.75, 14.0, 14.25, 14.5, 14.75, 15.0, 15.25, 15.5, 15.75]}
 var percussion_dur_14 = 0.4
 var percussion_instrument_15 = 117
@@ -808,7 +1121,7 @@ var percussion_dur_15 = 0.4
 var percussion_instrument_16 = 118
 var percussion_times_16 = {50: [0.0, 1.5, 2.0, 3.5, 4.0, 5.5, 6.0, 7.5, 8.0, 9.5, 10.0, 11.5, 12.0, 13.5, 14.0, 15.5]}
 var percussion_dur_16 = 0.4
-var percussion_instrument_17 = 119
+var percussion_instrument_17 = 115
 var percussion_times_17 = {50: [0.0, 1.5, 2.0, 3.5, 4.0, 5.5, 6.0, 7.5, 8.0, 9.5, 10.0, 11.5, 12.0, 13.5, 14.0, 15.5]}
 var percussion_dur_17 = 0.4
 var percussion_instrument_18 = 117
@@ -817,7 +1130,7 @@ var percussion_dur_18 = 0.4
 var percussion_instrument_19 = 118
 var percussion_times_19 = {50: [0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5, 8.5, 9.5, 10.5, 11.5, 12.5, 13.5, 14.5, 15.5]}
 var percussion_dur_19 = 0.4
-var percussion_instrument_20 = 119
+var percussion_instrument_20 = 115
 var percussion_times_20 = {50: [0.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5, 8.5, 9.5, 10.5, 11.5, 12.5, 13.5, 14.5, 15.5]}
 var percussion_dur_20 = 0.4
 
@@ -915,6 +1228,186 @@ function createMusicLines(cb) {
           bassLineCreate('bass 30', bass_instrument_29, bass_times_29, bass_dur_29, callback);
         },
         function(callback) {
+          bassLineCreate('tuba 1', tuba, bass_times_0, bass_dur_0, callback);
+        },
+        function(callback) {
+          bassLineCreate('tuba 2', tuba, bass_times_1, bass_dur_1, callback);
+        },
+        function(callback) {
+          bassLineCreate('tuba 3', tuba, bass_times_2, bass_dur_2, callback);
+        },
+        function(callback) {
+          bassLineCreate('tuba 4', tuba, bass_times_3, bass_dur_3, callback);
+        },
+        function(callback) {
+          bassLineCreate('tuba 5', tuba, bass_times_4, bass_dur_4, callback);
+        },
+        function(callback) {
+          bassLineCreate('tuba 6', tuba, bass_times_5, bass_dur_5, callback);
+        },
+        function(callback) {
+          bassLineCreate('tuba 7', tuba, bass_times_6, bass_dur_6, callback);
+        },
+        function(callback) {
+          bassLineCreate('tuba 8', tuba, bass_times_7, bass_dur_7, callback);
+        },
+        function(callback) {
+          bassLineCreate('tuba 9', tuba, bass_times_8, bass_dur_8, callback);
+        },
+        function(callback) {
+          bassLineCreate('tuba 10', tuba, bass_times_9, bass_dur_9, callback);
+        },
+        function(callback) {
+          bassLineCreate('tuba 11', tuba, bass_times_10, bass_dur_10, callback);
+        },
+        function(callback) {
+          bassLineCreate('tuba 12', tuba, bass_times_11, bass_dur_11, callback);
+        },
+        function(callback) {
+          bassLineCreate('tuba 13', tuba, bass_times_12, bass_dur_12, callback);
+        },
+        function(callback) {
+          bassLineCreate('tuba 14', tuba, bass_times_13, bass_dur_13, callback);
+        },
+        function(callback) {
+          bassLineCreate('tuba 15', tuba, bass_times_14, bass_dur_14, callback);
+        },
+        function(callback) {
+          bassLineCreate('tuba 16', tuba, bass_times_15, bass_dur_15, callback);
+        },
+        function(callback) {
+          bassLineCreate('tuba 17', tuba, bass_times_16, bass_dur_16, callback);
+        },
+        function(callback) {
+          bassLineCreate('tuba 18', tuba, bass_times_17, bass_dur_17, callback);
+        },
+        function(callback) {
+          bassLineCreate('tuba 19', tuba, bass_times_18, bass_dur_18, callback);
+        },
+        function(callback) {
+          bassLineCreate('tuba 20', tuba, bass_times_19, bass_dur_19, callback);
+        },
+        function(callback) {
+          bassLineCreate('tuba 21', tuba, bass_times_20, bass_dur_20, callback);
+        },
+        function(callback) {
+          bassLineCreate('tuba 22', tuba, bass_times_21, bass_dur_21, callback);
+        },
+        function(callback) {
+          bassLineCreate('tuba 23', tuba, bass_times_22, bass_dur_22, callback);
+        },
+        function(callback) {
+          bassLineCreate('tuba 24', tuba, bass_times_23, bass_dur_23, callback);
+        },
+        function(callback) {
+          bassLineCreate('tuba 25', tuba, bass_times_24, bass_dur_24, callback);
+        },
+        function(callback) {
+          bassLineCreate('tuba 26', tuba, bass_times_25, bass_dur_25, callback);
+        },
+        function(callback) {
+          bassLineCreate('tuba 27', tuba, bass_times_26, bass_dur_26, callback);
+        },
+        function(callback) {
+          bassLineCreate('tuba 28', tuba, bass_times_27, bass_dur_27, callback);
+        },
+        function(callback) {
+          bassLineCreate('tuba 29', tuba, bass_times_28, bass_dur_28, callback);
+        },
+        function(callback) {
+          bassLineCreate('tuba 30', tuba, bass_times_29, bass_dur_29, callback);
+        },
+        function(callback) {
+          bassLineCreate('piano 1', accoustic_grand_piano, bass_times_0, bass_dur_0, callback);
+        },
+        function(callback) {
+          bassLineCreate('piano 2', accoustic_grand_piano, bass_times_1, bass_dur_1, callback);
+        },
+        function(callback) {
+          bassLineCreate('piano 3', accoustic_grand_piano, bass_times_2, bass_dur_2, callback);
+        },
+        function(callback) {
+          bassLineCreate('piano 4', accoustic_grand_piano, bass_times_3, bass_dur_3, callback);
+        },
+        function(callback) {
+          bassLineCreate('piano 5', accoustic_grand_piano, bass_times_4, bass_dur_4, callback);
+        },
+        function(callback) {
+          bassLineCreate('piano 6', accoustic_grand_piano, bass_times_5, bass_dur_5, callback);
+        },
+        function(callback) {
+          bassLineCreate('piano 7', accoustic_grand_piano, bass_times_6, bass_dur_6, callback);
+        },
+        function(callback) {
+          bassLineCreate('piano 8', accoustic_grand_piano, bass_times_7, bass_dur_7, callback);
+        },
+        function(callback) {
+          bassLineCreate('piano 9', accoustic_grand_piano, bass_times_8, bass_dur_8, callback);
+        },
+        function(callback) {
+          bassLineCreate('piano 10', accoustic_grand_piano, bass_times_9, bass_dur_9, callback);
+        },
+        function(callback) {
+          bassLineCreate('piano 11', accoustic_grand_piano, bass_times_10, bass_dur_10, callback);
+        },
+        function(callback) {
+          bassLineCreate('piano 12', accoustic_grand_piano, bass_times_11, bass_dur_11, callback);
+        },
+        function(callback) {
+          bassLineCreate('piano 13', accoustic_grand_piano, bass_times_12, bass_dur_12, callback);
+        },
+        function(callback) {
+          bassLineCreate('piano 14', accoustic_grand_piano, bass_times_13, bass_dur_13, callback);
+        },
+        function(callback) {
+          bassLineCreate('piano 15', accoustic_grand_piano, bass_times_14, bass_dur_14, callback);
+        },
+        function(callback) {
+          bassLineCreate('piano 16', accoustic_grand_piano, bass_times_15, bass_dur_15, callback);
+        },
+        function(callback) {
+          bassLineCreate('piano 17', accoustic_grand_piano, bass_times_16, bass_dur_16, callback);
+        },
+        function(callback) {
+          bassLineCreate('piano 18', accoustic_grand_piano, bass_times_17, bass_dur_17, callback);
+        },
+        function(callback) {
+          bassLineCreate('piano 19', accoustic_grand_piano, bass_times_18, bass_dur_18, callback);
+        },
+        function(callback) {
+          bassLineCreate('piano 20', accoustic_grand_piano, bass_times_19, bass_dur_19, callback);
+        },
+        function(callback) {
+          bassLineCreate('piano 21', accoustic_grand_piano, bass_times_20, bass_dur_20, callback);
+        },
+        function(callback) {
+          bassLineCreate('piano 22', accoustic_grand_piano, bass_times_21, bass_dur_21, callback);
+        },
+        function(callback) {
+          bassLineCreate('piano 23', accoustic_grand_piano, bass_times_22, bass_dur_22, callback);
+        },
+        function(callback) {
+          bassLineCreate('piano 24', accoustic_grand_piano, bass_times_23, bass_dur_23, callback);
+        },
+        function(callback) {
+          bassLineCreate('piano 25', accoustic_grand_piano, bass_times_24, bass_dur_24, callback);
+        },
+        function(callback) {
+          bassLineCreate('piano 26', accoustic_grand_piano, bass_times_25, bass_dur_25, callback);
+        },
+        function(callback) {
+          bassLineCreate('piano 27', accoustic_grand_piano, bass_times_26, bass_dur_26, callback);
+        },
+        function(callback) {
+          bassLineCreate('piano 28', accoustic_grand_piano, bass_times_27, bass_dur_27, callback);
+        },
+        function(callback) {
+          bassLineCreate('piano 29', accoustic_grand_piano, bass_times_28, bass_dur_28, callback);
+        },
+        function(callback) {
+          bassLineCreate('piano 30', accoustic_grand_piano, bass_times_29, bass_dur_29, callback);
+        },
+        function(callback) {
           melodyLineCreate('melody 1', raw_melody_lines[0], callback);
         },
         function(callback) {
@@ -955,6 +1448,45 @@ function createMusicLines(cb) {
         },
         function(callback) {
           melodyLineCreate('melody 14', raw_melody_lines[13], callback);
+        },
+        function(callback) {
+          melodyLineCreate('melody 15', raw_melody_lines[14], callback);
+        },
+        function(callback) {
+          melodyLineCreate('melody 16', raw_melody_lines[15], callback);
+        },
+        function(callback) {
+          melodyLineCreate('melody 17', raw_melody_lines[16], callback);
+        },
+        function(callback) {
+          melodyLineCreate('melody 18', raw_melody_lines[17], callback);
+        },
+        function(callback) {
+          melodyLineCreate('melody 19', raw_melody_lines[18], callback);
+        },
+        function(callback) {
+          melodyLineCreate('melody 20', raw_melody_lines[19], callback);
+        },
+        function(callback) {
+          melodyLineCreate('melody 21', raw_melody_lines[20], callback);
+        },
+        function(callback) {
+          melodyLineCreate('melody 22', raw_melody_lines[21], callback);
+        },
+        function(callback) {
+          melodyLineCreate('melody 23', raw_melody_lines[22], callback);
+        },
+        function(callback) {
+          melodyLineCreate('melody 24', raw_melody_lines[23], callback);
+        },
+        function(callback) {
+          melodyLineCreate('melody 25', raw_melody_lines[24], callback);
+        },
+        function(callback) {
+          melodyLineCreate('melody 26', raw_melody_lines[25], callback);
+        },
+        function(callback) {
+          melodyLineCreate('melody 27', raw_melody_lines[26], callback);
         },
         function(callback) {
           percussionLineCreate('percussion 1', percussion_instrument_0, percussion_times_0, percussion_dur_0, callback);
